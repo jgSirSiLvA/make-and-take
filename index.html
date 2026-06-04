@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGO Make & Take Events in Austria, Germany and Switzerland</title>
+
+<style>
+@font-face {
+  font-family: "Alex Brush";
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/regular.eot'); /* IE9 Compat Modes */
+  src: url('fonts/regulard41d.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/regular.woff') format('woff'), /* Modern Browsers */
+       url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+    body { font-family: Arial, sans-serif; margin: 20px; background: #E3000B; }
+
+    h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 50px; padding: 0; margin: 0; text-decoration: none; }
+
+    table { width: 100%; border-collapse: collapse; background: white; }
+    tr:nth-child(even) { background: #fff8cc; }
+    tr:nth-child(odd) { background: white; }
+    tr:hover { background: #ffe44d; }
+    th { background: #333; color: white; cursor: pointer; position: sticky; top: 0; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th.center, td.center { text-align: center; }
+    th.part-count, td.part-count { text-align: right; }
+    th.instructions, td.instructions { text-align: right; }
+    td.notes { white-space: pre-line; }
+
+    .image-cell img { max-width: 100px; max-height: 100px; }
+
+    #search { width: 100%; padding: 10px; margin-bottom: 15px; font-size: 16px; box-sizing: border-box; }
+    #status { margin-bottom: 10px; font-weight: bold; }
+
+</style>
+</head>
+<body>
+
+<h1><img border="0" src="pictures/brand-lego.svg" width=75px height=75px>&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;<img border="0" src="pictures/smyths-logo.svg" width=75px height=25px></h1>
+
+<div id="status">Loading Events.json...</div>
+
+<input type="text" id="search" placeholder="Search...">
+
+<table id="eventsTable">
+    <thead>
+        <tr>
+            <th class="center" data-column="Date">Date (Y/M/D)</th>
+            <th class="center" data-column="Organizer">Organizer</th>
+            <th class="center" data-column="Image">Image</th>
+            <th data-column="Model">Model</th>
+            <th data-column="Notes">Notes</th>
+            <th class="part-count" data-column="Part Count">Part Count</th>
+            <th class="instructions" data-column="Instructions">Instructions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+
+let events = [];
+let currentSortColumn = 'Date';
+let currentSortDirection = -1;
+
+fetch('events.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Could not load Events.json');
+        }
+        return response.json();
+    })
+    .then(data => {
+        events = data;
+        document.getElementById('status').textContent =
+            `${events.length} events loaded`;
+        renderTable(events);
+    })
+    .catch(error => {
+        document.getElementById('status').textContent =
+            'Error: ' + error.message;
+    });
+
+
+function sortEvents(data) {
+
+    data.sort((a, b) => {
+
+        const aVal = a[currentSortColumn] || '';
+        const bVal = b[currentSortColumn] || '';
+
+        return aVal.toString().localeCompare(
+            bVal.toString(),
+            undefined,
+            { numeric: true }
+        ) * currentSortDirection;
+    });
+}
+
+function renderTable(data) {
+
+    const tbody = document.querySelector('#eventsTable tbody');
+    tbody.innerHTML = '';
+
+    data.forEach(event => {
+
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td class="center">${event.Date || ''}</td>
+            <td class="center">${event.Organizer || ''}</td>
+            <td class="image-cell center">
+                ${createImageCell(event.Image)}
+            </td>
+            <td>${event.Model || ''}</td>
+
+            <td class="notes">${event.Notes || ''}</td>
+            <td class="part-count">${event["Part Count"] || ''}</td>
+            <td class="instructions">${createInstructionsCell(event.Instructions)}</td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+
+function createImageCell(value) {
+
+    if (!value) return '';
+
+    if (
+        value.toLowerCase().endsWith('.jpg') ||
+        value.toLowerCase().endsWith('.jpeg') ||
+        value.toLowerCase().endsWith('.png') ||
+        value.toLowerCase().endsWith('.gif') ||
+        value.toLowerCase().endsWith('.webp')
+    ) {
+        return `<img src="pictures/${value}" alt="">`;
+    }
+
+    return value;
+}
+
+function createInstructionsCell(value) {
+
+    if (!value) return '';
+
+    if (
+        value.startsWith('http://') ||
+        value.startsWith('https://') ||
+        value.toLowerCase().endsWith('.pdf')
+    ) {
+        return `<a href="${value}" target="_blank">Open</a>`;
+    }
+
+    return value;
+}
+
+document.getElementById('search').addEventListener('input', function() {
+
+    const search = this.value.toLowerCase();
+
+    const filtered = events.filter(event =>
+        Object.values(event).some(value =>
+            String(value).toLowerCase().includes(search)
+        )
+    );
+
+    sortEvents(filtered);
+    renderTable(filtered);
+});
+
+document.querySelectorAll('th').forEach(header => {
+
+    header.addEventListener('click', () => {
+
+        const column = header.dataset.column;
+
+        if (currentSortColumn === column) {
+            currentSortDirection *= -1;
+        } else {
+            currentSortColumn = column;
+            currentSortDirection = 1;
+        }
+
+        sortEvents(events);
+
+        document.querySelectorAll('th').forEach(th => {
+            const baseText = th.dataset.column || th.textContent.replace(' ▲','').replace(' ▼','');
+            th.textContent = baseText;
+        });
+
+        header.textContent = column + (currentSortDirection === 1 ? ' ▲' : ' ▼');
+
+        renderTable(events);
+    });
+});
+
+</script>
+<footer font-color="white" style="font-size:12px;text-align:center;margin-top:20px;color:white;">
+© 2020 - 2026 Sir SiLvA. All event data, research, text and website design are copyrighted by their respective owners unless otherwise noted.<br>
+Unofficial fan archive. Not affiliated with the LEGO Group or Smyths Toys.
+LEGO®, the LEGO logo and the Minifigure are trademarks of the LEGO Group.
+Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys.
+All trademarks and copyrights belong to their respective owners.
+</footer>
+</body>
+</html>
