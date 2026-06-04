@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGO Make & Take Admin</title>
+<style>
+body { font-family: Arial,sans-serif; margin:20px; background:#E3000B; }
+h1 { text-align:center; color:white; }
+table { width:100%; border-collapse:collapse; background:white; margin-bottom:15px; }
+tr:nth-child(even) { background:#fff8cc; }
+tr:nth-child(odd) { background:white; }
+tr:hover { background:#ffe44d; cursor:pointer; }
+th { background:#333; color:white; }
+th,td { border:1px solid #ccc; padding:8px; }
+input { width:100%; box-sizing:border-box; padding:6px; }
+button { padding:8px 15px; margin:5px; }
+.panel { background:white; padding:10px; margin-bottom:15px; }
+#status,#selected { color:white; font-weight:bold; margin-bottom:10px; }
+</style>
+</head>
+<body>
+<h1>LEGO Make & Take Admin</h1>
+<div id="status">Loading events.json...</div>
+<input type="text" id="search" placeholder="Search...">
+<table id="eventsTable"><thead><tr><th>Date</th><th>Organizer</th><th>Model</th></tr></thead><tbody></tbody></table>
+
+<div class="panel">
+<h2>Edit Event</h2>
+<div id="selected">No event selected</div>
+<input id="eDate" placeholder="Date"><br><br>
+<input id="eOrganizer" placeholder="Organizer"><br><br>
+<input id="eImage" placeholder="Image"><br><br>
+<input id="eModel" placeholder="Model"><br><br>
+<input id="eNotes" placeholder="Notes"><br><br>
+<input id="ePartCount" placeholder="Part Count"><br><br>
+<input id="eInstructions" placeholder="Instructions"><br><br>
+<button onclick="saveChanges()">Save Changes</button>
+</div>
+
+<div class="panel">
+<h2>Add Event</h2>
+<input id="nDate" placeholder="Date"><br><br>
+<input id="nOrganizer" placeholder="Organizer"><br><br>
+<input id="nImage" placeholder="Image"><br><br>
+<input id="nModel" placeholder="Model"><br><br>
+<input id="nNotes" placeholder="Notes"><br><br>
+<input id="nPartCount" placeholder="Part Count"><br><br>
+<input id="nInstructions" placeholder="Instructions"><br><br>
+<button onclick="addEvent()">Add Event</button>
+</div>
+
+<div class="panel"><button onclick="downloadJson()">Download events.json</button></div>
+
+<script>
+let events=[]; let selectedIndex=-1; let dirty=false;
+function setDirty(v){ dirty=v; document.title='LEGO Make & Take Admin'+(v?' *':''); }
+function sortEvents(){ events.sort((a,b)=>(b.Date||'').localeCompare(a.Date||'')); }
+function render(){
+ const s=document.getElementById('search').value.toLowerCase();
+ const tbody=document.querySelector('#eventsTable tbody');
+ tbody.innerHTML='';
+ events.filter(e=>Object.values(e).some(v=>String(v||'').toLowerCase().includes(s))).forEach(ev=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>${ev.Date||''}</td><td>${ev.Organizer||''}</td><td>${ev.Model||''}</td>`;
+  tr.onclick=()=>selectEvent(ev);
+  tbody.appendChild(tr);
+ });
+}
+function selectEvent(ev){
+ selectedIndex=events.indexOf(ev);
+ selected.textContent=(ev.Date||'')+' | '+(ev.Model||'');
+ eDate.value=ev.Date||''; eOrganizer.value=ev.Organizer||''; eImage.value=ev.Image||'';
+ eModel.value=ev.Model||''; eNotes.value=ev.Notes||''; ePartCount.value=ev['Part Count']||'';
+ eInstructions.value=ev.Instructions||'';
+}
+function saveChanges(){
+ if(selectedIndex<0)return;
+ events[selectedIndex]={Date:eDate.value,Organizer:eOrganizer.value,Image:eImage.value,Model:eModel.value,Notes:eNotes.value,'Part Count':ePartCount.value,Instructions:eInstructions.value};
+ sortEvents(); render(); setDirty(true);
+}
+function addEvent(){
+ events.push({Date:nDate.value,Organizer:nOrganizer.value,Image:nImage.value,Model:nModel.value,Notes:nNotes.value,'Part Count':nPartCount.value,Instructions:nInstructions.value});
+ sortEvents(); render(); setDirty(true);
+}
+function downloadJson(){
+ const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'});
+ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='events.json'; a.click(); setDirty(false);
+}
+document.getElementById('search').addEventListener('input',render);
+fetch('events.json').then(r=>r.json()).then(d=>{events=d;sortEvents();render();status.textContent=events.length+' events loaded';});
+</script>
+</body></html>
