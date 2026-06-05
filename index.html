@@ -100,6 +100,9 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
+
+    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events`;
+
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
 
