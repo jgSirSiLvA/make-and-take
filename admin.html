@@ -3,23 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LEGO Make & Take Admin</title>
+<link rel="icon" type="image/png" href="pictures/favicon.png">
+<title>LEGO Make & Take Admin-Console</title>
 
 <style>
-body { font-family: Arial,sans-serif; margin:20px; background:#E3000B; }
-h1 { text-align:center; color:white; }
-table { width:100%; border-collapse:collapse; background:white; margin-bottom:15px; }
-tr:nth-child(even) { background:#fff8cc; }
-tr:nth-child(odd) { background:white; }
-tr:hover { background:#ffe44d; cursor:pointer; }
-th { background:#333; color:white; }
-th,td { border:1px solid #ccc; padding:8px; }
-input { width:100%; box-sizing:border-box; padding:6px; }
-button { padding:8px 15px; margin:5px; }
-.panel { background:white; padding:10px; margin-bottom:15px; }
-#status,#selected { color:white; font-weight:bold; margin-bottom:10px; }
-</style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #E3000B; }
 
+    h1 { text-align: center; color: white; }
+
+    #tableContainer { max-height: 400px; overflow-y: auto; }
+
+    table { width: 100%; border-collapse: collapse; background: white; margin-bottom: 15px; }
+    tr:nth-child(even) { background: #fff8cc; }
+    tr:nth-child(odd) { background: white; }
+    tr:hover { background: #ffe44d; cursor: pointer; }
+
+    th { background: #333; color: white; position: sticky; top: 0; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+
+    input, select { width: 100%; box-sizing: border-box; padding: 6px; }
+
+    button { padding: 8px 15px; margin: 5px; }
+
+    .panel { background: white; padding: 10px; margin-bottom: 15px; }
+
+    #status, #selected { color: white; font-weight: bold; margin-bottom: 10px; }
+
+    #pagination { text-align: center; margin-bottom: 15px; color: white; font-weight: bold; }
+</style>
 </head>
 
 <body>
@@ -27,13 +38,27 @@ button { padding:8px 15px; margin:5px; }
 
 <div id="status">Loading events.json...</div>
 <input type="text" id="search" placeholder="Search...">
+
+<div id="tableContainer">
 <table id="eventsTable"><thead><tr><th>Date</th><th>Organizer</th><th>Model</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div id="pagination">
+<button onclick="prevPage()">Previous</button>
+<span id="pageInfo"></span>
+<button onclick="nextPage()">Next</button>
+</div>
 
 <div class="panel">
 <h2>Edit Event</h2>
 <div id="selected">No event selected</div>
 <input id="eDate" placeholder="Date"><br><br>
-<input id="eOrganizer" placeholder="Organizer"><br><br>
+
+<select id="eOrganizer">
+<option value="LEGO Store">LEGO Store</option>
+<option value="Smyths Toys">Smyths Toys</option>
+</select><br><br>
+
 <input id="eImage" placeholder="Image"><br><br>
 <input id="eModel" placeholder="Model"><br><br>
 <input id="eNotes" placeholder="Notes"><br><br>
@@ -45,7 +70,12 @@ button { padding:8px 15px; margin:5px; }
 <div class="panel">
 <h2>Add Event</h2>
 <input id="nDate" placeholder="Date"><br><br>
-<input id="nOrganizer" placeholder="Organizer"><br><br>
+
+<select id="nOrganizer">
+<option value="LEGO Store">LEGO Store</option>
+<option value="Smyths Toys">Smyths Toys</option>
+</select><br><br>
+
 <input id="nImage" placeholder="Image"><br><br>
 <input id="nModel" placeholder="Model"><br><br>
 <input id="nNotes" placeholder="Notes"><br><br>
@@ -57,41 +87,98 @@ button { padding:8px 15px; margin:5px; }
 <div class="panel"><button onclick="downloadJson()">Download events.json</button></div>
 
 <script>
-let events=[]; let selectedIndex=-1; let dirty=false;
+let events=[];
+let selectedIndex=-1;
+let dirty=false;
+let currentPage=1;
+const rowsPerPage=15;
+
 function setDirty(v){ dirty=v; document.title='LEGO Make & Take Admin'+(v?' *':''); }
 function sortEvents(){ events.sort((a,b)=>(b.Date||'').localeCompare(a.Date||'')); }
-function render(){
+
+function getFilteredEvents(){
  const s=document.getElementById('search').value.toLowerCase();
+ return events.filter(e=>Object.values(e).some(v=>String(v||'').toLowerCase().includes(s)));
+}
+
+function render(){
+ const filtered=getFilteredEvents();
+ const start=(currentPage-1)*rowsPerPage;
+ const end=start+rowsPerPage;
+
  const tbody=document.querySelector('#eventsTable tbody');
  tbody.innerHTML='';
- events.filter(e=>Object.values(e).some(v=>String(v||'').toLowerCase().includes(s))).forEach(ev=>{
+
+ filtered.slice(start,end).forEach(ev=>{
   const tr=document.createElement('tr');
   tr.innerHTML=`<td>${ev.Date||''}</td><td>${ev.Organizer||''}</td><td>${ev.Model||''}</td>`;
   tr.onclick=()=>selectEvent(ev);
   tbody.appendChild(tr);
  });
+
+ const maxPage=Math.max(1,Math.ceil(filtered.length/rowsPerPage));
+ document.getElementById('pageInfo').textContent=`Page ${currentPage} of ${maxPage}`;
 }
+
+function prevPage(){ if(currentPage>1){ currentPage--; render(); } }
+function nextPage(){
+ const maxPage=Math.max(1,Math.ceil(getFilteredEvents().length/rowsPerPage));
+ if(currentPage<maxPage){ currentPage++; render(); }
+}
+
 function selectEvent(ev){
  selectedIndex=events.indexOf(ev);
  selected.textContent=(ev.Date||'')+' | '+(ev.Model||'');
- eDate.value=ev.Date||''; eOrganizer.value=ev.Organizer||''; eImage.value=ev.Image||'';
- eModel.value=ev.Model||''; eNotes.value=ev.Notes||''; ePartCount.value=ev['Part Count']||'';
+ eDate.value=ev.Date||'';
+ eOrganizer.value=ev.Organizer||'LEGO Store';
+ eImage.value=ev.Image||'';
+ eModel.value=ev.Model||'';
+ eNotes.value=ev.Notes||'';
+ ePartCount.value=ev['Part Count']||'';
  eInstructions.value=ev.Instructions||'';
 }
+
 function saveChanges(){
  if(selectedIndex<0)return;
  events[selectedIndex]={Date:eDate.value,Organizer:eOrganizer.value,Image:eImage.value,Model:eModel.value,Notes:eNotes.value,'Part Count':ePartCount.value,Instructions:eInstructions.value};
  sortEvents(); render(); setDirty(true);
 }
+
 function addEvent(){
  events.push({Date:nDate.value,Organizer:nOrganizer.value,Image:nImage.value,Model:nModel.value,Notes:nNotes.value,'Part Count':nPartCount.value,Instructions:nInstructions.value});
- sortEvents(); render(); setDirty(true);
+ sortEvents(); currentPage=1; render(); setDirty(true);
 }
+
 function downloadJson(){
  const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'});
- const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='events.json'; a.click(); setDirty(false);
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='events.json';
+ a.click();
+ setDirty(false);
 }
-document.getElementById('search').addEventListener('input',render);
-fetch('events.json').then(r=>r.json()).then(d=>{events=d;sortEvents();render();status.textContent=events.length+' events loaded';});
+
+document.getElementById('search').addEventListener('input',()=>{
+ currentPage=1;
+ render();
+});
+
+fetch('events.json')
+.then(r => r.json())
+.then(d => {
+    events = d;
+    sortEvents();
+    render();
+
+    document.getElementById('status').textContent =
+        events.length + ' events loaded';
+})
+.catch(err => {
+    document.getElementById('status').textContent =
+        'Error loading events.json';
+
+    console.error(err);
+});
+
 </script>
 </body></html>
