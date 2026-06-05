@@ -91,21 +91,21 @@
   },
   {
     "Date": "2026-05-04",
-    "Image": "2026-05-02.jpg",
-    "Model": "N-1 Starfighter",
-    "Organizer": "LEGO Store",
-    "Notes": "Star Wars",
-    "Part Count": "43",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltcc9c22d590a0fea4/N1_Starfighter.pdf'>6626049</a>"
-  },
-  {
-    "Date": "2026-05-04",
     "Image": "2026-05-04_mosaic.jpg",
     "Model": "Mosaic",
     "Organizer": "LEGO Store",
     "Notes": "as the Store in the Mall of Berlin\nhad run out of N-1 Starfighters",
     "Part Count": "169",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Mosaic.pdf'>6565182</a>"
+  },
+  {
+    "Date": "2026-05-04",
+    "Image": "2026-05-02.jpg",
+    "Model": "N-1 Starfighter",
+    "Organizer": "LEGO Store",
+    "Notes": "Star Wars",
+    "Part Count": "43",
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltcc9c22d590a0fea4/N1_Starfighter.pdf'>6626049</a>"
   },
   {
     "Date": "2026-05-02",
@@ -1093,7 +1093,7 @@
     "Organizer": "LEGO Store",
     "Notes": "10270 tie-in",
     "Part Count": "155",
-    "Instructions": "5007867"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://www.stonewars.de/wp-content/uploads/2020/01/Lego-Make_and_Take_2020.01.09_Zeitungsstand.pdf'>5007867</a>"
   },
   {
     "Date": "2019-10-04",
