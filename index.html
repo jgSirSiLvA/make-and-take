@@ -36,7 +36,8 @@
 
     #search { width: 100%; padding: 10px; margin-bottom: 15px; font-size: 16px; box-sizing: border-box; }
     #status { margin-bottom: 10px; font-weight: bold; }
-
+    #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:9999; }
+    #imgOverlay img{ max-width:95vw; max-height:95vh; }
 </style>
 </head>
 
@@ -133,9 +134,29 @@ function createImageCell(value) {
         value.toLowerCase().endsWith('.gif') ||
         value.toLowerCase().endsWith('.webp')
     ) {
-        return `<img src="pictures/${value}" alt="">`;
+        return `<img src="pictures/${value}" alt="" onclick="openImage(this.src)" style="cursor:pointer;">`;
     }
     return value;
+}
+
+
+function openImage(url){
+
+    const overlay=document.createElement('div');
+    overlay.innerHTML=`<div id="imgOverlay"> <img src="${url}"> </div>`;
+    document.body.appendChild(overlay);
+
+    function closeOverlay(){
+        document.removeEventListener('keydown', keyHandler);
+        overlay.remove();
+    }
+
+    function keyHandler(e){
+        closeOverlay();
+    }
+
+    document.addEventListener('keydown', keyHandler);
+    overlay.onclick=closeOverlay;
 }
 
 function createInstructionsCell(value) {
