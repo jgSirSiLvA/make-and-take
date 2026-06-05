@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="pictures/favicon.png">
 <title>LEGO Make & Take Events in Austria, Germany and Switzerland</title>
 
 <style>
@@ -16,7 +17,6 @@
        url('fonts/regular.woff') format('woff'), /* Modern Browsers */
        url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
-
     body { font-family: Arial, sans-serif; margin: 20px; background: #E3000B; }
 
     h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 50px; padding: 0; margin: 0; text-decoration: none; }
@@ -39,12 +39,11 @@
 
 </style>
 </head>
+
 <body>
-
-<h1><img border="0" src="pictures/brand-lego.svg" width=75px height=75px>&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;<img border="0" src="pictures/smyths-logo.svg" width=75px height=25px></h1>
-
+<h1><img src="pictures/brand-lego.svg" style="width:75px; height:75px; border:0;">&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;<img src="pictures/smyths-logo.svg" style="width:75px; height:75px; border:0;"></h1>
+<br>
 <div id="status">Loading Events.json...</div>
-
 <input type="text" id="search" placeholder="Search...">
 
 <table id="eventsTable">
@@ -63,7 +62,6 @@
 </table>
 
 <script>
-
 let events = [];
 let currentSortColumn = 'Date';
 let currentSortDirection = -1;
@@ -86,9 +84,7 @@ fetch('events.json')
             'Error: ' + error.message;
     });
 
-
 function sortEvents(data) {
-
     data.sort((a, b) => {
 
         const aVal = a[currentSortColumn] || '';
@@ -103,7 +99,6 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
 
@@ -117,7 +112,7 @@ function renderTable(data) {
             <td class="image-cell center">
                 ${createImageCell(event.Image)}
             </td>
-            <td =class"notes">${event.Model || ''}</td>
+            <td >${event.Model || ''}</td>
 
             <td class="notes">${event.Notes || ''}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
@@ -129,7 +124,6 @@ function renderTable(data) {
 }
 
 function createImageCell(value) {
-
     if (!value) return '';
 
     if (
@@ -141,12 +135,10 @@ function createImageCell(value) {
     ) {
         return `<img src="pictures/${value}" alt="">`;
     }
-
     return value;
 }
 
 function createInstructionsCell(value) {
-
     if (!value) return '';
 
     if (
@@ -156,12 +148,10 @@ function createInstructionsCell(value) {
     ) {
         return `<a href="${value}" target="_blank">Open</a>`;
     }
-
     return value;
 }
 
 document.getElementById('search').addEventListener('input', function() {
-
     const search = this.value.toLowerCase();
 
     const filtered = events.filter(event =>
@@ -169,13 +159,11 @@ document.getElementById('search').addEventListener('input', function() {
             String(value).toLowerCase().includes(search)
         )
     );
-
     sortEvents(filtered);
     renderTable(filtered);
 });
 
 document.querySelectorAll('th').forEach(header => {
-
     header.addEventListener('click', () => {
 
         const column = header.dataset.column;
@@ -199,14 +187,13 @@ document.querySelectorAll('th').forEach(header => {
         renderTable(events);
     });
 });
-
 </script>
+
 <footer style="font-size:12px;text-align:center;margin-top:20px;color:white;">
 © 2020 - 2026 Sir SiLvA. All event data, research, text and website design are copyrighted by their respective owners unless otherwise noted.<br>
-Unofficial fan archive. Not affiliated with the LEGO Group or Smyths Toys.
-LEGO®, the LEGO logo and the Minifigure are trademarks of the LEGO Group.
-Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys.
-All trademarks and copyrights belong to their respective owners.
+Unofficial fan archive. Not affiliated with the LEGO Group or Smyths Toys. LEGO®, the LEGO logo and the Minifigure are trademarks of the LEGO Group.<br>
+Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys. All trademarks and copyrights belong to their respective owners.<br>
 </footer>
 </body>
+
 </html>
