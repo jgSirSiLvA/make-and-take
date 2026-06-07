@@ -1,34 +1,34 @@
 [
   {
     "Date": "2026-06-12",
-    "Image": "2026-06-11.jpg",
+    "Image": "lego/2026-06-11.jpg",
     "Model": "Stadium",
     "Organizer": "LEGO Store",
-    "Notes": "FIFA World Cup tie-in\n!number?!",
+    "Notes": "FIFA World Cup tie-in",
     "Part Count": "17",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt4dd0142fb51c6a78/Stadium.pdf'>6647171</a>"
   },
   {
     "Date": "2026-06-11",
-    "Image": "2026-06-11.jpg",
+    "Image": "lego/2026-06-11.jpg",
     "Model": "Stadium",
     "Organizer": "LEGO Store",
-    "Notes": "FIFA World Cup tie-in\n!number?!",
+    "Notes": "FIFA World Cup tie-in",
     "Part Count": "17",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt4dd0142fb51c6a78/Stadium.pdf'>6647171</a>"
   },
   {
     "Date": "2026-06-06",
-    "Image": "2026-06-06_pokal.jpg",
+    "Image": "smyths/2026-06-06_pokal.png",
     "Model": "Trophy",
     "Organizer": "Smyths Toys",
-    "Notes": "FIFA World Cup tie-in\n!number?!",
+    "Notes": "FIFA World Cup tie-in",
     "Part Count": "57",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Trophy.pdf'>6638188</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Trophy.pdf'>6638187</a>"
   },
   {
     "Date": "2026-06-06",
-    "Image": "2026-06-06.png",
+    "Image": "lego/2026-06-06.jpg",
     "Model": "Duck",
     "Organizer": "LEGO Store",
     "Notes": "International Day of Play",
@@ -37,7 +37,7 @@
   },
   {
     "Date": "2026-06-01",
-    "Image": "2026-06-01.png",
+    "Image": "lego/2026-06-01.png",
     "Model": "Siege Tower",
     "Organizer": "LEGO Store",
     "Notes": "Minas Tirith tie-in\n(only 12 per Store)",
@@ -46,7 +46,7 @@
   },
   {
     "Date": "2026-05-28",
-    "Image": "2026-05-27.png",
+    "Image": "lego/2026-05-27.jpg",
     "Model": "Carousel",
     "Organizer": "LEGO Store",
     "Notes": "Childrens Day",
@@ -55,7 +55,7 @@
   },
   {
     "Date": "2026-05-27",
-    "Image": "2026-05-27.png",
+    "Image": "lego/2026-05-27.jpg",
     "Model": "Carousel",
     "Organizer": "LEGO Store",
     "Notes": "Childrens Day",
@@ -64,7 +64,7 @@
   },
   {
     "Date": "2026-05-13",
-    "Image": "2026-05-13.jpg",
+    "Image": "lego/2026-05-13.webp",
     "Model": "Coffee Cup",
     "Organizer": "LEGO Store",
     "Notes": "Father's Day",
@@ -73,7 +73,7 @@
   },
   {
     "Date": "2026-05-07",
-    "Image": "2026-05-06.jpg",
+    "Image": "lego/2026-05-06.jpg",
     "Model": "Micro Pink Rose",
     "Organizer": "LEGO Store",
     "Notes": "Mother's Day",
@@ -82,7 +82,7 @@
   },
   {
     "Date": "2026-05-06",
-    "Image": "2026-05-06.jpg",
+    "Image": "lego/2026-05-06.jpg",
     "Model": "Micro Pink Rose",
     "Organizer": "LEGO Store",
     "Notes": "Mother's Day",
@@ -91,7 +91,7 @@
   },
   {
     "Date": "2026-05-04",
-    "Image": "2026-05-04_mosaic.jpg",
+    "Image": "lego/2026-05-04_mosaic.jpg",
     "Model": "Mosaic",
     "Organizer": "LEGO Store",
     "Notes": "as the LEGO Store in the Mall of Berlin\nhad run out of N-1 Starfighters",
@@ -100,7 +100,7 @@
   },
   {
     "Date": "2026-05-04",
-    "Image": "2026-05-02.jpg",
+    "Image": "lego/2026-05-02.jpg",
     "Model": "N-1 Starfighter",
     "Organizer": "LEGO Store",
     "Notes": "Star Wars",
@@ -109,7 +109,7 @@
   },
   {
     "Date": "2026-05-02",
-    "Image": "2026-05-02.jpg",
+    "Image": "lego/2026-05-02.jpg",
     "Model": "N-1 Starfighter",
     "Organizer": "LEGO Store",
     "Notes": "Star Wars",
@@ -118,7 +118,7 @@
   },
   {
     "Date": "2026-05-02",
-    "Image": "2026-05-02_speeder.jpg",
+    "Image": "smyths/2026-05-02_speeder.png",
     "Model": "Landspeeder",
     "Organizer": "Smyths Toys",
     "Notes": "Star Wars",
@@ -127,7 +127,7 @@
   },
   {
     "Date": "2026-04-02",
-    "Image": "2025-04-16.png",
+    "Image": "lego/2026-04-01.jpg",
     "Model": "3D Easter Egg",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)\nsame event as last year,\nbut this time you got other coloration options",
@@ -136,7 +136,7 @@
   },
   {
     "Date": "2026-04-01",
-    "Image": "2025-04-16.png",
+    "Image": "lego/2026-04-01.jpg",
     "Model": "3D Easter Egg",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)\nsame event as last year,\nbut this time you got other coloration options",
@@ -145,7 +145,7 @@
   },
   {
     "Date": "2026-03-28",
-    "Image": "2026-03-28_dragon.jpg",
+    "Image": "smyths/2026-03-28.jpg",
     "Model": "Ninjago Dragon of Life",
     "Organizer": "Smyths Toys",
     "Notes": "Ninjago",
@@ -154,7 +154,7 @@
   },
   {
     "Date": "2026-03-28",
-    "Image": "2026-03-28_treat.jpg",
+    "Image": "smyths/2026-03-28.jpg",
     "Model": "Treat Stand",
     "Organizer": "Smyths Toys",
     "Notes": "Friends",
@@ -163,25 +163,43 @@
   },
   {
     "Date": "2026-03-05",
-    "Image": "2026-03-04.jpg",
+    "Image": "lego/2026-03-04.jpg",
     "Model": "Lightsaber",
     "Organizer": "LEGO Store",
-    "Notes": "Star Wars, Smart Play tie-in",
+    "Notes": "Star Wars, Smart Play tie-in\nGermany only",
+    "Part Count": "43",
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltc6a95ebfd5ce1501/Lightsaber.pdf'>6626053</a>"
+  },
+  {
+    "Date": "2026-03-05",
+    "Image": "lego/2026-03-04_f1.jpg",
+    "Model": "F1 Academy LEGO Race Car",
+    "Organizer": "LEGO Store",
+    "Notes": "Austria and Switzerland only",
+    "Part Count": "32",
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltb8c76fc72808ca29/F1_Academy_Race_Car.pdf'>6626065</a>"
+  },
+  {
+    "Date": "2026-03-04",
+    "Image": "lego/2026-03-04.jpg",
+    "Model": "Lightsaber",
+    "Organizer": "LEGO Store",
+    "Notes": "Star Wars, Smart Play tie-in\nGermany only",
     "Part Count": "43",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltc6a95ebfd5ce1501/Lightsaber.pdf'>6626053</a>"
   },
   {
     "Date": "2026-03-04",
-    "Image": "2026-03-04.jpg",
-    "Model": "Lightsaber",
+    "Image": "lego/2026-03-04_f1.jpg",
+    "Model": "F1 Academy LEGO Race Car",
     "Organizer": "LEGO Store",
-    "Notes": "Star Wars, Smart Play tie-in",
-    "Part Count": "43",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltc6a95ebfd5ce1501/Lightsaber.pdf'>6626053</a>"
+    "Notes": "Austria and Switzerland only",
+    "Part Count": "32",
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltb8c76fc72808ca29/F1_Academy_Race_Car.pdf'>6626065</a>"
   },
   {
     "Date": "2026-02-26",
-    "Image": "2026-02-25.jpg",
+    "Image": "lego/2026-02-25.jpg",
     "Model": "Baby Puppy",
     "Organizer": "LEGO Store",
     "Notes": "She Built That",
@@ -190,7 +208,7 @@
   },
   {
     "Date": "2026-02-25",
-    "Image": "2026-02-25.jpg",
+    "Image": "lego/2026-02-25.jpg",
     "Model": "Baby Puppy",
     "Organizer": "LEGO Store",
     "Notes": "She Built That",
@@ -199,7 +217,7 @@
   },
   {
     "Date": "2026-02-21",
-    "Image": "2026-02-21_heihei.png",
+    "Image": "smyths/2026-02-21.jpg",
     "Model": "Little HeiHei",
     "Organizer": "Smyths Toys",
     "Notes": "She Built That",
@@ -208,7 +226,7 @@
   },
   {
     "Date": "2026-02-21",
-    "Image": "2026-02-21_unicorn.png",
+    "Image": "smyths/2026-02-21.jpg",
     "Model": "Baby Unicorn",
     "Organizer": "Smyths Toys",
     "Notes": "She Built That",
@@ -217,7 +235,7 @@
   },
   {
     "Date": "2026-02-21",
-    "Image": "2026-02-21_seahorse.jpg",
+    "Image": "smyths/2026-02-21.jpg",
     "Model": "Baby Seahorse",
     "Organizer": "Smyths Toys",
     "Notes": "She Built That",
@@ -226,7 +244,7 @@
   },
   {
     "Date": "2026-02-14",
-    "Image": "2026-02-13.jpg",
+    "Image": "lego/2026-02-13.webp",
     "Model": "Blooming Heart",
     "Organizer": "LEGO Store",
     "Notes": "Valentine's Day",
@@ -235,7 +253,7 @@
   },
   {
     "Date": "2026-02-13",
-    "Image": "2026-02-13.jpg",
+    "Image": "lego/2026-02-13.webp",
     "Model": "Blooming Heart",
     "Organizer": "LEGO Store",
     "Notes": "Valentine's Day",
@@ -244,7 +262,7 @@
   },
   {
     "Date": "2026-01-15",
-    "Image": "2026-01-14.jpg",
+    "Image": "lego/2026-01-14.jpg",
     "Model": "Bike Burger Cart",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -253,7 +271,7 @@
   },
   {
     "Date": "2026-01-14",
-    "Image": "2026-01-14.jpg",
+    "Image": "lego/2026-01-14.jpg",
     "Model": "Bike Burger Cart",
     "Organizer": "LEGO Store",
     "Notes": "2026 - No more instructions with the models! :-(",
@@ -262,7 +280,7 @@
   },
   {
     "Date": "2025-12-04",
-    "Image": "2025-12-03.jpg",
+    "Image": "lego/2025-12-03.jpg",
     "Model": "Holiday Ornament",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Christmas)",
@@ -271,7 +289,7 @@
   },
   {
     "Date": "2025-12-03",
-    "Image": "2025-12-03.jpg",
+    "Image": "lego/2025-12-03.jpg",
     "Model": "Holiday Ornament",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Christmas)",
@@ -280,7 +298,7 @@
   },
   {
     "Date": "2025-11-22",
-    "Image": "2025-11-22_present.jpg",
+    "Image": "smyths/2025-11-22_present.jpg",
     "Model": "Ornament Present",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -289,7 +307,7 @@
   },
   {
     "Date": "2025-11-22",
-    "Image": "2025-11-22_tree.jpg",
+    "Image": "smyths/2025-11-22_tree.jpg",
     "Model": "Ornament X-Mas Tree",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -298,7 +316,7 @@
   },
   {
     "Date": "2025-11-22",
-    "Image": "2025-11-22_cataclaws.jpg",
+    "Image": "smyths/2025-11-22_cataclaws.jpg",
     "Model": "Ornament Cataclaws",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -307,7 +325,7 @@
   },
   {
     "Date": "2025-10-23",
-    "Image": "2025-10-22.jpg",
+    "Image": "lego/2025-10-22.jpg",
     "Model": "Witch",
     "Organizer": "LEGO Store",
     "Notes": "Halloween",
@@ -316,7 +334,7 @@
   },
   {
     "Date": "2025-10-22",
-    "Image": "2025-10-22.jpg",
+    "Image": "lego/2025-10-22.jpg",
     "Model": "Witch",
     "Organizer": "LEGO Store",
     "Notes": "Halloween",
@@ -326,7 +344,7 @@
 
   {
     "Date": "2025-09-27",
-    "Image": "2024-11-22.jpg",
+    "Image": "lego/2024-11-22.jpg",
     "Model": "Birthday Cake",
     "Organizer": "LEGO Store",
     "Notes": "15th Birthday, Store Nürnberg",
@@ -335,18 +353,16 @@
   },
   {
     "Date": "2025-09-26",
-    "Image": "2024-11-22.jpg",
+    "Image": "lego/2024-11-22.jpg",
     "Model": "Birthday Cake",
     "Organizer": "LEGO Store",
     "Notes": "15th Birthday, Store Nürnberg",
     "Part Count": "44",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt712236abef3bacf8/Birthday_Cake_merged.pdf'>6509762</a>"
   },
-
-
   {
     "Date": "2025-09-18",
-    "Image": "2025-09-17.jpg",
+    "Image": "lego/2025-09-17.jpg",
     "Model": "Gaming Controller",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -355,7 +371,7 @@
   },
   {
     "Date": "2025-09-17",
-    "Image": "2025-09-17.jpg",
+    "Image": "lego/2025-09-17.jpg",
     "Model": "Gaming Controller",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -364,7 +380,7 @@
   },
   {
     "Date": "2025-09-04",
-    "Image": "2025-09-03.jpg",
+    "Image": "lego/2025-09-03.jpg",
     "Model": "Butterbeer Truck",
     "Organizer": "LEGO Store",
     "Notes": "Harry Potter\nfirst time at Berlin's new store",
@@ -373,7 +389,7 @@
   },
   {
     "Date": "2025-09-03",
-    "Image": "2025-09-03.jpg",
+    "Image": "lego/2025-09-03.jpg",
     "Model": "Butterbeer Truck",
     "Organizer": "LEGO Store",
     "Notes": "Harry Potter\nlast time at Berlin's old store",
@@ -382,7 +398,7 @@
   },
   {
     "Date": "2025-08-21",
-    "Image": "2025-08-20.jpg",
+    "Image": "lego/2025-08-20.jpg",
     "Model": "Dreamzzz Zblob",
     "Organizer": "LEGO Store",
     "Notes": "Dreamzzz",
@@ -391,7 +407,7 @@
   },
   {
     "Date": "2025-08-20",
-    "Image": "2025-08-20.jpg",
+    "Image": "lego/2025-08-20.jpg",
     "Model": "Dreamzzz Zblob",
     "Organizer": "LEGO Store",
     "Notes": "Dreamzzz",
@@ -400,7 +416,7 @@
   },
   {
     "Date": "2025-08-07",
-    "Image": "2025-08-06.jpg",
+    "Image": "lego/2025-08-06.jpg",
     "Model": "Gum Gum Fruit",
     "Organizer": "LEGO Store",
     "Notes": "One Piece",
@@ -409,7 +425,7 @@
   },
   {
     "Date": "2025-08-06",
-    "Image": "2025-08-06.jpg",
+    "Image": "lego/2025-08-06.jpg",
     "Model": "Gum Gum Fruit",
     "Organizer": "LEGO Store",
     "Notes": "One Piece",
@@ -418,7 +434,7 @@
   },
   {
     "Date": "2025-08-01",
-    "Image": "2025-08-01.jpg",
+    "Image": "lego/2025-08-01.jpg",
     "Model": "Castle",
     "Organizer": "LEGO Store",
     "Notes": "21063 tie-in",
@@ -427,7 +443,7 @@
   },
   {
     "Date": "2025-07-03",
-    "Image": "2025-07-02.jpg",
+    "Image": "lego/2025-07-02.jpg",
     "Model": "Boom Box",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -436,7 +452,7 @@
   },
   {
     "Date": "2025-07-02",
-    "Image": "2025-07-02.jpg",
+    "Image": "lego/2025-07-02.jpg",
     "Model": "Boom Box",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -445,7 +461,7 @@
   },
   {
     "Date": "2025-06-11",
-    "Image": "2025-06-11.jpg",
+    "Image": "lego/2025-06-11.jpg",
     "Model": "World Play Day",
     "Organizer": "LEGO Store",
     "Notes": "World Play Day",
@@ -454,7 +470,7 @@
   },
   {
     "Date": "2025-05-31",
-    "Image": "2025-05-31.jpg",
+    "Image": "smyths/2025-05-31.jpg",
     "Model": "Creative Wildlife Panda and Flamingo",
     "Organizer": "Smyths Toys",
     "Notes": "Childrens Day",
@@ -463,7 +479,7 @@
   },
   {
     "Date": "2025-05-31",
-    "Image": "2025-01-15.jpg",
+    "Image": "lego/2025-01-15.jpg",
     "Model": "Soap Box Racer",
     "Organizer": "Smyths Toys",
     "Notes": "Childrens Day",
@@ -471,17 +487,8 @@
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt2435dd7548c3711f/burger_soap_box_racer_merger.pdf'>6562113</a>"
   },
   {
-    "Date": "2025-05-29",
-    "Image": "2025-05-28.jpg",
-    "Model": "Crayons",
-    "Organizer": "LEGO Store",
-    "Notes": "Childrens Day",
-    "Part Count": "29",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt5111638f139df335/Crayons_merged.pdf'>6565181</a>"
-  },
-  {
     "Date": "2025-05-28",
-    "Image": "2025-05-28.jpg",
+    "Image": "lego/2025-05-28.jpg",
     "Model": "Crayons",
     "Organizer": "LEGO Store",
     "Notes": "Childrens Day",
@@ -490,25 +497,25 @@
   },
   {
     "Date": "2025-05-22",
-    "Image": "2025-05-21.jpg",
+    "Image": "lego/2025-05-21.jpg",
     "Model": "Paddle",
     "Organizer": "LEGO Store",
-    "Notes": "Table Tennis",
+    "Notes": "Father's Day\nTable Tennis",
     "Part Count": "23",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltb897c8bdac88e3c4/table_tennis_bat_merged.pdf'>6565152</a>"
   },
   {
     "Date": "2025-05-21",
-    "Image": "2025-05-21.jpg",
+    "Image": "lego/2025-05-21.jpg",
     "Model": "Paddle",
     "Organizer": "LEGO Store",
-    "Notes": "Table Tennis",
+    "Notes": "Father's Day\nTable Tennis",
     "Part Count": "23",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltb897c8bdac88e3c4/table_tennis_bat_merged.pdf'>6565152</a>"
   },
   {
     "Date": "2025-05-15",
-    "Image": "2025-05-14.jpg",
+    "Image": "lego/2025-05-14.jpg",
     "Model": "Ninjago Thunderfang",
     "Organizer": "LEGO Store",
     "Notes": "Ninjago",
@@ -517,7 +524,7 @@
   },
   {
     "Date": "2025-05-14",
-    "Image": "2025-05-14.jpg",
+    "Image": "lego/2025-05-14.jpg",
     "Model": "Ninjago Thunderfang",
     "Organizer": "LEGO Store",
     "Notes": "Ninjago",
@@ -526,7 +533,7 @@
   },
   {
     "Date": "2025-05-08",
-    "Image": "2025-05-07.jpg",
+    "Image": "lego/2025-05-07.jpg",
     "Model": "Flower",
     "Organizer": "LEGO Store",
     "Notes": "Mother's Day",
@@ -535,7 +542,7 @@
   },
   {
     "Date": "2025-05-07",
-    "Image": "2025-05-07.jpg",
+    "Image": "lego/2025-05-07.jpg",
     "Model": "Flower",
     "Organizer": "LEGO Store",
     "Notes": "Mother's Day",
@@ -544,7 +551,7 @@
   },
   {
     "Date": "2025-05-03",
-    "Image": "2025-05-03.jpg",
+    "Image": "smyths/2025-05-03.jpg",
     "Model": "Star Wars U-Wing",
     "Organizer": "Smyths Toys",
     "Notes": "Star Wars",
@@ -553,7 +560,7 @@
   },
   {
     "Date": "2025-05-02",
-    "Image": "2025-05-02.jpg",
+    "Image": "lego/2025-05-02.jpg",
     "Model": "Grogu M&T",
     "Organizer": "LEGO Store",
     "Notes": "Star Wars",
@@ -562,7 +569,7 @@
   },
   {
     "Date": "2025-04-17",
-    "Image": "2025-04-16.png",
+    "Image": "lego/2025-04-16.jpg",
     "Model": "3D Easter Egg",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)",
@@ -571,7 +578,7 @@
   },
   {
     "Date": "2025-04-16",
-    "Image": "2025-04-16.png",
+    "Image": "lego/2025-04-16.jpg",
     "Model": "3D Easter Egg",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)",
@@ -580,7 +587,7 @@
   },
   {
     "Date": "2025-04-12",
-    "Image": "2025-04-12.png",
+    "Image": "smyths/2025-04-12.png",
     "Model": "2D Easter Egg\naka Egg-spress yourself",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Easter)",
@@ -589,25 +596,25 @@
   },
   {
     "Date": "2025-03-13",
-    "Image": "2025-03-12.jpg",
+    "Image": "lego/2025-03-12.webp",
     "Model": "Steering Wheel",
     "Organizer": "LEGO Store",
-    "Notes": "",
+    "Notes": "Formula 1 tie-in",
     "Part Count": "33",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt6570936d5e3cdd35/Steering_Wheel_merged.pdf'>6565151</a>"
   },
   {
     "Date": "2025-03-12",
-    "Image": "2025-03-12.jpg",
+    "Image": "lego/2025-03-12.webp",
     "Model": "Steering Wheel",
     "Organizer": "LEGO Store",
-    "Notes": "",
+    "Notes": "Formula 1 tie-in",
     "Part Count": "33",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt6570936d5e3cdd35/Steering_Wheel_merged.pdf'>6565151</a>"
   },
   {
     "Date": "2025-03-06",
-    "Image": "2025-03-05.jpg",
+    "Image": "lego/2025-03-05.jpg",
     "Model": "Sunflowers",
     "Organizer": "LEGO Store",
     "Notes": "31215 tie-in",
@@ -616,7 +623,7 @@
   },
   {
     "Date": "2025-03-05",
-    "Image": "2025-03-05.jpg",
+    "Image": "lego/2025-03-05.jpg",
     "Model": "Sunflowers",
     "Organizer": "LEGO Store",
     "Notes": "31215 tie-in",
@@ -625,7 +632,7 @@
   },
   {
     "Date": "2025-03-01",
-    "Image": "2025-03-01.jpg",
+    "Image": "smyths/2025-03-01.jpg",
     "Model": "Race Car",
     "Organizer": "Smyths Toys",
     "Notes": "Formula 1 tie-in",
@@ -634,7 +641,7 @@
   },
   {
     "Date": "2025-02-12",
-    "Image": "2025-02-12.jpg",
+    "Image": "lego/2025-02-12.jpg",
     "Model": "Botanical Heart",
     "Organizer": "LEGO Store",
     "Notes": "Valentine's Day",
@@ -643,7 +650,7 @@
   },
   {
     "Date": "2025-01-16",
-    "Image": "2025-01-15.jpg",
+    "Image": "lego/2025-01-15.jpg",
     "Model": "Soap Box Racer",
     "Organizer": "LEGO Store",
     "Notes": "60458, 60459 & 60460 tie-in",
@@ -652,7 +659,7 @@
   },
   {
     "Date": "2025-01-15",
-    "Image": "2025-01-15.jpg",
+    "Image": "lego/2025-01-15.jpg",
     "Model": "Soap Box Racer",
     "Organizer": "LEGO Store",
     "Notes": "60458, 60459 & 60460 tie-in",
@@ -661,7 +668,7 @@
   },
   {
     "Date": "2024-12-06",
-    "Image": "2024-12-06.jpg",
+    "Image": "lego/2024-12-06.jpg",
     "Model": "GiftBox",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Christmas)",
@@ -670,7 +677,7 @@
   },
   {
     "Date": "2024-11-23",
-    "Image": "2024-11-23_tree.png",
+    "Image": "smyths/2024-11-23_tree.png",
     "Model": "Christmas Tree",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -679,7 +686,7 @@
   },
   {
     "Date": "2024-11-23",
-    "Image": "2024-11-23_reindeer.png",
+    "Image": "smyths/2024-11-23_reindeer.png",
     "Model": "Reindeer",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -688,7 +695,7 @@
   },
   {
     "Date": "2024-11-23",
-    "Image": "2024-11-23_santa.png",
+    "Image": "smyths/2024-11-23_santa.png",
     "Model": "Santa",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -697,7 +704,7 @@
   },
   {
     "Date": "2024-11-23",
-    "Image": "2024-11-23_snowman.png",
+    "Image": "smyths/2024-11-23_snowman.png",
     "Model": "Snowman",
     "Organizer": "Smyths Toys",
     "Notes": "Religion (Christmas)",
@@ -706,7 +713,7 @@
   },
   {
     "Date": "2024-11-23",
-    "Image": "2024-11-22.jpg",
+    "Image": "lego/2024-11-22.jpg",
     "Model": "Birthday Cake",
     "Organizer": "LEGO Store",
     "Notes": "15th Birthday, Store Berlin",
@@ -715,7 +722,7 @@
   },
   {
     "Date": "2024-11-22",
-    "Image": "2024-11-22.jpg",
+    "Image": "lego/2024-11-22.jpg",
     "Model": "Birthday Cake",
     "Organizer": "LEGO Store",
     "Notes": "15th Birthday, Store Berlin",
@@ -724,7 +731,7 @@
   },
   {
     "Date": "2024-10-24",
-    "Image": "2024-10-24.jpg",
+    "Image": "lego/2024-10-24.jpg",
     "Model": "Spider",
     "Organizer": "LEGO Store",
     "Notes": "Halloween",
@@ -733,24 +740,24 @@
   },
   {
     "Date": "2024-10-10",
-    "Image": "2024-10-09.jpg",
+    "Image": "lego/2024-10-09.jpg",
     "Model": "Brandenburger Tor",
     "Organizer": "LEGO Store",
-    "Notes": "Festival of Lights\n!number?!",
+    "Notes": "Festival of Lights tie-in",
     "Part Count": "34",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/2024-10-09 - Brandenburger Tor.pdf'>6??????</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/2024-10-09 - Brandenburger Tor.pdf'>BRANDENBURGTOR</a>"
   },
   {
     "Date": "2024-10-09",
-    "Image": "2024-10-09.jpg",
+    "Image": "lego/2024-10-09.jpg",
     "Model": "Brandenburger Tor",
     "Organizer": "LEGO Store",
-    "Notes": "Festival of Lights\n!number?!",
+    "Notes": "Festival of Lights tie-in",
     "Part Count": "34",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/2024-10-09 - Brandenburger Tor.pdf'>6??????</a>"  },
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/2024-10-09 - Brandenburger Tor.pdf'>BRANDENBURGTOR</a>"  },
   {
     "Date": "2024-10-02",
-    "Image": "2024-10-01.jpg",
+    "Image": "lego/2024-10-01.jpg",
     "Model": "Controller",
     "Organizer": "LEGO Store",
     "Notes": "Gaming",
@@ -759,7 +766,7 @@
   },
   {
     "Date": "2024-10-01",
-    "Image": "2024-10-01.jpg",
+    "Image": "lego/2024-10-01.jpg",
     "Model": "Controller",
     "Organizer": "LEGO Store",
     "Notes": "Gaming",
@@ -768,7 +775,7 @@
   },
   {
     "Date": "2024-09-05",
-    "Image": "2024-09-04.jpg",
+    "Image": "lego/2024-09-04.jpg",
     "Model": "Hogwarts Express",
     "Organizer": "LEGO Store",
     "Notes": "Harry Potter",
@@ -777,35 +784,34 @@
   },
   {
     "Date": "2024-09-04",
-    "Image": "2024-09-04.jpg",
+    "Image": "lego/2024-09-04.jpg",
     "Model": "Hogwarts Express",
     "Organizer": "LEGO Store",
     "Notes": "Harry Potter",
     "Part Count": "42",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltedda7f0a61682881/Hogwarts_Express.pdf'>6545695</a>"
   },
-
   {
     "Date": "2024-08-14",
-    "Image": "2024-08-07.jpg",
+    "Image": "lego/2024-08-07.jpg",
     "Model": "CatBike 2in1",
     "Organizer": "LEGO Store",
     "Notes": "Dreamzzz",
     "Part Count": "47",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt2b4abce54f44e6b0/Zoey_Cat_motorcycle_merged.pdf'>6527186</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://lego-asterix-apps-storage.s3.eu-central-1.amazonaws.com/files/OiteXR/cat_bike_model_a_for_qr_code.pdf'>6527186 - Model A</a>"
   },
   {
     "Date": "2024-08-07",
-    "Image": "2024-08-07.jpg",
+    "Image": "lego/2024-08-07.jpg",
     "Model": "CatBike 2in1",
     "Organizer": "LEGO Store",
-    "Notes": "Dreamzzz\n!change instructions to include both models!",
+    "Notes": "Dreamzzz",
     "Part Count": "47",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt2b4abce54f44e6b0/Zoey_Cat_motorcycle_merged.pdf'>6527186</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://lego-asterix-apps-storage.s3.eu-central-1.amazonaws.com/files/8Diw63/cat_bike_model_b_for_qr_code.pdf'>6527186 - Model B</a>"
   },
   {
     "Date": "2024-07-04",
-    "Image": "2024-07-03.jpg",
+    "Image": "lego/2024-07-03.jpg",
     "Model": "McLaren Formula 1 Car\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Speed Champions",
@@ -814,7 +820,7 @@
   },
   {
     "Date": "2024-07-03",
-    "Image": "2024-07-03.jpg",
+    "Image": "lego/2024-07-03.jpg",
     "Model": "McLaren Formula 1 Car\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Speed Champions",
@@ -823,7 +829,7 @@
   },
   {
     "Date": "2024-06-20",
-    "Image": "2024-06-20.png",
+    "Image": "lego/2024-06-20.jpg",
     "Model": "Pride Flag",
     "Organizer": "LEGO Store",
     "Notes": "Pride Month",
@@ -832,7 +838,7 @@
   },
   {
     "Date": "2024-06-01",
-    "Image": "2024-06-01.png",
+    "Image": "lego/2024-06-01.jpg",
     "Model": "Sand Castle",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -841,7 +847,7 @@
   },
   {
     "Date": "2024-05-22",
-    "Image": "2024-05-22.jpg",
+    "Image": "lego/2024-05-22.jpg",
     "Model": "UFO",
     "Organizer": "LEGO Store",
     "Notes": "",
@@ -850,7 +856,7 @@
   },
   {
     "Date": "2024-05-08",
-    "Image": "2024-05-08.jpg",
+    "Image": "lego/2024-05-08.jpg",
     "Model": "Frame",
     "Organizer": "LEGO Store",
     "Notes": "Father'S Day",
@@ -859,7 +865,7 @@
   },
   {
     "Date": "2024-05-04",
-    "Image": "2024-05-04.jpg",
+    "Image": "lego/2024-05-04.jpg",
     "Model": "Darth Vader",
     "Organizer": "LEGO Store",
     "Notes": "Star Wars",
@@ -868,7 +874,7 @@
   },
   {
     "Date": "2024-05-04",
-    "Image": "2024-05-04.jpg",
+    "Image": "lego/2024-05-04.jpg",
     "Model": "Princess Leia",
     "Organizer": "LEGO Store",
     "Notes": "Star Wars",
@@ -877,16 +883,16 @@
   },
   {
     "Date": "2024-05-04",
-    "Image": "2024-05-04.jpg",
+    "Image": "lego/2024-05-04b.jpg",
     "Model": "Yoda",
     "Organizer": "LEGO Store",
-    "Notes": "Star Wars",
+    "Notes": "Star Wars\nYoda was a surprise as only Darth Vader\nand Princess Leia where announce",
     "Part Count": "20",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blte6d414c3e435c5b6/Yoda.pdf'>6528898</a>"
   },
   {
     "Date": "2024-04-11",
-    "Image": "2024-04-10.png",
+    "Image": "lego/2024-04-10.jpg",
     "Model": "Mobile Music Trailer\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "LEGO Friends",
@@ -895,7 +901,7 @@
   },
   {
     "Date": "2024-04-10",
-    "Image": "2024-04-10.png",
+    "Image": "lego/2024-04-10.jpg",
     "Model": "Mobile Music Trailer\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "LEGO Friends",
@@ -904,7 +910,7 @@
   },
   {
     "Date": "2024-04-04",
-    "Image": "2024-04-04.png",
+    "Image": "lego/2024-04-04.webp",
     "Model": "Lantern",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Eid)",
@@ -913,7 +919,7 @@
   },
   {
     "Date": "2024-03-28",
-    "Image": "2024-03-28.png",
+    "Image": "lego/2024-03-28.jpg",
     "Model": "Chick in Egg",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)",
@@ -922,7 +928,7 @@
   },
   {
     "Date": "2024-03-09",
-    "Image": "2024-03-09.png",
+    "Image": "lego/2024-03-09.jpg",
     "Model": "Fauna's House",
     "Organizer": "LEGO Store",
     "Notes": "Animal Crossing",
@@ -931,17 +937,16 @@
   },
   {
     "Date": "2024-02-10",
-    "Image": "2024-02-10.jpg",
+    "Image": "lego/2024-02-10.webp",
     "Model": "Heart",
     "Organizer": "LEGO Store",
     "Notes": "Valentine's Day",
     "Part Count": "39",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltf4f5d14f28cc2562/heart_standing_display_merged.pdf'>6511213</a>"
   },
-
   {
     "Date": "2024-01-25",
-    "Image": "2024-01-24.jpg",
+    "Image": "lego/2024-01-24.jpg",
     "Model": "Asha's Welcome Booth\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Disney Wish",
@@ -950,7 +955,7 @@
   },
   {
     "Date": "2024-01-24",
-    "Image": "2024-01-24.jpg",
+    "Image": "lego/2024-01-24.jpg",
     "Model": "Asha's Welcome Booth\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Disney Wish",
@@ -959,27 +964,25 @@
   },
   {
     "Date": "2023-10-21",
-    "Image": "2023-10-21.jpg",
+    "Image": "lego/2023-10-21.jpg",
     "Model": "Black Cat",
     "Organizer": "LEGO Store",
     "Notes": "Halloween",
     "Part Count": "26",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltfe9dfcb683245c3d/Black_Cat.pdf'>6491112</a>"
   },
-
   {
     "Date": "2023-09-01",
-    "Image": "2023-09-01.jpg",
+    "Image": "lego/2023-09-01.jpg",
     "Model": "Wand",
     "Organizer": "LEGO Store",
     "Notes": "Harry Potter",
     "Part Count": "26",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/blt97d2513f56550e66/Harry_Potter_s_Wand.pdf'>6482525</a>"
   },
-
   {
     "Date": "2023-08-24",
-    "Image": "2023-08-23.jpg",
+    "Image": "lego/2023-08-23.jpg",
     "Model": "Moana's Dolphin Cove\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Disney Moana",
@@ -988,17 +991,16 @@
   },
   {
     "Date": "2023-08-23",
-    "Image": "2023-08-23.jpg",
+    "Image": "lego/2023-08-23.jpg",
     "Model": "Moana's Dolphin Cove\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Disney Moana",
     "Part Count": "47",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6448906.pdf'>30646</a>"
   },
-
   {
     "Date": "2023-08-03",
-    "Image": "2023-08-02.jpg",
+    "Image": "lego/2023-08-02.jpg",
     "Model": "Turtle Van",
     "Organizer": "LEGO Store",
     "Notes": "71456 tie-in",
@@ -1007,7 +1009,7 @@
   },
   {
     "Date": "2023-08-02",
-    "Image": "2023-08-02.jpg",
+    "Image": "lego/2023-08-02.jpg",
     "Model": "Turtle Van",
     "Organizer": "LEGO Store",
     "Notes": "71456 tie-in",
@@ -1016,7 +1018,7 @@
   },
   {
     "Date": "2023-07-01",
-    "Image": "2023-07-01.jpg",
+    "Image": "lego/2023-07-01.jpg",
     "Model": "Disney Mini Castle",
     "Organizer": "LEGO Store",
     "Notes": "43222 tie-in",
@@ -1025,7 +1027,7 @@
   },
   {
     "Date": "2023-04-08",
-    "Image": "2023-04-05.jpg",
+    "Image": "lego/2023-04-05.jpg",
     "Model": "Rabbit",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)",
@@ -1034,7 +1036,7 @@
   },
   {
     "Date": "2023-04-05",
-    "Image": "2023-04-05.jpg",
+    "Image": "lego/2023-04-05.jpg",
     "Model": "Rabbit",
     "Organizer": "LEGO Store",
     "Notes": "Religion (Easter)",
@@ -1043,7 +1045,7 @@
   },
   {
     "Date": "2023-02-16",
-    "Image": "2023-02-15.png",
+    "Image": "lego/2023-02-15.jpg",
     "Model": "Skate Ramp\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Friends",
@@ -1052,7 +1054,7 @@
   },
   {
     "Date": "2023-02-15",
-    "Image": "2023-02-15.png",
+    "Image": "lego/2023-02-15.jpg",
     "Model": "Skate Ramp\nPolybag",
     "Organizer": "LEGO Store",
     "Notes": "Friends",
@@ -1061,7 +1063,7 @@
   },
   {
     "Date": "2023-02-11",
-    "Image": "2023-02-11.jpg",
+    "Image": "lego/2023-02-11.jpg",
     "Model": "Rose",
     "Organizer": "LEGO Store",
     "Notes": "Valentine's Day",
@@ -1070,7 +1072,7 @@
   },
   {
     "Date": "2022-10-27",
-    "Image": "2022-10-27.jpg",
+    "Image": "lego/2022-10-27.jpg",
     "Model": "Frankenstein's Monster",
     "Organizer": "LEGO Store",
     "Notes": "Halloween",
@@ -1079,48 +1081,89 @@
   },
   {
     "Date": "2022-07-16",
-    "Image": "2022-07-16.jpg",
+    "Image": "lego/2022-07-16.jpg",
     "Model": "Red Brick",
     "Organizer": "LEGO Store",
     "Notes": "90 years of Play",
     "Part Count": "66",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Brick.pdf'>6436693</a>"
   },
+  
+
+  {
+    "Date": "2022-02-12",
+    "Image": "lego/2022-02-11.jpg",
+    "Model": "Heart-shaped Jewelry Box",
+    "Organizer": "LEGO Store",
+    "Notes": "Valentine's Day",
+    "Part Count": "83",
+    "Instructions": "6410992"
+  },
+  {
+    "Date": "2022-02-11",
+    "Image": "lego/2022-02-11.jpg",
+    "Model": "Heart-shaped Jewelry Box",
+    "Organizer": "LEGO Store",
+    "Notes": "Valentine's Day",
+    "Part Count": "83",
+    "Instructions": "6410992"
+  },
+
   {
     "Date": "2020-01-09",
-    "Image": "2020-01-09.jpg",
+    "Image": "lego/2020-01-09.jpg",
     "Model": "Newsstand",
     "Organizer": "LEGO Store",
     "Notes": "10270 tie-in",
     "Part Count": "155",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://www.stonewars.de/wp-content/uploads/2020/01/Lego-Make_and_Take_2020.01.09_Zeitungsstand.pdf'>5007867</a>"
   },
+
+  {
+    "Date": "",
+    "Image": "",
+    "Model": "",
+    "Organizer": "",
+    "Notes": "",
+    "Part Count": "",
+    "Instructions": ""
+  },
+  {
+    "Date": "2019-10-26",
+    "Image": "",
+    "Model": "",
+    "Organizer": "LEGO Store",
+    "Notes": "Halloween",
+    "Part Count": "?",
+    "Instructions": "?"
+  },
+
   {
     "Date": "2019-10-04",
-    "Image": "2019-10-04.png",
+    "Image": "lego/2019-10-04.png",
     "Model": "Luke Skywalker",
     "Organizer": "LEGO Store",
-    "Notes": "Triple Force Friday\n!number?!",
+    "Notes": "Triple Force Friday",
     "Part Count": "87",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Luke_Timeline.pdf'>6??????</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Luke_Timeline.pdf'>Luke Skywalker</a>"
   },
   {
     "Date": "2019-08-14",
-    "Image": "2019-08-14.jpg",
+    "Image": "lego/2019-08-14.jpg",
     "Model": "Tree in the Woods",
     "Organizer": "LEGO Store",
-    "Notes": "21318 tie-in\n!number?!",
+    "Notes": "21318 tie-in",
     "Part Count": "53",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://brickshow.com/wp-content/uploads/2019/08/tree-in-the-woods.pdf'>6??????</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://brickshow.com/wp-content/uploads/2019/08/tree-in-the-woods.pdf'>Tree in the Woods</a>"
   },
   {
     "Date": "2019-08-07",
-    "Image": "2019-08-07.jpg",
+    "Image": "lego/2019-08-07.jpg",
     "Model": "Mini Harley-Davidson",
     "Organizer": "LEGO Store",
-    "Notes": "10269 tie-in\n!number?!",
+    "Notes": "10269 tie-in",
     "Part Count": "70",
-    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Harley.pdf'>6??????</a>"
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Harley.pdf'>Mini Harley-Davidson</a>"
   }
 ]
 
