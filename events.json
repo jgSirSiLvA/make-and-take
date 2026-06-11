@@ -94,7 +94,7 @@
     "Image": "lego/2026-05-04_mosaic.jpg",
     "Model": "Mosaic",
     "Organizer": "LEGO Store",
-    "Notes": "as the LEGO Store in the Mall of Berlin\nhad run out of N-1 Starfighters",
+    "Notes": "substitute, as the LEGO Store Mall of Berlin\nhad run out of N-1 Starfighters",
     "Part Count": "169",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='instructions/Mosaic.pdf'>6565182</a>"
   },
@@ -790,6 +790,24 @@
     "Notes": "Harry Potter",
     "Part Count": "42",
     "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltedda7f0a61682881/Hogwarts_Express.pdf'>6545695</a>"
+  },
+  {
+    "Date": "2024-08-22",
+    "Image": "lego/2024-10-01.jpg",
+    "Model": "Controller",
+    "Organizer": "LEGO Store",
+    "Notes": "GamesCon tie-in\nonly in Store Köln",
+    "Part Count": "45",
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltc2f13bdef6043f60/Gaming_Controller_(2024).pdf'>6546260</a>"
+  },
+  {
+    "Date": "2024-08-21",
+    "Image": "lego/2024-10-01.jpg",
+    "Model": "Controller",
+    "Organizer": "LEGO Store",
+    "Notes": "GamesCon tie-in\nonly in Store Köln",
+    "Part Count": "45",
+    "Instructions": "<a target='_blank' rel='noopener noreferrer' href='https://pdf.kids.lego.com/cdn/cs/kids-lego-com/assets/bltc2f13bdef6043f60/Gaming_Controller_(2024).pdf'>6546260</a>"
   },
   {
     "Date": "2024-08-14",
