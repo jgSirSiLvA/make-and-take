@@ -34,8 +34,15 @@
 
     .image-cell img { max-width: 100px; max-height: 100px; }
 
-    #search { width: 100%; padding: 10px; margin-bottom: 15px; font-size: 16px; box-sizing: border-box; }
+    #search { width: 100%; padding: 10px 34px 10px 10px; font-size: 16px; box-sizing: border-box; }
+    #clearSearch { position: absolute; right: 8px; background: none; border: 2px; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
+    #clearSearch:hover { color: #333; }
+    #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
+
+    #controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+    #fileSelect { padding: 10px; font-size: 16px; border: 1px solid #ccc; background: white; cursor: pointer; }
     #status { margin-bottom: 10px; font-weight: bold; }
+
     #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:9999; }
     #imgOverlay img{ max-width:95vw; max-height:95vh; }
 </style>
@@ -48,7 +55,17 @@
 <img src="pictures/smyths/smyths-logo.svg" style="width:75px; height:75px; border:0;"></h1>
 
 <div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading Events.json...</div>
-<input type="text" id="search" placeholder="Search...">
+<div id="controls">
+    <select id="fileSelect">
+        <option value="data/mat.json" selected>Make and Take</option>
+        <option value="data/mmmb.json">Monthly Mini Model Build</option>
+        <option value="data/others.json">Something else</option>
+    </select>
+    <div id="searchWrapper">
+        <input type="text" id="search" placeholder="Search...">
+        <button id="clearSearch" title="Clear search">✕</button>
+    </div>
+</div>
 
 <table id="eventsTable">
     <thead>
@@ -70,23 +87,38 @@ let events = [];
 let currentSortColumn = 'Date';
 let currentSortDirection = -1;
 
-fetch('events.json')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Could not load Events.json');
-        }
-        return response.json();
-    })
-    .then(data => {
-        events = data;
-        document.getElementById('status').textContent =
-            `${events.length} events loaded`;
-        renderTable(events);
-    })
-    .catch(error => {
-        document.getElementById('status').textContent =
-            'Error: ' + error.message;
-    });
+function loadFile(filename) {
+    document.getElementById('status').textContent = `Loading ${filename}...`;
+    document.getElementById('search').value = '';
+    document.getElementById('clearSearch').style.display = 'none';
+
+    fetch(filename)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Could not load ' + filename);
+            }
+            return response.json();
+        })
+        .then(data => {
+            events = data;
+            document.getElementById('status').textContent =
+                `${events.length} events loaded`;
+            sortEvents(events);
+            renderTable(events);
+        })
+        .catch(error => {
+            document.getElementById('status').textContent =
+                'Error: ' + error.message;
+        });
+}
+
+// Load default file on page load
+loadFile('data/mat.json');
+
+document.getElementById('fileSelect').addEventListener('change', function () {
+    loadFile(this.value);
+    this.blur();
+});
 
 function sortEvents(data) {
     data.sort((a, b) => {
@@ -178,8 +210,12 @@ function createInstructionsCell(value) {
     return value;
 }
 
-document.getElementById('search').addEventListener('input', function() {
-    const search = this.value.toLowerCase();
+const searchInput = document.getElementById('search');
+const clearBtn = document.getElementById('clearSearch');
+
+function applySearch() {
+    const search = searchInput.value.toLowerCase();
+    clearBtn.style.display = search ? 'block' : 'none';
 
     const filtered = events.filter(event =>
         Object.values(event).some(value =>
@@ -188,7 +224,32 @@ document.getElementById('search').addEventListener('input', function() {
     );
     sortEvents(filtered);
     renderTable(filtered);
+}
+
+searchInput.addEventListener('input', applySearch);
+
+clearBtn.addEventListener('click', function () {
+    searchInput.value = '';
+    this.style.display = 'none';
+    sortEvents(events);
+    renderTable(events);
+    searchInput.focus();
 });
+
+function updateSortHeaders() {
+    document.querySelectorAll('th').forEach(th => {
+        const col = th.dataset.column;
+        if (!col) return;
+        if (col === currentSortColumn) {
+            th.textContent = col + (currentSortDirection === 1 ? ' ▲' : ' ▼');
+        } else {
+            th.textContent = col;
+        }
+    });
+}
+
+// Show default sort indicator on startup
+updateSortHeaders();
 
 document.querySelectorAll('th').forEach(header => {
     header.addEventListener('click', () => {
@@ -203,14 +264,7 @@ document.querySelectorAll('th').forEach(header => {
         }
 
         sortEvents(events);
-
-        document.querySelectorAll('th').forEach(th => {
-            const baseText = th.dataset.column || th.textContent.replace(' ▲','').replace(' ▼','');
-            th.textContent = baseText;
-        });
-
-        header.textContent = column + (currentSortDirection === 1 ? ' ▲' : ' ▼');
-
+        updateSortHeaders();
         renderTable(events);
     });
 });
