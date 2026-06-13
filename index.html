@@ -95,7 +95,7 @@ function loadFile(filename) {
     fetch(filename)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Could not load ' + filename);
+                throw new Error('!Could not load ' + filename);
             }
             return response.json();
         })
