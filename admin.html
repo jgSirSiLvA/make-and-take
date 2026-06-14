@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="pictures/favicon.png">
-<title>LEGO Make & Take Admin-Console</title>
+<title>LEGO Events Admin-Console</title>
 
 <style>
     body { font-family: Arial, sans-serif; margin: 20px; background: #E3000B; }
 
     h1 { text-align: center; color: white; }
 
-    #tableContainer { max-height: 400px; overflow-y: auto; }
+    #tableContainer { max-height: 650px; overflow-y: auto; }
 
     table { width: 100%; border-collapse: collapse; background: white; margin-bottom: 15px; }
     tr:nth-child(even) { background: #fff8cc; }
@@ -20,6 +20,10 @@
 
     th { background: #333; color: white; position: sticky; top: 0; }
     th, td { border: 1px solid #ccc; padding: 8px; }
+    th.center, td.center { text-align: center; }
+    th.part-count, td.part-count { text-align: right; }
+    th.instructions, td.instructions { text-align: right; }
+    td.notes { white-space: pre-line; }
 
     input, select { width: 100%; box-sizing: border-box; padding: 6px; }
 
@@ -30,17 +34,29 @@
     #status, #selected { color: white; font-weight: bold; margin-bottom: 10px; }
 
     #pagination { text-align: center; margin-bottom: 15px; color: white; font-weight: bold; }
+
+    #controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+    #controls select { width: auto; flex: 0 0 auto; }
+    #controls input { flex: 1; }
 </style>
 </head>
 
 <body>
-<a href="index.html"><h1>LEGO Make & Take Admin</h1></a>
+<a href="index.html"><h1>LEGO Events Admin</h1></a>
 
-<div id="status">Loading events.json...</div>
-<input type="text" id="search" placeholder="Search...">
+<div id="status">Loading data...</div>
+
+<div id="controls">
+    <select id="fileSelect">
+        <option value="data/mat.json" selected>Make and Take</option>
+        <option value="data/mmmb.json">Monthly Mini Model Build</option>
+        <option value="data/others.json">Something else</option>
+    </select>
+    <input type="text" id="search" placeholder="Search...">
+</div>
 
 <div id="tableContainer">
-<table id="eventsTable"><thead><tr><th>Date</th><th>Organizer</th><th>Model</th></tr></thead><tbody></tbody></table>
+<table id="eventsTable"><thead><tr><th class="center">Date</th><th class="center">Organizer</th><th class="center">Image</th><th>Model</th><th>Notes</th><th class="part-count">Part Count</th><th class="instructions">Instructions</th></tr></thead><tbody></tbody></table>
 </div>
 
 <div id="pagination">
@@ -53,48 +69,62 @@
 <h2>Edit Event</h2>
 <div id="selected">No event selected</div>
 <input id="eDate" placeholder="Date"><br><br>
-
-<select id="eOrganizer">
-<option value="LEGO Store">LEGO Store</option>
-<option value="Smyths Toys">Smyths Toys</option>
-</select><br><br>
-
 <input id="eImage" placeholder="Image"><br><br>
 <input id="eModel" placeholder="Model"><br><br>
+
+<input id="eOrganizer" placeholder="Organizer"><br><br>
+
 <input id="eNotes" placeholder="Notes"><br><br>
 <input id="ePartCount" placeholder="Part Count"><br><br>
 <input id="eInstructions" placeholder="Instructions"><br><br>
+<input id="eSource" placeholder="Source"><br><br>
 <button onclick="saveChanges()">Save Changes</button>
 </div>
 
 <div class="panel">
 <h2>Add Event</h2>
 <input id="nDate" placeholder="Date"><br><br>
-
-<select id="nOrganizer">
-<option value="LEGO Store">LEGO Store</option>
-<option value="Smyths Toys">Smyths Toys</option>
-</select><br><br>
-
 <input id="nImage" placeholder="Image"><br><br>
 <input id="nModel" placeholder="Model"><br><br>
+
+<input id="nOrganizer" placeholder="Organizer"><br><br>
+
 <input id="nNotes" placeholder="Notes"><br><br>
 <input id="nPartCount" placeholder="Part Count"><br><br>
 <input id="nInstructions" placeholder="Instructions"><br><br>
+<input id="nSource" placeholder="Source"><br><br>
 <button onclick="addEvent()">Add Event</button>
 </div>
 
-<div class="panel"><button onclick="downloadJson()">Download events.json</button></div>
+<div class="panel"><button onclick="downloadJson()">Download JSON</button></div>
 
 <script>
 let events=[];
 let selectedIndex=-1;
 let dirty=false;
 let currentPage=1;
-const rowsPerPage=15;
+let currentFile='data/mat.json';
+const rowsPerPage=6;
 
-function setDirty(v){ dirty=v; document.title='LEGO Make & Take Admin'+(v?' *':''); }
+function setDirty(v){ dirty=v; document.title='LEGO Events Admin'+(v?' *':''); }
 function sortEvents(){ events.sort((a,b)=>(b.Date||'').localeCompare(a.Date||'')); }
+
+function imageCell(value){
+ if(!value) return '';
+ const src=value.startsWith('https://') ? value : `pictures/${value}`;
+ if (/\.(jpg|jpeg|png|gif|webp)$/i.test(value)) {
+  return `<img src="${src}" alt="" style="max-width:100px; max-height:100px;">`;
+ }
+ return value;
+}
+
+function instructionsCell(value){
+ if(!value) return '';
+ if (value.startsWith('http://') || value.startsWith('https://') || value.toLowerCase().endsWith('.pdf')) {
+  return `<a href="${value}" target="_blank">Open</a>`;
+ }
+ return value;
+}
 
 function getFilteredEvents(){
  const s=document.getElementById('search').value.toLowerCase();
@@ -111,7 +141,7 @@ function render(){
 
  filtered.slice(start,end).forEach(ev=>{
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${ev.Date||''}</td><td>${ev.Organizer||''}</td><td>${ev.Model||''}</td>`;
+  tr.innerHTML=`<td class="center">${ev.Date||''}</td><td class="notes center">${ev.Organizer||''}</td><td class="center">${imageCell(ev.Image)}</td><td class="notes">${ev.Model||''}</td><td class="notes">${ev.Notes||''}</td><td class="part-count">${ev['Part Count']||''}</td><td class="instructions">${instructionsCell(ev.Instructions)}</td>`;
   tr.onclick=()=>selectEvent(ev);
   tbody.appendChild(tr);
  });
@@ -130,55 +160,99 @@ function selectEvent(ev){
  selectedIndex=events.indexOf(ev);
  selected.textContent=(ev.Date||'')+' | '+(ev.Model||'');
  eDate.value=ev.Date||'';
- eOrganizer.value=ev.Organizer||'LEGO Store';
  eImage.value=ev.Image||'';
- eModel.value=ev.Model||'';
- eNotes.value=ev.Notes||'';
+ eModel.value=(ev.Model||'').replace(/\n/g, '\\n');
+ eOrganizer.value=(ev.Organizer||'').replace(/\n/g, '\\n');
+ eNotes.value=(ev.Notes||'').replace(/\n/g, '\\n');
  ePartCount.value=ev['Part Count']||'';
  eInstructions.value=ev.Instructions||'';
+ eSource.value=ev.Source||'';
+}
+
+function buildEvent(prefix){
+ const obj={
+  Date: document.getElementById(prefix+'Date').value,
+  Image: document.getElementById(prefix+'Image').value,
+  Model: document.getElementById(prefix+'Model').value.replace(/\\n/g, '\n'),
+  Organizer: document.getElementById(prefix+'Organizer').value.replace(/\\n/g, '\n'),
+  Notes: document.getElementById(prefix+'Notes').value.replace(/\\n/g, '\n'),
+  'Part Count': document.getElementById(prefix+'PartCount').value,
+  Instructions: document.getElementById(prefix+'Instructions').value,
+ };
+ const source=document.getElementById(prefix+'Source').value;
+ if(source) obj.Source=source;
+ return obj;
 }
 
 function saveChanges(){
  if(selectedIndex<0)return;
- events[selectedIndex]={Date:eDate.value,Organizer:eOrganizer.value,Image:eImage.value,Model:eModel.value,Notes:eNotes.value,'Part Count':ePartCount.value,Instructions:eInstructions.value};
+ events[selectedIndex]=buildEvent('e');
  sortEvents(); render(); setDirty(true);
 }
 
 function addEvent(){
- events.push({Date:nDate.value,Organizer:nOrganizer.value,Image:nImage.value,Model:nModel.value,Notes:nNotes.value,'Part Count':nPartCount.value,Instructions:nInstructions.value});
+ events.push(buildEvent('n'));
  sortEvents(); currentPage=1; render(); setDirty(true);
+
+ ['nDate','nImage','nModel','nOrganizer','nNotes','nPartCount','nInstructions','nSource'].forEach(id=>{
+  document.getElementById(id).value='';
+ });
+}
+
+function formatEvents(arr){
+ const lines=arr.map(e=>JSON.stringify(e));
+ return '[\n'+lines.join(',\n')+'\n]';
 }
 
 function downloadJson(){
- const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'});
+ const blob=new Blob([formatEvents(events)],{type:'application/json'});
  const a=document.createElement('a');
  a.href=URL.createObjectURL(blob);
- a.download='events.json';
+ a.download=currentFile.split('/').pop();
  a.click();
  setDirty(false);
 }
+
+function loadFile(filename){
+ if(dirty && !confirm('You have unsaved changes. Discard them and load another file?')) {
+  document.getElementById('fileSelect').value=currentFile;
+  return;
+ }
+
+ currentFile=filename;
+ selectedIndex=-1;
+ selected.textContent='No event selected';
+ currentPage=1;
+ document.getElementById('status').textContent=`Loading ${filename}...`;
+
+ fetch(filename)
+ .then(r=>{
+   if(!r.ok) throw new Error('Could not load '+filename);
+   return r.json();
+ })
+ .then(d=>{
+   events=d;
+   sortEvents();
+   render();
+   document.getElementById('status').textContent=events.length+' events loaded';
+   setDirty(false);
+ })
+ .catch(err=>{
+   document.getElementById('status').textContent='Error: '+err.message;
+   console.error(err);
+ });
+}
+
+document.getElementById('fileSelect').addEventListener('change',function(){
+ loadFile(this.value);
+});
 
 document.getElementById('search').addEventListener('input',()=>{
  currentPage=1;
  render();
 });
 
-fetch('events.json')
-.then(r => r.json())
-.then(d => {
-    events = d;
-    sortEvents();
-    render();
-
-    document.getElementById('status').textContent =
-        events.length + ' events loaded';
-})
-.catch(err => {
-    document.getElementById('status').textContent =
-        'Error loading events.json';
-
-    console.error(err);
-});
+loadFile(currentFile);
 
 </script>
 </body></html>
