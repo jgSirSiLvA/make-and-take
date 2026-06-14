@@ -35,8 +35,8 @@
     .image-cell img { max-width: 100px; max-height: 100px; }
 
     #search { width: 100%; padding: 10px 34px 10px 10px; font-size: 16px; box-sizing: border-box; }
-    #clearSearch { position: absolute; right: 8px; background: none; border: 2px; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
-    #clearSearch:hover { color: #333; }
+    #clearSearch { position: absolute; right: 8px; background: none; border: none; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
+    #clearSearch:hover { color: #E3000B; }
     #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
 
     #controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
@@ -53,6 +53,7 @@
 <img src="pictures/lego/brand-lego.svg" style="width:75px; height:75px; border:0;">
 &nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;
 <img src="pictures/smyths/smyths-logo.svg" style="width:75px; height:75px; border:0;"></h1>
+<div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with the LEGO Group or Smyths Toys!</div>
 
 <div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading Events.json...</div>
 <div id="controls">
@@ -62,7 +63,7 @@
         <option value="data/others.json">Something else</option>
     </select>
     <div id="searchWrapper">
-        <input type="text" id="search" placeholder="Search...">
+        <input type="text" id="search" placeholder="Filter...">
         <button id="clearSearch" title="Clear search">✕</button>
     </div>
 </div>
@@ -95,7 +96,7 @@ function loadFile(filename) {
     fetch(filename)
         .then(response => {
             if (!response.ok) {
-                throw new Error('!Could not load ' + filename);
+                throw new Error('Could not load ' + filename);
             }
             return response.json();
         })
@@ -228,6 +229,15 @@ function applySearch() {
 
 searchInput.addEventListener('input', applySearch);
 
+searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && this.value) {
+        this.value = '';
+        clearBtn.style.display = 'none';
+        sortEvents(events);
+        renderTable(events);
+    }
+});
+
 clearBtn.addEventListener('click', function () {
     searchInput.value = '';
     this.style.display = 'none';
@@ -270,10 +280,10 @@ document.querySelectorAll('th').forEach(header => {
 });
 </script>
 
-<footer style="font-size:12px;text-align:center;margin-top:20px;color:black;">
-LEGO® ist eine Marke der LEGO Gruppe. Die vorliegende Website wird nicht von der LEGO Gruppe gesponsert, genehmigt oder unterstützt. <br>
-Unofficial fan archive. Not affiliated with the LEGO Group or Smyths Toys. LEGO®, the LEGO logo and the LEGO Building Instruction are trademarks of the LEGO Group!<br>
-Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys. All trademarks and copyrights belong to their respective owners.<br>
+<footer style="font-size:12px;text-align:center;margin-top:20px;color:#E3000B;">
+This website is not sponsored, authorized, or endorsed by the LEGO Group or Smyths Toys!<br>
+LEGO®, the LEGO logo and the LEGO Building Instruction are trademarks of the LEGO Group!<br>
+Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys.<br>
 </footer>
 </body>
 
