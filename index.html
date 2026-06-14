@@ -20,6 +20,7 @@
     body { font-family: Arial, sans-serif; margin: 20px; background: white; }
 
     h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 50px; padding: 0; margin: 0; text-decoration: none; }
+    h1 img { vertical-align: top; }
 
     table { width: 100%; border-collapse: collapse; background: white; }
     tr:nth-child(even) { background: #fff8cc; }
@@ -30,32 +31,31 @@
     th.center, td.center { text-align: center; }
     th.part-count, td.part-count { text-align: right; }
     th.instructions, td.instructions { text-align: right; }
-    td.notes { white-space: pre-line; }
+    td.notes, td.organizer { white-space: pre-line; }
 
     .image-cell img { max-width: 100px; max-height: 100px; }
 
+    #controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+    #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
     #search { width: 100%; padding: 10px 34px 10px 10px; font-size: 16px; box-sizing: border-box; }
     #clearSearch { position: absolute; right: 8px; background: none; border: none; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
     #clearSearch:hover { color: #E3000B; }
-    #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
-
-    #controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
     #fileSelect { padding: 10px; font-size: 16px; border: 1px solid #ccc; background: white; cursor: pointer; }
     #status { margin-bottom: 10px; font-weight: bold; }
-
-    #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:9999; }
-    #imgOverlay img{ max-width:95vw; max-height:95vh; }
-</style>
-</head>
+    #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; }
+    #imgOverlay img{ max-width:95vw; max-height:85vh; }
+    #imgOverlay .caption{ color:#fff; margin-top:10px; font-size:16px; text-align:center; max-width:95vw; }
+    #imgOverlay .caption a{ color:#cff; text-decoration:none; }
+    #imgOverlay .caption a:hover { color:#E3000B; text-decoration: underline; }
+</style></head>
 
 <body>
-<h1>
-<img src="pictures/lego/brand-lego.svg" style="width:75px; height:75px; border:0;">
+<h1><img src="pictures/lego/brand-lego.svg" style="width:75px; height:75px; border:0;">
 &nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;
 <img src="pictures/smyths/smyths-logo.svg" style="width:75px; height:75px; border:0;"></h1>
 <div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with the LEGO Group or Smyths Toys!</div>
 
-<div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading Events.json...</div>
+<div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
 <div id="controls">
     <select id="fileSelect">
         <option value="data/mat.json" selected>Make and Take</option>
@@ -123,10 +123,8 @@ document.getElementById('fileSelect').addEventListener('change', function () {
 
 function sortEvents(data) {
     data.sort((a, b) => {
-
         const aVal = a[currentSortColumn] || '';
         const bVal = b[currentSortColumn] || '';
-
         return aVal.toString().localeCompare(
             bVal.toString(),
             undefined,
@@ -136,34 +134,35 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-
     document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events`;
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
 
     data.forEach(event => {
-
         const row = document.createElement('tr');
 
         row.innerHTML = `
             <td class="center">${event.Date || ''}</td>
-            <td class="center">${event.Organizer || ''}</td>
-            <td class="image-cell center">
-                ${createImageCell(event.Image)}
-            </td>
+            <td class="center notes">${event.Organizer || ''}</td>
+            <td class="image-cell center">${createImageCell(event.Image, event.Source)}</td>
             <td class="notes">${event.Model || ''}</td>
-
             <td class="notes">${event.Notes || ''}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
             <td class="instructions">${createInstructionsCell(event.Instructions)}</td>
         `;
-
         tbody.appendChild(row);
     });
 }
 
-function createImageCell(value) {
+function escapeAttr(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function createImageCell(value, source) {
     if (!value) return '';
 
     if (
@@ -173,16 +172,20 @@ function createImageCell(value) {
         value.toLowerCase().endsWith('.gif') ||
         value.toLowerCase().endsWith('.webp')
     ) {
-        return `<img src="pictures/${value}" alt="" onclick="openImage(this.src)" style="cursor:pointer;">`;
+        const src = value.startsWith('https://') ? value : `pictures/${value}`;
+        return `<img src="${src}" alt="" data-source="${escapeAttr(source || '')}" onclick="openImage(this.src, this.dataset.source)" style="cursor:pointer;">`;
     }
     return value;
 }
 
 
-function openImage(url){
+function openImage(url, source){
+    const captionHtml = source
+        ? `<div class="caption">Source: <a href="${source}" target="_blank" rel="noopener noreferrer">${source}</a></div>`
+        : '';
 
     const overlay=document.createElement('div');
-    overlay.innerHTML=`<div id="imgOverlay"> <img src="${url}"> </div>`;
+    overlay.innerHTML=`<div id="imgOverlay">${captionHtml} <img src="${url}"> </div>`;
     document.body.appendChild(overlay);
 
     function closeOverlay(){
@@ -283,7 +286,7 @@ document.querySelectorAll('th').forEach(header => {
 <footer style="font-size:12px;text-align:center;margin-top:20px;color:#E3000B;">
 This website is not sponsored, authorized, or endorsed by the LEGO Group or Smyths Toys!<br>
 LEGO®, the LEGO logo and the LEGO Building Instruction are trademarks of the LEGO Group!<br>
-Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys.<br>
+Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys!<br>
 </footer>
 </body>
 
