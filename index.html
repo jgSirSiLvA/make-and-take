@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="pictures/favicon.png">
-<title>LEGO Make & Take Events in Austria, Germany and Switzerland</title>
+
+<title>Make & Take Events in Austria, Germany and Switzerland</title>
 
 <style>
 @font-face {
@@ -50,22 +52,20 @@
 </style></head>
 
 <body>
-<h1><img src="pictures/lego/brand-lego.svg" style="width:75px; height:75px; border:0;">
-&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;
-<img src="pictures/smyths/smyths-logo.svg" style="width:75px; height:75px; border:0;"></h1>
+<h1>&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;</h1>
 <div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with the LEGO Group or Smyths Toys!</div>
 
-<div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
 <div id="controls">
+    <div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
+    <div id="searchWrapper">
+        <input type="text" id="search" placeholder="filter by...">
+        <button id="clearSearch" title="clear the filter">✕</button>
+    </div>
     <select id="fileSelect">
         <option value="data/mat.json" selected>Make and Take</option>
         <option value="data/mmmb.json">Monthly Mini Model Build</option>
         <option value="data/others.json">Something else</option>
     </select>
-    <div id="searchWrapper">
-        <input type="text" id="search" placeholder="Filter...">
-        <button id="clearSearch" title="Clear search">✕</button>
-    </div>
 </div>
 
 <table id="eventsTable">
@@ -89,14 +89,14 @@ let currentSortColumn = 'Date';
 let currentSortDirection = -1;
 
 function loadFile(filename) {
-    document.getElementById('status').textContent = `Loading ${filename}...`;
+    document.getElementById('status').textContent = `loading file ${filename}...`;
     document.getElementById('search').value = '';
     document.getElementById('clearSearch').style.display = 'none';
 
     fetch(filename)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Could not load ' + filename);
+                throw new Error('I could not load file ' + filename + '!');
             }
             return response.json();
         })
@@ -134,7 +134,7 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events`;
+    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events:`;
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
@@ -178,7 +178,6 @@ function createImageCell(value, source) {
     return value;
 }
 
-
 function openImage(url, source){
     const captionHtml = source
         ? `<div class="caption">Source: <a href="${source}" target="_blank" rel="noopener noreferrer">${source}</a></div>`
@@ -209,7 +208,7 @@ function createInstructionsCell(value) {
         value.startsWith('https://') ||
         value.toLowerCase().endsWith('.pdf')
     ) {
-        return `<a href="${value}" target="_blank">Open</a>`;
+        return `<a href="${value}" target="_blank" rel="noopener noreferrer">Open</a>`;
     }
     return value;
 }
@@ -220,7 +219,6 @@ const clearBtn = document.getElementById('clearSearch');
 function applySearch() {
     const search = searchInput.value.toLowerCase();
     clearBtn.style.display = search ? 'block' : 'none';
-
     const filtered = events.filter(event =>
         Object.values(event).some(value =>
             String(value).toLowerCase().includes(search)
@@ -266,16 +264,13 @@ updateSortHeaders();
 
 document.querySelectorAll('th').forEach(header => {
     header.addEventListener('click', () => {
-
         const column = header.dataset.column;
-
         if (currentSortColumn === column) {
             currentSortDirection *= -1;
         } else {
             currentSortColumn = column;
             currentSortDirection = 1;
         }
-
         sortEvents(events);
         updateSortHeaders();
         renderTable(events);
@@ -283,11 +278,10 @@ document.querySelectorAll('th').forEach(header => {
 });
 </script>
 
-<footer style="font-size:12px;text-align:center;margin-top:20px;color:#E3000B;">
+<footer style="font-size: 12px; text-align: center; margin-top: 20px; color: #E3000B;">
 This website is not sponsored, authorized, or endorsed by the LEGO Group or Smyths Toys!<br>
-LEGO®, the LEGO logo and the LEGO Building Instruction are trademarks of the LEGO Group!<br>
-Smyths Toys® and the Smyths Toys logo are trademarks of Smyths Toys!<br>
+LEGO® is a trademark of the LEGO Group and LEGO Building Instruction are copyrighted by the LEGO Group!<br>
 </footer>
-</body>
 
+</body>
 </html>
