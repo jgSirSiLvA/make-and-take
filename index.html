@@ -55,8 +55,8 @@
 <h1>&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;</h1>
 <div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with the LEGO Group or Smyths Toys!</div>
 
+<div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
 <div id="controls">
-    <div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
     <div id="searchWrapper">
         <input type="text" id="search" placeholder="filter by...">
         <button id="clearSearch" title="clear the filter">✕</button>
@@ -134,7 +134,7 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events:`;
+    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events.`;
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
