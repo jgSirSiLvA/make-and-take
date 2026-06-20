@@ -53,7 +53,7 @@
 
 <body>
 <h1>&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;</h1>
-<div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with the LEGO Group or Smyths Toys!</div>
+<div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with The LEGO Group or Smyths Toys!</div>
 
 <div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
 <div id="controls">
@@ -134,7 +134,7 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events.`;
+    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`;
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
@@ -280,7 +280,7 @@ document.querySelectorAll('th').forEach(header => {
 
 <footer style="font-size: 12px; text-align: center; margin-top: 20px; color: #E3000B;">
 This website is not sponsored, authorized, or endorsed by the LEGO Group or Smyths Toys!<br>
-LEGO® is a trademark of the LEGO Group and LEGO Building Instruction are copyrighted by the LEGO Group!<br>
+LEGO® is a trademark of The LEGO Group and LEGO Building Instruction are copyrighted by The LEGO Group!<br>
 </footer>
 
 </body>
