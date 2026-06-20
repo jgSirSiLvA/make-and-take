@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="pictures/favicon.png">
 
-<title>Make & Take Events in Austria, Germany and Switzerland</title>
+<title>The Make & Take Archive (Austria, Germany and Switzerland)</title>
 
 <style>
 @font-face {
@@ -52,8 +52,8 @@
 </style></head>
 
 <body>
-<h1>&nbsp;Make & Take Events in Austria, Germany and Switzerland&nbsp;</h1>
-<div style="color:#E3000B; text-align:center;">Unofficial fan archive! Not affiliated with The LEGO Group or Smyths Toys!</div>
+<h1>The Make & Take Archive for Austria, Germany and Switzerland</h1>
+<div style="color:#E3000B; text-align:center;">Unofficial fan archive!</div>
 
 <div id="status" style="font-family: 'Alex Brush'; font-size: 35px; ">Loading data...</div>
 <div id="controls">
@@ -134,7 +134,7 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`;
+    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`; // dont't count the "last updated"-line
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
