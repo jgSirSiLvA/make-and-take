@@ -19,43 +19,47 @@
        url('fonts/regular.woff') format('woff'), /* Modern Browsers */
        url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
-    body { font-family: Arial, sans-serif; margin: 20px; background: white; }
+  body { font-family: Arial, sans-serif; margin: 20px; background: white; }
 
-    h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 45px; padding: 0; margin: 0; text-decoration: none; }
-    h1 img { vertical-align: top; }
+  h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 45px; padding: 0; margin: 0; text-decoration: none; }
 
-    table { width: 100%; border-collapse: collapse; background: white; }
-    tr:nth-child(even) { background: #fff8cc; }
-    tr:nth-child(odd) { background: white; }
-    tr:hover { background: #ffe44d; }
-    th { background: #333; color: white; cursor: pointer; position: sticky; top: 0; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th.center, td.center { text-align: center; }
-    th.part-count, td.part-count { text-align: right; }
-    th.instructions, td.instructions { text-align: right; }
-    td.notes { white-space: pre-line; }
+  table { width: 100%; border-collapse: collapse; background: white; padding: 0; }
+  tr:nth-child(even) { background: #fff8cc; }
+  tr:nth-child(odd) { background: white; }
+  tr:hover { background: #ffe44d; }
+/*  th { background: #333; color: white; cursor: pointer; position: sticky; top: 0; } */
+  th {  background: #333; color: white; cursor: pointer; position: sticky; top: 45px; /* adjust to actual height of #controls */ z-index: 100; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  th.center, td.center { text-align: center; }
+  th.part-count, td.part-count { text-align: right; }
+  th.instructions, td.instructions { text-align: right; }
+  td.notes { white-space: pre-line; }
 
-    .image-cell img { max-width: 100px; max-height: 100px; }
+  .image-cell img { max-width: 100px; max-height: 100px; }
 
-    #controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
-    #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
-    #search { width: 100%; padding: 10px 34px 10px 10px; font-size: 16px; box-sizing: border-box; }
-    #clearSearch { position: absolute; right: 8px; background: none; border: none; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
-    #clearSearch:hover { color: #E3000B; }
-    #fileSelect { padding: 10px; font-size: 16px; border: 1px solid #ccc; background: white; cursor: pointer; }
-    #status { margin-bottom: 10px; font-weight: bold; }
-    #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; }
-    #imgOverlay img{ max-width: 95vw; max-height: 85vh; }
-    #imgOverlay .caption{ color:#fff; margin-top:10px; font-size:16px; text-align:center; max-width:95vw; }
-    #imgOverlay .caption a{ color:#cff; text-decoration:none; }
-    #imgOverlay .caption a:hover { color:#E3000B; text-decoration: underline; }
+  #status { margin-bottom: 5px; font-weight: bold; font-family: 'Alex Brush'; font-size: 25px; }
+
+  #controls { display: flex; gap: 10px; margin-bottom: 5px; align-items: center; position: sticky; top: 0; z-index: 200; background: white; padding: 0; }
+  /*  #controls { position: sticky; top: 40px; z-index: 80; background: white; padding: 5px 0; } */
+  #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
+  #search { width: 100%; padding: 10px 34px 10px 10px; font-size: 16px; box-sizing: border-box; border: 1px solid #000}
+  #clearSearch { position: absolute; right: 8px; background: none; border: none; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
+  #clearSearch:hover { color: #E3000B; }
+  #fileSelect { padding: 10px; font-size: 16px; border: 1px solid #000; background: white; cursor: pointer; }
+
+  #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; }
+  #imgOverlay img{ max-width: 95vw; max-height: 85vh; }
+  #imgOverlay .caption{ color:#fff; margin-top:10px; font-size:16px; text-align:center; max-width:95vw; }
+  #imgOverlay .caption a{ color:#cff; text-decoration:none; }
+  #imgOverlay .caption a:hover { color:#E3000B; text-decoration: underline; }
 </style></head>
 
 <body>
 <h1>The Make & Take Archive for Austria, Germany and Switzerland</h1>
-<div style="color:#E3000B; text-align:center;">Unofficial fan archive!</div>
+<div style="color:#E3000B; font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align:center;">Unofficial fan archive!</div>
 
-<div id="status" style="font-family: 'Alex Brush'; font-size: 25px; ">Loading data...</div>
+
+<div id="status">Loading data...</div>
 <div id="controls">
     <div id="searchWrapper">
         <input type="text" id="search" placeholder="filter by...">
@@ -64,26 +68,24 @@
     <select id="fileSelect">
         <option value="data/mat.json" selected>Make and Take</option>
         <option value="data/mmmb.json">Monthly Mini Model Build</option>
-        <option value="data/others.json">miscellaneous</option>
+        <option value="data/miscellaneous.json">miscellaneous</option>
     </select>
 </div>
 
 <table id="eventsTable">
-    <thead>
-        <tr>
-            <th class="center" data-column="Date">Date (Y/M/D)</th>
-            <th class="center" data-column="Organizer">Organizer</th>
-            <th class="center" data-column="Image">Image</th>
-            <th data-column="Model">Model</th>
-            <th data-column="Notes">Notes</th>
-            <th class="part-count" data-column="Part Count">Part Count</th>
-            <th class="instructions" data-column="Instructions">Instructions</th>
-        </tr>
-    </thead>
+    <thead><tr> <!-- text between the th-tags is redundant and only a fallback when JS is disabled -->
+        <th class="center" data-column="Date" data-label="Date (Y/M/D)">Date (Y/M/D)</th>
+        <th class="center" data-column="Organizer" data-label="Organizer">Organizer</th>
+        <th class="center" data-column="Image" data-label="Image">Image</th>
+        <th data-column="Model" data-label="Model">Model</th>
+        <th data-column="Notes" data-label="Theme & Notes">Theme & Notes</th>
+        <th class="part-count" data-column="Part Count" data-label="Part Count">Part Count</th>
+        <th class="instructions" data-column="Instructions" data-label="Number (Instructions)">Number (Instructions)</th>
+    </tr></thead>
     <tbody></tbody>
 </table>
 
-<script>
+<script type="text/javascript">
 let events = [];
 let currentSortColumn = 'Date';
 let currentSortDirection = -1;
@@ -114,7 +116,7 @@ function loadFile(filename) {
 }
 
 // Load default file on page load
-loadFile('data/mat.json');
+loadFile(document.getElementById('fileSelect').value);
 
 document.getElementById('fileSelect').addEventListener('change', function () {
     loadFile(this.value);
@@ -251,10 +253,11 @@ function updateSortHeaders() {
     document.querySelectorAll('th').forEach(th => {
         const col = th.dataset.column;
         if (!col) return;
+        const label = th.dataset.label || col;
         if (col === currentSortColumn) {
-            th.textContent = col + (currentSortDirection === 1 ? ' ▲' : ' ▼');
+            th.textContent = label + (currentSortDirection === 1 ? ' ▲' : ' ▼');
         } else {
-            th.textContent = col;
+            th.textContent = label;
         }
     });
 }
@@ -278,6 +281,9 @@ document.querySelectorAll('th').forEach(header => {
 });
 
 </script>
+
+<br>
+<div style="font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: center; ">Last Site Update: 22.06.2026</div>
 
 <footer style="font-size: 12px; text-align: center; margin-top: 20px; color: #E3000B;">
 This website is not sponsored, authorized, or endorsed by the LEGO Group or Smyths Toys!<br>
