@@ -19,9 +19,11 @@
        url('fonts/regular.woff') format('woff'), /* Modern Browsers */
        url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
-  body { font-family: Arial, sans-serif; font-size: 16px; background: white; }
 
+  body { font-family: Arial, sans-serif; font-size: 16px; background: white; }
   h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; padding: 0; margin: 0; text-decoration: none; }
+  a { color: #000; text-decoration: none; }
+  a:hover { color: #E3000B; text-decoration: underline; }
 
   table { width: 100%; border-collapse: collapse; background: white; }
   #eventsTable tr:nth-child(even) { background: #fff8cc; }
@@ -49,7 +51,8 @@
   #imgOverlay img{ max-width: 95vw; max-height: 85vh; }
   #imgOverlay .caption{ color:#fff; margin-top:2px; font-size:16px; text-align:center; max-width:95vw; }
   #imgOverlay .caption a{ color:#cff; text-decoration:none; }
-  #imgOverlay .caption a:hover { color:#E3000B; text-decoration: underline; }
+  #imgOverlay .caption a:hover { color: #E3000B; text-decoration: underline; }
+
 
 @media (max-width: 700px) {
   #eventsTable thead { display:none; }
@@ -57,32 +60,16 @@
   #eventsTable,
   #eventsTable tbody,
   #eventsTable tr,
-  #eventsTable td {
-    display:block;
-    width:100%;
-    box-sizing:border-box;
-  }
+  #eventsTable td { display:block; width:100%; box-sizing:border-box; }
 
-  #eventsTable tr {
-    border:2px solid #333;
-    margin-bottom:12px;
-  }
-
-  #eventsTable td {
-    border:none;
-    padding:4px 8px;
-    text-align:left !important;
-  }
+  #eventsTable tr { border:2px solid #333; margin-bottom:12px; }
+  #eventsTable td { border:none; padding:4px 8px; text-align:left !important; }
 
   #eventsTable td.center,
   #eventsTable td.part-count,
-  #eventsTable td.instructions {
-    text-align:left !important;
-  }
+  #eventsTable td.instructions { text-align:left !important; }
 
-  #eventsTable td.image-cell {
-    text-align:center !important;
-  }
+  #eventsTable td.image-cell { text-align:center !important; }
 
   #eventsTable td:nth-child(1)::before { content:"Date: "; font-weight:bold; }
   #eventsTable td:nth-child(2)::before { content:"Organizer: "; font-weight:bold; }
@@ -94,10 +81,7 @@
 
   #eventsTable td.notes { white-space: normal; }
 
-  .image-cell img {
-    max-width:100%;
-    height:auto;
-  }
+  .image-cell img { max-width:100%; height:auto; }
 }
 
 </style></head>
@@ -195,7 +179,7 @@ function renderTable(data) {
             <td class="notes">${event.Model || ''}</td>
             <td class="notes">${event.Notes || ''}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
-            <td class="instructions">${event.Instructions || ''}</td>
+            <td class="instructions">📄 ${event.Instructions || ''}</td>
         `;
         tbody.appendChild(row);
     });
@@ -222,7 +206,7 @@ function createImageCell(value, source) {
 
 function openImage(url, source){
     const captionHtml = source
-        ? `<div class="caption">Source: <a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a></div>`
+        ? `<div class="caption">Source: ↗<a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a></div>`
         : '';
 
     const overlay=document.createElement('div');
@@ -299,7 +283,7 @@ document.querySelectorAll('th').forEach(header => {
 </script>
 
 <br>
-<div style="font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: center; ">Last Site Update: 23.06.2026</div>
+<div style="font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: center; ">Last Site Update: 24.06.2026</div>
 
 <footer style="font-size: 16px; text-align: center; margin-top: 10px; color: #E3000B;">
 LEGO® is a trademark of The LEGO Group and LEGO Building Instruction are copyrighted by The LEGO Group!<br>
