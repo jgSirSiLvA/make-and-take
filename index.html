@@ -10,9 +10,7 @@
 
 <style>
 @font-face {
-  font-family: "Alex Brush";
-  font-style: normal;
-  font-weight: 400;
+  font-family: "Alex Brush"; font-style: normal; font-weight: 400;
   src: url('fonts/regular.eot'); /* IE9 Compat Modes */
   src: url('fonts/regulard41d.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
        url('fonts/regular.woff2') format('woff2'), /* Super Modern Browsers */
@@ -20,12 +18,12 @@
        url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
-  body { font-family: Arial, sans-serif; font-size: 16px; background: white; }
-  h1 { text-align: center; font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; padding: 0; margin: 0; text-decoration: none; }
+  body { background: white; font-family: Arial, sans-serif; font-size: 16px; }
+  h1 { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; margin: 0; padding: 0; text-align: center; }
   a { color: #000; text-decoration: none; }
   a:hover { color: #E3000B; text-decoration: underline; }
 
-  table { width: 100%; border-collapse: collapse; background: white; }
+  table { background: white; border-collapse: collapse; width: 100%; }
   #eventsTable tr:nth-child(even) { background: #fff8cc; }
   #eventsTable tr:nth-child(odd) { background: white; }
   #eventsTable tr:hover { background: #ffe44d; }
@@ -36,23 +34,26 @@
   #eventsTable th.instructions, #eventsTable td.instructions { text-align: right; }
   #eventsTable td.notes { white-space: pre-line; }
 
-  .image-cell img { max-width: 100px; max-height: 100px; }
- 
-  #status { font-weight: bold; font-family: 'Alex Brush'; font-size: 25px; text-align: right; }
+  .image-cell img { max-height: 100px; max-width: 100px; }
 
-  #controls { font-size: 16px; display: flex; gap: 10px; margin-bottom: 5px; align-items: center; background: white; padding: 0; }
-  #searchWrapper { flex: 1; position: relative; display: flex; align-items: center; }
-  #search { width: 100%; padding: 10px; font-size: 16px; box-sizing: border-box; border: 1px solid #000; height: 42px; background: #fff8cc; }
-  #clearSearch { position: absolute; right: 8px; background: none; border: none; font-size: 16px; color: #000; cursor: pointer; display: none; line-height: 1; padding: 2px 4px; }
+  #byline { color: #E3000B; font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: center; }
+  #status { font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: right; }
+
+  #controls { align-items: center; display: flex; gap: 10px; margin-bottom: 5px; }
+  #searchWrapper { align-items: center; display: flex; flex: 1; position: relative; }
+  #search { background: #fff8cc; border: 1px solid #000; box-sizing: border-box; font-size: 16px; height: 42px; padding: 10px; width: 100%; }
+  #clearSearch { background: none; border: none; color: #000; cursor: pointer; display: none; font-size: 16px; line-height: 1; padding: 2px 4px; position: absolute; right: 8px; }
   #clearSearch:hover { color: #E3000B; }
-  #fileSelect { padding: 10px; font-size: 16px; border: 1px solid #000; background: #fff8cc; cursor: pointer; height: 42px; box-sizing: border-box; }
+  #fileSelect { background: #fff8cc; border: 1px solid #000; box-sizing: border-box; cursor: pointer; font-size: 16px; height: 42px; padding: 10px; }
 
-  #imgOverlay{ position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; }
-  #imgOverlay img{ max-width: 95vw; max-height: 85vh; }
-  #imgOverlay .caption{ color:#fff; margin-top:2px; font-size:16px; text-align:center; max-width:95vw; }
-  #imgOverlay .caption a{ color:#cff; text-decoration:none; }
+  #imgOverlay { align-items: center; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; inset: 0; justify-content: center; position: fixed; z-index: 9999; }
+  #imgOverlay img { max-height: 85vh; max-width: 95vw; }
+  #imgOverlay .caption { color: #fff; font-size: 16px; margin-top: 2px; max-width: 95vw; text-align: center; }
+  #imgOverlay .caption a { color: #cff; }
   #imgOverlay .caption a:hover { color: #E3000B; text-decoration: underline; }
 
+  #lsupdate { font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; margin: 10px 0; text-align: center; }
+  #footer { margin-top: 15px; text-align: center; }
 
 @media (max-width: 700px) {
   #eventsTable thead { display:none; }
@@ -88,13 +89,13 @@
 
 <body>
 <h1>The Make & Take Archive for Austria, Germany and Switzerland</h1>
-<div style="color:#E3000B; font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align:center;">Unofficial fan archive!</div>
+<div id="byline">Unofficial fan archive!</div>
 <div id="status">Loading data...</div>
 
 <div id="controls">
     <div id="searchWrapper">
-        <input type="text" id="search" placeholder="filter by...">
-        <button id="clearSearch" title="clear the filter">✕</button>
+        <input type="text" id="search" placeholder="Filter by...">
+        <button id="clearSearch" title="Clear filter">✕</button>
     </div>
     <select id="fileSelect">
         <option value="data/mat.json" selected>Make and Take</option>
@@ -122,7 +123,7 @@ let currentSortColumn = 'Date';
 let currentSortDirection = -1;
 
 function loadFile(filename) {
-    document.getElementById('status').textContent = `loading file ${filename}...`;
+    document.getElementById('status').textContent = `Loading file ${filename}...`;
     document.getElementById('search').value = '';
     document.getElementById('clearSearch').style.display = 'none';
 
@@ -164,7 +165,7 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`; // dont't count the "last updated"-line
+    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`; // don't count the "last updated"-line
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
@@ -179,7 +180,7 @@ function renderTable(data) {
             <td class="notes">${event.Model || ''}</td>
             <td class="notes">${event.Notes || ''}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
-            <td class="instructions">📄 ${event.Instructions || ''}</td>
+            <td class="instructions">${event.Instructions ? '📄 ' + event.Instructions : ''}</td>
         `;
         tbody.appendChild(row);
     });
@@ -283,11 +284,11 @@ document.querySelectorAll('th').forEach(header => {
 </script>
 
 <br>
-<div style="font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: center; ">Last Site Update: 24.06.2026</div>
-
-<footer style="font-size: 16px; text-align: center; margin-top: 10px; color: #E3000B;">
-LEGO® is a trademark of The LEGO Group and LEGO Building Instruction are copyrighted by The LEGO Group!<br>
-This website is not sponsored, authorized, or endorsed by the LEGO Group or Smyths Toys!<br>
+<div id="lsupdate">Last Site Update: 24.06.2026</div>
+<footer id="footer">
+This website is not sponsored, authorized, or endorsed by The LEGO Group, Smyths Toys or Lucasfilm Ltd. LLC.<br>
+<br>LEGO®, DUPLO®, NINJAGO®, FRIENDS®, HIDDEN SIDE®, MINIFIGURES®, MINDSTORMS®, DREAMZzz® and VIDIYO® are trademarks of The LEGO Group and LEGO Building Instructions are copyrighted © The LEGO Group.<br>
+STAR WARS® is a trademark of Lucasfilm Ltd. LLC. Character names and related properties are © & ™ Lucasfilm Ltd. LLC.<br>
 </footer>
 
 </body>
