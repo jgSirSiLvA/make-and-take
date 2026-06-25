@@ -207,7 +207,7 @@ function createImageCell(value, source) {
 
 function openImage(url, source){
     const captionHtml = source
-        ? `<div class="caption">Source: ↗<a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a></div>`
+        ? `<div class="caption">Source: <a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a>↗</div>`
         : '';
 
     const overlay=document.createElement('div');
@@ -284,7 +284,7 @@ document.querySelectorAll('th').forEach(header => {
 </script>
 
 <br>
-<div id="lsupdate">Last Site Update: 24.06.2026</div>
+<div id="lsupdate">Last Site Update: 25.06.2026</div>
 <footer id="footer">
 <br>This website is not sponsored, authorized, or endorsed by The LEGO Group, Smyths Toys or Lucasfilm Ltd. LLC.<br>
 <br>LEGO®, DUPLO®, NINJAGO®, FRIENDS®, HIDDEN SIDE®, MINIFIGURES®, MINDSTORMS®, DREAMZzz® and VIDIYO® are trademarks of The LEGO Group and LEGO Building Instructions are copyrighted © The LEGO Group.<br>
