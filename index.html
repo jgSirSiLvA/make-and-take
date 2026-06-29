@@ -183,7 +183,7 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length} of ${events.length} events.`; // don't count the "last updated"-line
+    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`; // don't count the "last updated"-line
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
