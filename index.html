@@ -20,6 +20,7 @@
 
   body { background: white; font-family: Arial, sans-serif; font-size: 16px; }
   h1 { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; margin: 0; padding: 0; text-align: center; }
+  h3 { margin: 0; padding: 0; }
   a { color: #000; text-decoration: none; }
   a:hover { color: #E3000B; text-decoration: underline; }
 
@@ -327,11 +328,12 @@ let displaytext = `<h2>${title}</h2>`
 
 if (title === "What is a Make & Take Event?") {
 displaytext += `
-&nbsp;A Make & Take Event is a limited-time in-store promotional activity where<br>
-&nbsp;participants build a small exclusive bricks model and keep it free of<br>
-&nbsp;charge. These events are typically offered on a first-come, first-served<br>
-&nbsp;basis while supplies last and participation is usually limited to one<br>
-&nbsp;model per person.&nbsp;<br><br>
+&nbsp;A Make & Take Event is a limited-time in-store promotional<br>
+activity where participants build a small exclusive bricks model<br>
+&nbsp;and keep it free of charge. These events are typically<br>
+&nbsp;offered on a first-come, first-served basis while supplies<br>
+&nbsp;last and participation is usually limited to one model per<br>
+&nbsp;person.&nbsp;<br><br>
 &nbsp;In Austria, Germany and Switzerland, these events are commonly&nbsp;<br>
 &nbsp;held on Wednesdays and Thursdays from 15:00 to 17:00 CET.&nbsp;<br>
 &nbsp;Exact dates and times may vary depending on the event and the<br>
@@ -342,32 +344,30 @@ displaytext += ["i","r","_","s","i","l","v","a","@","g","m","x",".","d"].join(""
 
 else if (title === "Legal & Trademark Information") {
 displaytext += `
-<p>This website is an independent fan project and is not sponsored,<br>
-authorized, or endorsed by any trademark owner.</p>
-<hr><h3>LEGO</h3>
-<p>LEGO®, DUPLO®, NINJAGO®, FRIENDS®, HIDDEN SIDE®, MINIFIGURES®,<br>
-MINDSTORMS®, DREAMZzz®, VIDIYO®, SMART Play and Speed Champions<br>
-are trademarks of The LEGO Group.</p>
-<p>LEGO Building Instructions are copyrighted © The LEGO Group.</p>
-<h3>Licensed Themes</h3>
-<p>ANIMAL CROSSING™ is a trademark of Nintendo.</p>
-<p>Disney and related characters are © Disney.</p>
-<p>FIFA® is a trademark of Fédération Internationale de Football Association (FIFA).</p>
-<p>FORMULA 1®, F1® and F1 ACADEMY™ are trademarks of Formula One Licensing BV.</p>
-<p>FORTNITE is a trademark or registered trademark of Epic Games, Inc.</p>
-<p>HARRY POTTER™ and related characters, names, places and<br>
-elements are trademarks and © Warner Bros. Entertainment Inc.<br>
-Publishing Rights © J.K. Rowling.</p>
-<p>HARLEY-DAVIDSON® is a trademark of Harley-Davidson Motor Company.</p>
-<p>McLaren and related trademarks are property of McLaren companies.</p>
-<p>ONE PIECE and related characters are<br>
-© Eiichiro Oda / Shueisha, Toei Animation.</p>
-<p>STAR WARS® is a trademark of Lucasfilm Ltd. LLC.<br>
-Character names and related properties are © & ™ Lucasfilm Ltd. LLC.</p>
-<hr><p style="font-size:90%">
+This website is an independent fan project and is not sponsored,<br>
+authorized, or endorsed by any trademark owner.
+<hr>
+LEGO®, DUPLO®, NINJAGO®, FRIENDS®, HIDDEN SIDE®,<br>
+MINIFIGURES®, MINDSTORMS®, DREAMZzz®, VIDIYO®,<br>
+SMART Play and Speed Champions are trademarks of The LEGO Group.<br>
+LEGO Building Instructions are copyrighted © The LEGO Group.
+<ul>
+<li>ANIMAL CROSSING™ is a trademark of Nintendo.</li>
+<li>Disney and related characters are © Disney.</li>
+<li>FIFA® is a trademark of Fédération Internationale de Football Association (FIFA).</li>
+<li>FORMULA 1®, F1® and F1 ACADEMY™ are trademarks of Formula One Licensing BV.</li>
+<li>FORTNITE is a trademark or registered trademark of Epic Games, Inc.</li>
+<li>HARRY POTTER™ and related characters, names, places and elements are trademarks and © Warner Bros. Entertainment Inc.<br>
+Publishing Rights © J.K. Rowling.</li>
+<li>HARLEY-DAVIDSON® is a trademark of Harley-Davidson Motor Company.</li>
+<li>McLaren and related trademarks are property of McLaren companies.</li>
+<li>ONE PIECE and related characters are © Eiichiro Oda / Shueisha, Toei Animation.</li>
+<li>STAR WARS® is a trademark of Lucasfilm Ltd. LLC.<br>
+Character names and related properties are © & ™ Lucasfilm Ltd. LLC.</li>
+</ul><hr>
 All trademarks, logos, product names and character names remain<br>
 the property of their respective owners and are used solely for<br>
-identification and informational purposes.</p>`;
+identification and informational purposes.`;
 }
 
 else if (title === "Sources") {
@@ -409,9 +409,9 @@ asset integration method: external hotlinking
 
 <footer id="footer">
 
-<a href="#" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
-<a href="#" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
-<div id="lsupdate">Last updated: 01.07.2026 by <a href="#" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+<a href="#" title="Legal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
+<a href="#" title="Sources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
+<div id="lsupdate">Last updated: 02.07.2026 by <a href="#" title="" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 </footer>
 
 </body>
