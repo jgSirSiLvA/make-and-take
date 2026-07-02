@@ -74,7 +74,8 @@
 
   #eventsTable td:nth-child(1)::before { content:"Date: "; font-weight:bold; }
   #eventsTable td:nth-child(2)::before { content:"Organizer: "; font-weight:bold; }
-  #eventsTable td:nth-child(3)::before { content:"Image:"; display:block; font-weight:bold; }
+/*  we dont need the text image in this view mode #eventsTable td:nth-child(3)::before { content:"Image:"; display:block; font-weight:bold; } */
+  #eventsTable td:nth-child(3)::before { content:none; display:block; font-weight:bold; } 
   #eventsTable td:nth-child(4)::before { content:"Model: "; font-weight:bold; }
   #eventsTable td:nth-child(5)::before { content:"Theme & Notes: "; font-weight:bold; }
   #eventsTable td:nth-child(6)::before { content:"Part Count: "; font-weight:bold; }
@@ -83,6 +84,7 @@
   #eventsTable td.notes { white-space: normal; }
 
   .image-cell img { max-width:100%; height:auto; }
+
 }
 
 </style></head>
@@ -133,8 +135,15 @@ Unofficialy fan archive!
 
 <script>
 let events = [];
+let collection = {};
 let currentSortColumn = 'Date';
 let currentSortDirection = -1;
+
+// load collection.json once on startup
+fetch('data/collection.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(data => { collection = data; })
+    .catch(() => { collection = {}; }); // silently fail if file doesn't exist yet
 
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     document.getElementById('adminBtn').style.display = 'inline';
@@ -144,6 +153,14 @@ function loadFile(filename) {
     document.getElementById('status').textContent = `Loading file ${filename}...`;
     document.getElementById('search').value = '';
     document.getElementById('clearSearch').style.display = 'none';
+
+    // map filename to collection key
+    const keyMap = {
+        'data/mat.json': 'mat',
+        'data/mmmb.json': 'mmmb',
+        'data/miscellaneous.json': 'miscellaneous'
+    };
+    window.currentCollectionKey = keyMap[filename] || 'mat';
 
     fetch(filename + '?_=' + Date.now())
         .then(response => {
@@ -191,11 +208,17 @@ function renderTable(data) {
     data.forEach(event => {
         const row = document.createElement('tr');
 
+        // check if this entry is in the collection
+        const owned = event.Instructions &&
+            (collection[window.currentCollectionKey] || []).some(n => event.Instructions.includes(n))
+            ? '<span style="color:#00A650"> ✔</span>'
+            : '';
+
         row.innerHTML = `
             <td class="center">${event.Date || ''}</td>
             <td class="center notes">${event.Organizer || ''}</td>
             <td class="image-cell center">${createImageCell(event.Image, event.Source)}</td>
-            <td class="notes">${event.Model || ''}</td>
+            <td class="notes">${event.Model || ''}${owned}</td>
             <td class="notes">${event.Notes || ''}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
             <td class="instructions">${event.Instructions ? '📄 ' + event.Instructions : ''}</td>
@@ -346,6 +369,27 @@ All trademarks, logos, product names and character names remain<br>
 the property of their respective owners and are used solely for<br>
 identification and informational purposes.</p>`;
 }
+
+else if (title === "Sources") {
+displaytext += `
+<ul>
+<li>pdf.kids.lego.com — primary source for instructions</li>
+<li>lego.com — primary source for imagery & proof of events</li>
+<li>lego-asterix-apps-storage.s3.eu-central-1.amazonaws.com<br>— catbike & christmas (2023) instructions</li>
+</ul><ul>
+<li>Benkagan's google drive — witch (2025) instructions</li>
+<li>brickshow.com — tree in the woods instructions</li>
+<li>promobricks.de — two event pictures & four proofs of events</li>
+<li>rebelscum.com — luke skywalker timeline instructions</li>
+<li>rebrickable.com — pictures & instructions</li>
+<li>stonewars.de — newsstand instructions</li>
+<li>thebrickpost.com — mosaic & supply llama instructions</li>
+<li>worldbricks.com — 3d easter egg (2025) instructions</li>
+</ul>
+asset integration method: external hotlinking
+`;
+}
+
     const overlay = document.createElement('div');
     overlay.innerHTML = `<div id="imgOverlay"><div style="font-family: Arial, sans-serif; font-size: 16px; text-align:left; background:#0066cc; color:#000; padding:8px;">
                          <div>${displaytext}</div></div></div>`;
@@ -364,9 +408,10 @@ identification and informational purposes.</p>`;
 <br>
 
 <footer id="footer">
-<div id="lsupdate">Last updated: 30.06.2026 by <a href="#" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+
 <a href="#" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
-Source for (most of) the instructions: <a target="_blank" rel="noopener noreferrer" href="https://kids.lego.com/en-us/tinybuilds">Tiny Build Instructions</a><br><br><br>
+<a href="#" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
+<div id="lsupdate">Last updated: 01.07.2026 by <a href="#" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 </footer>
 
 </body>
