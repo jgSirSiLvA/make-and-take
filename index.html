@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="pictures/favicon.png">
-
-<title>The Make & Take Archive (Austria, Germany and Switzerland)</title>
+<title>The Make & Take Archive (DACH)</title>
 
 <style>
 @font-face {
@@ -17,7 +15,6 @@
        url('fonts/regular.woff') format('woff'), /* Modern Browsers */
        url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
-
   body { background: white; font-family: Arial, sans-serif; font-size: 16px; }
   h1 { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; margin: 0; padding: 0; text-align: center; }
   h3 { margin: 0; padding: 0; }
@@ -39,62 +36,49 @@
 
   #byline { color: #E3000B; font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: center; }
   #status { font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; text-align: right; }
-
   #controls { align-items: center; display: flex; gap: 10px; margin-bottom: 5px; }
   #searchWrapper { align-items: center; display: flex; flex: 1; position: relative; }
   #search { background: #fff8cc; border: 1px solid #000; box-sizing: border-box; font-size: 16px; height: 42px; padding: 10px; width: 100%; }
   #clearSearch { background: none; border: none; color: #000; cursor: pointer; display: none; font-size: 16px; line-height: 1; padding: 2px 4px; position: absolute; right: 8px; }
   #clearSearch:hover { color: #E3000B; }
   #fileSelect { background: #fff8cc; border: 1px solid #000; box-sizing: border-box; cursor: pointer; font-size: 16px; height: 42px; padding: 10px; }
-
   #imgOverlay { align-items: center; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; inset: 0; justify-content: center; position: fixed; z-index: 9999; }
   #imgOverlay img { max-height: 85vh; max-width: 95vw; }
   #imgOverlay .caption { color: #fff; font-size: 16px; margin-top: 2px; max-width: 95vw; text-align: center; }
   #imgOverlay .caption a { color: #cff; }
   #imgOverlay .caption a:hover { color: #E3000B; text-decoration: underline; }
-
   #lsupdate { font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; margin: 10px 0; text-align: center; }
   #footer { margin-top: 15px; text-align: center; }
 
 @media (max-width: 700px) {
   #eventsTable thead { display:none; }
-
   #eventsTable,
   #eventsTable tbody,
   #eventsTable tr,
   #eventsTable td { display:block; width:100%; box-sizing:border-box; }
-
   #eventsTable tr { border:2px solid #333; margin-bottom:12px; }
   #eventsTable td { border:none; padding:4px 8px; text-align:left !important; }
-
   #eventsTable td.center,
   #eventsTable td.part-count,
   #eventsTable td.instructions { text-align:left !important; }
-
   #eventsTable td.image-cell { text-align:center !important; }
-
   #eventsTable td:nth-child(1)::before { content:"Date: "; font-weight:bold; }
   #eventsTable td:nth-child(2)::before { content:"Organizer: "; font-weight:bold; }
-/*  we dont need the text image in this view mode #eventsTable td:nth-child(3)::before { content:"Image:"; display:block; font-weight:bold; } */
   #eventsTable td:nth-child(3)::before { content:none; display:block; font-weight:bold; } 
   #eventsTable td:nth-child(4)::before { content:"Model: "; font-weight:bold; }
   #eventsTable td:nth-child(5)::before { content:"Theme & Notes: "; font-weight:bold; }
   #eventsTable td:nth-child(6)::before { content:"Part Count: "; font-weight:bold; }
   #eventsTable td:nth-child(7)::before { content:"Instructions: "; font-weight:bold; }
-
   #eventsTable td.notes { white-space: normal; }
 
   .image-cell img { max-width:100%; height:auto; }
-
 }
-
 </style></head>
 
 <body>
 <h1>The Make & Take Archive for Austria, Germany and Switzerland</h1>
 
-<div id="byline">
-Unofficialy fan archive!
+<div id="byline">unofficial fan archive!
 <svg width="20" height="20" viewBox="0 0 20 20" style="cursor:pointer; vertical-align:middle;" onclick="openText('What is a Make & Take Event?')">
   <title>What is a Make & Take Event?</title>
   <circle cx="10" cy="10" r="10" fill="#0066cc"/>
@@ -408,10 +392,9 @@ asset integration method: external hotlinking
 <br>
 
 <footer id="footer">
-
+<div id="lsupdate">Last updated: 03.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 <a href="#" title="click to see\nLegal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
 <a href="#" title="click to see\nSources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
-<div id="lsupdate">Last updated: 02.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 </footer>
 
 </body>
