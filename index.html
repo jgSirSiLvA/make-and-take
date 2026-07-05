@@ -16,10 +16,12 @@
        url('fonts/regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
   body { background: white; font-family: Arial, sans-serif; font-size: 16px; }
-  h1 { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; margin: 0; padding: 0; text-align: center; }
-  h3 { margin: 0; padding: 0; }
-  a { color: #000; text-decoration: none; }
+  h1   { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; margin: 0; padding: 0; text-align: center; }
+  h2   { text-decoration: underline; margin: 0; padding: 0;}
+  h3   { margin: 0; padding: 0; }
+  a    { color: #000; text-decoration: none; }
   a:hover { color: #E3000B; text-decoration: underline; }
+  li   { display: block; }
 
   table { background: white; border-collapse: collapse; width: 100%; }
   #eventsTable tr:nth-child(even) { background: #fff8cc; }
@@ -49,6 +51,7 @@
   #imgOverlay .caption a:hover { color: #E3000B; text-decoration: underline; }
   #lsupdate { font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; margin: 10px 0; text-align: center; }
   #footer { margin-top: 15px; text-align: center; }
+  .mobile-only { display: none; }
 
 @media (max-width: 700px) {
   #eventsTable thead { display:none; }
@@ -72,6 +75,9 @@
   #eventsTable td.notes { white-space: normal; }
 
   .image-cell img { max-width:100%; height:auto; }
+  .mobile-only { display: block; }
+  #controls { flex-wrap: wrap; }
+  #mobileSort { background: #fff8cc; border: 1px solid #000; box-sizing: border-box; cursor: pointer; font-size: 16px; height: 42px; padding: 10px; flex: 1; }
 }
 </style></head>
 
@@ -82,7 +88,7 @@
 <svg width="20" height="20" viewBox="0 0 20 20" style="cursor:pointer; vertical-align:middle;" onclick="openText('What is a Make & Take Event?')">
   <title>What is a Make & Take Event?</title>
   <circle cx="10" cy="10" r="10" fill="#0066cc"/>
-  <text x="10" y="15" text-anchor="middle" fill="white" font-size="13" font-family="serif" font-weight="bold">i</text>
+  <text x="10" y="15" text-anchor="middle" fill="white" font-size="13" font-family="serif" font-weight="bold">I</text>
 </svg>
 <a target="_blank" title="ADMIN" id="adminBtn" href="admin.html" style="display:none;">
 <svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;">
@@ -103,10 +109,16 @@
         <option value="data/mmmb.json">Monthly Mini Model Build</option>
         <option value="data/miscellaneous.json">Miscellaneous</option>
     </select>
+    <select id="mobileSort" class="mobile-only">
+        <option value="Date" selected>Sort by Date</option>
+        <option value="Organizer">Sort by Organizer</option>
+        <option value="Model">Sort by Model</option>
+        <option value="Part Count">Sort by Part Count</option>
+    </select>
 </div>
 
 <table id="eventsTable">
-    <thead><tr> <!-- text between the th-tags is redundant and only a fallback when JS is disabled -->
+    <thead><tr>
         <th class="center" data-column="Date" data-label="Date (Y/M/D)">Date (Y/M/D)</th>
         <th class="center" data-column="Organizer" data-label="Organizer">Organizer</th>
         <th class="center" data-column="Image" data-label="Image">Image</th>
@@ -118,34 +130,103 @@
     <tbody></tbody>
 </table>
 
+<footer id="footer">
+<div id="lsupdate">Last updated: 05.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+<a href="#" title="click to see\nLegal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
+<a href="#" title="click to see\nSources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
+</footer>
+
 <script>
 let events = [];
 let collection = {};
 let currentSortColumn = 'Date';
 let currentSortDirection = -1;
+let t = {}; // translation dictionary
 
-// load collection.json once on startup
+function T(key) { return t[key] || key; }
+
+const userLang = navigator.language.slice(0, 2).toLowerCase();
+const supportedLanguages = ['en', 'de', 'fr', 'es', 'ja', 'tr', 'zh'];
+const finalLang = supportedLanguages.includes(userLang) ? userLang : 'en';
+// -- const finalLang = 'fr';
+
+if (finalLang !== 'en') {
+    fetch('language/' + finalLang + '.json?_=' + Date.now(), { headers: { 'Content-Type': 'application/json; charset=UTF-8' } })
+        .then(r => {
+            if (!r.ok) { throw new Error('File not found'); }
+            return r.json();
+        })
+        .then(data => { 
+            t = data; 
+            initApp(); 
+        })
+        .catch(() => {
+            initApp(); 
+        });
+} else {
+    initApp();
+}
+
+function initApp() {
+
 fetch('data/collection.json?_=' + Date.now())
     .then(r => r.json())
     .then(data => { collection = data; })
-    .catch(() => { collection = {}; }); // silently fail if file doesn't exist yet
+    .catch(() => { collection = {}; });
 
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    document.getElementById('adminBtn').style.display = 'inline';
-}
+    document.getElementById('adminBtn').style.display = 'inline'; }
+
+document.querySelector('h1').textContent = T('The Make & Take Archive for Austria, Germany and Switzerland');
+
+const bylineEl = document.getElementById('byline');
+if (bylineEl && bylineEl.childNodes.length > 0) { bylineEl.childNodes[0].nodeValue = T('unofficial fan archive!') + ' '; }
+document.getElementById('search').placeholder = T('Filter by...');
+document.querySelector('#fileSelect option[value="data/mat.json"]').textContent = T('Make and Take');
+document.querySelector('#fileSelect option[value="data/mmmb.json"]').textContent = T('Monthly Mini Model Build');
+document.querySelector('#fileSelect option[value="data/miscellaneous.json"]').textContent = T('Miscellaneous');
+document.getElementById('status').textContent = T('Loading data...');
+
+const lsupdateEl = document.getElementById('lsupdate');
+window.lsupdateDate = lsupdateEl ? (lsupdateEl.textContent.match(/\d{2}\.\d{2}\.\d{4}/) || [''])[0] : '';
+window.lsupdateLinkHtml = lsupdateEl ? (lsupdateEl.querySelector('a') || {}).outerHTML || '' : '';
+
+document.querySelectorAll('#footer a').forEach(a => {
+    const onclickVal = a.getAttribute('onclick') || '';
+    let textKey = '';
+    
+    if (onclickVal.includes('Legal & Trademark')) textKey = 'Legal & Trademark Information';
+    if (onclickVal.includes("'Sources'")) textKey = 'Sources';
+    
+    if (textKey) {
+        // Übersetze den sichtbaren Text der Webseite
+        if (a.childNodes[0]) a.childNodes[0].textContent = T(textKey);
+        // Übersetze das Tooltip (Title-Attribut)
+        a.title = T(textKey); 
+    }
+});
+
+document.querySelectorAll('[title]').forEach(el => {
+    if (el.closest('#footer')) return;
+    const rawTitle = el.getAttribute('title');
+    if (rawTitle && t[rawTitle]) { el.setAttribute('title', T(rawTitle)); }
+});
+
+const svgTitle = document.querySelector('#byline svg title');
+if (svgTitle) { svgTitle.textContent = T(svgTitle.textContent); }
+
+const mobileSortLabels = { 'Date': 'Sort by Date', 'Organizer': 'Sort by Organizer', 'Model': 'Sort by Model', 'Part Count': 'Sort by Part Count' };
+document.querySelectorAll('#mobileSort option').forEach(opt => { opt.textContent = T(mobileSortLabels[opt.value] || opt.textContent); });
+
+updateSortHeaders();
 
 function loadFile(filename) {
-    document.getElementById('status').textContent = `Loading file ${filename}...`;
+    document.getElementById('status').textContent = T('Loading file {filename}!').replace('{filename}', filename);
     document.getElementById('search').value = '';
     document.getElementById('clearSearch').style.display = 'none';
 
-    // map filename to collection key
-    const keyMap = {
-        'data/mat.json': 'mat',
-        'data/mmmb.json': 'mmmb',
-        'data/miscellaneous.json': 'miscellaneous'
-    };
-    window.currentCollectionKey = keyMap[filename] || 'mat';
+    // Dynamically extract key from filename (e.g., "data/mat.json" becomes "mat")
+    window.currentCollectionKey = filename.replace('data/', '').replace('.json', '');
 
     fetch(filename + '?_=' + Date.now())
         .then(response => {
@@ -155,27 +236,55 @@ function loadFile(filename) {
             return response.json();
         })
         .then(data => {
+            const lastLine = data.pop(); 
+            window.fileSavedTime = lastLine.Notes; 
+            const justFilename = filename.split('/').pop();
+            const fullText = T('Last updated: {date} by').replace('{date}', window.lsupdateDate);
+            const byMatch = fullText.match(/\s(by|von)$/i);
+            const byWord = byMatch ? byMatch[0] : ' by '; 
+            const baseText = byMatch ? fullText.slice(0, -byWord.length) : fullText;
+            document.getElementById('lsupdate').innerHTML = `${baseText} (${justFilename}: ${window.fileSavedTime})${byWord} ${window.lsupdateLinkHtml}`;
+
             events = data;
             sortEvents(events);
             renderTable(events);
         })
+
         .catch(error => {
             document.getElementById('status').textContent =
-                'Error: ' + error.message;
+                T('I could not load file {filename}!').replace('{filename}', filename) + ' ' + error.message;
         });
+
 }
 
-loadFile(document.getElementById('fileSelect').value); // Load default file on page load
+const mobileSortSelect = document.getElementById('mobileSort');
+mobileSortSelect.addEventListener('change', function() {
+    currentSortColumn = this.value;
+    currentSortDirection = 1;
+    updateSortHeaders();
+    applySearch();
+    this.blur();
+});
 
 document.getElementById('fileSelect').addEventListener('change', function () {
     loadFile(this.value);
     this.blur();
 });
 
+loadFile(document.getElementById('fileSelect').value);
+}
+
 function sortEvents(data) {
     data.sort((a, b) => {
-        const aVal = a[currentSortColumn] || '';
-        const bVal = b[currentSortColumn] || '';
+        let aVal = a[currentSortColumn] || '';
+        let bVal = b[currentSortColumn] || '';
+        
+        // FIX: If sorting by Instructions, grab the Number property
+        if (currentSortColumn === 'Instructions') {
+            aVal = (typeof aVal === 'object' && aVal) ? aVal.Number || '' : aVal;
+            bVal = (typeof bVal === 'object' && bVal) ? bVal.Number || '' : bVal;
+        }
+
         return aVal.toString().localeCompare(
             bVal.toString(),
             undefined,
@@ -185,7 +294,10 @@ function sortEvents(data) {
 }
 
 function renderTable(data) {
-    document.getElementById('status').textContent = `Showing ${data.length-1} of ${events.length-1} events.`; // don't count the "last updated"-line
+    const statusString = T('Showing {x} of {y} events.')
+        .replace('{x}', data.length)
+        .replace('{y}', events.length);
+    document.getElementById('status').textContent = statusString;
 
     const tbody = document.querySelector('#eventsTable tbody');
     tbody.innerHTML = '';
@@ -193,11 +305,20 @@ function renderTable(data) {
     data.forEach(event => {
         const row = document.createElement('tr');
 
-        // check if this entry is in the collection
-        const owned = event.Instructions &&
-            (collection[window.currentCollectionKey] || []).some(n => event.Instructions.includes(n))
+        const owned = event.Instructions && typeof event.Instructions === 'object' && event.Instructions.Number &&
+            (collection[window.currentCollectionKey] || []).some(n => event.Instructions.Number.includes(n))
             ? '<span style="color:#00A650"> ✔</span>'
             : '';
+
+        let instructionsHtml = '';
+        const instrObj = event.Instructions;
+        
+        if (instrObj && typeof instrObj === 'object' && instrObj.Number) {
+            const insTitle = T("click to open instructions!");
+            const href = instrObj.Link || `instructions/${instrObj.Number}`;
+            instructionsHtml = `<span>📄 </span><a href="${href}" target="_blank" rel="noopener noreferrer" title="${escapeAttr(insTitle)}">${instrObj.Number}</a>`;
+        } else { instructionsHtml = instrObj || '';
+        }
 
         row.innerHTML = `
             <td class="center">${event.Date || ''}</td>
@@ -206,7 +327,7 @@ function renderTable(data) {
             <td class="notes">${event.Model || ''}${owned}</td>
             <td class="notes">${event.Notes || ''}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
-            <td class="instructions">${event.Instructions ? '📄 ' + event.Instructions : ''}</td>
+            <td class="instructions">${instructionsHtml}</td>
         `;
         tbody.appendChild(row);
     });
@@ -226,14 +347,15 @@ function createImageCell(value, source) {
     if (/\.(jpg|jpeg|png|gif|webp)$/.test(lower))
     {
         const src = value.startsWith('https://') ? value : `pictures/${value}`;
-        return `<img src="${src}" alt="" title="click image to enlarge\nand to see source url" data-source="${escapeAttr(source || '')}" onclick="openImage(this.src, this.dataset.source)" style="cursor:pointer;">`;
+        const translatedTitle = T("click image to enlarge\nand to see source url");
+        return `<img src="${src}" alt="" title="${escapeAttr(translatedTitle)}" data-source="${escapeAttr(source || '')}" onclick="openImage(this.src, this.dataset.source)" style="cursor:pointer;">`;
     }
     return value;
 }
 
 function openImage(url, source){
     const captionHtml = source
-        ? `<div class="caption">Source: <a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a>↗</div>`
+        ? `<div class="caption">${T("Source:")} <a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a>↗</div>`
         : '';
 
     const overlay=document.createElement('div');
@@ -255,11 +377,17 @@ const clearBtn = document.getElementById('clearSearch');
 function applySearch() {
     const search = searchInput.value.toLowerCase();
     clearBtn.style.display = search ? 'block' : 'none';
+    
     const filtered = events.filter(event =>
-        Object.values(event).some(value =>
-            String(value).toLowerCase().includes(search)
-        )
+        Object.values(event).some(value => {
+            // FIX: If the value is an object (like Instructions), look inside it
+            if (typeof value === 'object' && value !== null) {
+                return Object.values(value).some(v => String(v).toLowerCase().includes(search));
+            }
+            return String(value).toLowerCase().includes(search);
+        })
     );
+    
     sortEvents(filtered);
     renderTable(filtered);
 }
@@ -281,7 +409,7 @@ function updateSortHeaders() {
     document.querySelectorAll('th').forEach(th => {
         const col = th.dataset.column;
         if (!col) return;
-        const label = th.dataset.label || col;
+        const label = T(th.dataset.label || col);
         if (col === currentSortColumn) {
             th.textContent = label + (currentSortDirection === 1 ? ' ▲' : ' ▼');
         } else {
@@ -289,9 +417,6 @@ function updateSortHeaders() {
         }
     });
 }
-
-// Show default sort indicator on startup
-updateSortHeaders();
 
 document.querySelectorAll('th').forEach(header => {
     header.addEventListener('click', () => {
@@ -303,79 +428,86 @@ document.querySelectorAll('th').forEach(header => {
             currentSortDirection = 1;
         }
         updateSortHeaders();
-        applySearch(); // re-apply current filter with new sort
+        applySearch();
     });
 });
 
-function openText(title) { // it's not perfect but its at least in there
-let displaytext = `<h2>${title}</h2>`
+function openText(title) {
+let displaytext = `<h2>${T(title)}</h2>`
 
 if (title === "What is a Make & Take Event?") {
 displaytext += `
-&nbsp;A Make & Take Event is a limited-time in-store promotional<br>
-activity where participants build a small exclusive bricks model<br>
-&nbsp;and keep it free of charge. These events are typically<br>
-&nbsp;offered on a first-come, first-served basis while supplies<br>
-&nbsp;last and participation is usually limited to one model per<br>
-&nbsp;person.&nbsp;<br><br>
-&nbsp;In Austria, Germany and Switzerland, these events are commonly&nbsp;<br>
-&nbsp;held on Wednesdays and Thursdays from 15:00 to 17:00 CET.&nbsp;<br>
-&nbsp;Exact dates and times may vary depending on the event and the<br>
-&nbsp;individual store.&nbsp;<br><br>
-&nbsp;If you find a broken link, please email me at g`;
+&nbsp;${T("A Make & Take Event is a limited-time in-store promotional")}<br>
+&nbsp;${T("activity where participants build a small exclusive bricks model")}<br>
+&nbsp;${T("and keep it free of charge. These events are typically")}<br>
+&nbsp;${T("offered on a first-come, first-served basis while supplies")}<br>
+&nbsp;${T("last and participation is usually limited to one model per")}<br>
+&nbsp;${T("person.")}&nbsp;<br><br>
+&nbsp;${T("In Austria, Germany and Switzerland, these events are commonly")}&nbsp;<br>
+&nbsp;${T("held on Wednesdays and Thursdays from 15:00 to 17:00 CET.")}&nbsp;<br>
+&nbsp;${T("Exact dates and times may vary depending on the event and the")}<br>
+&nbsp;${T("individual store.")}&nbsp;<br><br>
+&nbsp;${T("If you find a broken link, please email me at")}<br>&nbsp;g`;
 displaytext += ["r","o","h","m","a","n","n",".","j","e","n","s","@","g","m","x",".","d"].join("") + `e`;
 }
 
 else if (title === "Legal & Trademark Information") {
 displaytext += `
-This website is an independent fan project and is not sponsored,<br>
-authorized, or endorsed by any trademark owner.
+${T("This website is an independent fan project and is not sponsored,")}<br>
+${T("authorized, or endorsed by any trademark owner.")}
 <hr>
-LEGO®, DUPLO®, NINJAGO®, FRIENDS®, HIDDEN SIDE®,<br>
-MINIFIGURES®, MINDSTORMS®, DREAMZzz®, VIDIYO®,<br>
-SMART Play and Speed Champions are trademarks of The LEGO Group.<br>
-LEGO Building Instructions are copyrighted © The LEGO Group.
+${T("LEGO®, DREAMZzz®, FRIENDS®, HIDDEN SIDE®, MINIFIGURES®, NINJAGO®,")}<br>
+${T("SMART Play and Speed Champions are trademarks of The LEGO Group.")}<br>
+${T("LEGO Building Instructions are copyrighted © The LEGO Group.")}
 <ul>
-<li>ANIMAL CROSSING™ is a trademark of Nintendo.</li>
-<li>Disney and related characters are © Disney.</li>
-<li>FIFA® is a trademark of Fédération Internationale de Football Association (FIFA).</li>
-<li>FORMULA 1®, F1® and F1 ACADEMY™ are trademarks of Formula One Licensing BV.</li>
-<li>FORTNITE is a trademark or registered trademark of Epic Games, Inc.</li>
-<li>HARRY POTTER™ and related characters, names, places and elements are trademarks and © Warner Bros. Entertainment Inc.<br>
-Publishing Rights © J.K. Rowling.</li>
-<li>HARLEY-DAVIDSON® is a trademark of Harley-Davidson Motor Company.</li>
-<li>McLaren and related trademarks are property of McLaren companies.</li>
-<li>ONE PIECE and related characters are © Eiichiro Oda / Shueisha, Toei Animation.</li>
-<li>STAR WARS® is a trademark of Lucasfilm Ltd. LLC.<br>
-Character names and related properties are © & ™ Lucasfilm Ltd. LLC.</li>
+<li>${T("ANIMAL CROSSING™ is a trademark of Nintendo.")}</li>
+<li>${T("Disney and related characters are © Disney.")}</li>
+<li>${T("FIFA® is a trademark of Fédération Internationale de Football Association (FIFA).")}</li>
+<li>${T("FORMULA 1®, F1® and F1 ACADEMY™ are trademarks of Formula One Licensing BV.")}</li>
+<li>${T("FORTNITE is a trademark or registered trademark of Epic Games, Inc.")}</li>
+<li>${T("HARRY POTTER™ and related characters, names, places and elements<br>are trademarks and © Warner Bros. Entertainment Inc.")}<br>
+${T("Publishing Rights © J.K. Rowling.")}</li>
+<li>${T("HARLEY-DAVIDSON® is a trademark of Harley-Davidson Motor Company.")}</li>
+<li>${T("McLaren and related trademarks are property of McLaren companies.")}</li>
+<li>${T("ONE PIECE and related characters are © Eiichiro Oda / Shueisha, Toei Animation.")}</li>
+<li>${T("STAR WARS® is a trademark of Lucasfilm Ltd. LLC.")}<br>
+${T("Character names and related properties are © & ™ Lucasfilm Ltd. LLC.")}</li>
 </ul><hr>
-All trademarks, logos, product names and character names remain<br>
-the property of their respective owners and are used solely for<br>
-identification and informational purposes.`;
+${T("All trademarks, logos, product names and character names remain")}<br>
+${T("the property of their respective owners and are used solely for")}<br>
+${T("identification and informational purposes.")}`;
 }
 
 else if (title === "Sources") {
 displaytext += `
 <ul>
-<li>pdf.kids.lego.com — primary source for instructions</li>
-<li>lego.com — primary source for imagery & proof of events</li>
-<li>lego-asterix-apps-storage.s3.eu-central-1.amazonaws.com<br>— catbike & christmas (2023) instructions</li>
+<li>lego.com — ${T("primary source for imagery & proof of events")}</li>
+<li>pdf.kids.lego.com — ${T("primary source for instructions")}</li>
+<li>lego-asterix-apps-storage.s3.eu-central-1.amazonaws.com<br>— ${T("cat bike & christmas (2023) instructions")}</li>
 </ul><ul>
-<li>Benkagan's google drive — witch (2025) instructions</li>
-<li>brickshow.com — tree in the woods instructions</li>
-<li>promobricks.de — two event pictures & four proofs of events</li>
-<li>rebelscum.com — luke skywalker timeline instructions</li>
-<li>rebrickable.com — pictures & instructions</li>
-<li>stonewars.de — newsstand instructions</li>
-<li>thebrickpost.com — mosaic & supply llama instructions</li>
-<li>worldbricks.com — 3d easter egg (2025) instructions</li>
+<li>Benkagan's google drive — ${T("witch (2025) instructions")}</li>
+<li>brickshow.com — ${T("tree in the woods instructions")}</li>
+<li>promobricks.de — ${T("two event pictures & four proofs of events")}</li>
+<li>rebelscum.com — ${T("luke skywalker timeline instructions")}</li>
+<li>rebrickable.com — ${T("pictures & instructions")}</li>
+<li>stonewars.de — ${T("newsstand instructions")}</li>
+<li>thebrickpost.com — ${T("mosaic & supply llama instructions")}</li>
+<li>worldbricks.com — ${T("3d easter egg (2025) instructions")}</li>
 </ul>
-asset integration method: external hotlinking
-`;
+${T("asset integration method: external hotlinking")}`;
+}
+
+else if (title === "Sir SiLvA") {
+displaytext += `
+I created this page because Make & Take events<br>
+are poorly documented, if at all.<br>
+<br>
+This site was inspired by<br>
+https://monthlyminimodelbuild.weebly.com<br>`;
 }
 
     const overlay = document.createElement('div');
-    overlay.innerHTML = `<div id="imgOverlay"><div style="font-family: Arial, sans-serif; font-size: 16px; text-align:left; background:#0066cc; color:#000; padding:8px;">
+    overlay.innerHTML = `<div id="imgOverlay"><div style="font-family: Arial, sans-serif; font-size: 16px; text-align:left; background:#fff8cc; color:#000; padding:8px;">
                          <div>${displaytext}</div></div></div>`;
     document.body.appendChild(overlay);
 
@@ -386,17 +518,8 @@ asset integration method: external hotlinking
     document.addEventListener('keydown', closeOverlay);
     overlay.onclick = closeOverlay;
 }
-
 </script>
 
 <br>
-
-<footer id="footer">
-<div id="lsupdate">Last updated: 03.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
-<a href="#" title="click to see\nLegal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
-<a href="#" title="click to see\nSources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
-</footer>
-
 </body>
 </html>
-
