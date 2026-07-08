@@ -17,9 +17,10 @@
 
   html { scroll-behavior:smooth; }
   body { background: white; font-family: Arial, sans-serif; font-size: 16px; }
-  h1   { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; margin: 0; padding: 0; text-align: center; }
-  h2   { text-decoration: underline; margin: 0; padding: 0;}
-  h3   { margin: 0; padding: 0; }
+
+  h1   { font-family: "Alex Brush", Arial, Helvetica, sans-serif; font-size: 35px; text-align: center; }
+  h2   { text-decoration: underline; }
+  h1,h2,h3 { margin:0; padding:0; }
   a    { color: #000; text-decoration: none; }
   a:hover { color: #E3000B; text-decoration: underline; }
   li   { display: block; }
@@ -38,8 +39,9 @@
   .image-cell img { max-height: 100px; max-width: 100px; }
   .mobile-only { display: none; }
 
-  #byline { color: #E3000B; font-family: "Alex Brush", Arial, sans-serif; font-size: 25px; font-weight: bold; text-align: center; }
-  #status { font-family: "Alex Brush", Arial, sans-serif; font-size: 25px; font-weight: bold; text-align: right; }
+  #byline, #status, #lsupdate { font-family: "Alex Brush", Arial, sans-serif; font-size: 25px; font-weight: bold; }
+  #byline { color: #E3000B; text-align: center; }
+  #status { text-align: right; }
   #controls { align-items: center; display: flex; gap: 10px; margin-bottom: 5px; }
   #searchWrapper { align-items: center; display: flex; flex: 1; position: relative; }
   #search { background: #fff8cc; border: 1px solid #000; box-sizing: border-box; font-size: 16px; height: 42px; padding: 10px; width: 100%; }
@@ -52,7 +54,7 @@
   #imgOverlay .caption a { color: #cff; }
   #imgOverlay .caption a:hover { color: #E3000B; text-decoration: underline; }
   #legend { text-align: center; margin-top: 5px; margin-bottom: 15px; color: #555; font-style: italic; }
-  #lsupdate { font-family: 'Alex Brush'; font-size: 25px; font-weight: bold; margin: 10px 0; text-align: center; }
+  #lsupdate { margin: 10px 0; text-align: center; }
   #footer { margin-top: 15px; text-align: center; }
   
   #mobile-scroll-btns { display: none; /* Hidden on desktop */ position: fixed; bottom: 20px; right: 20px; z-index: 1000; flex-direction: column; gap: 10px; }
@@ -64,12 +66,8 @@
   #eventsTable,
   #eventsTable tbody,
   #eventsTable tr,
-  #eventsTable td { display:block; width:100%; box-sizing:border-box; }
+  #eventsTable td { display:block; width:100%; box-sizing:border-box; border:none; padding:4px 8px; text-align:left !important; }
   #eventsTable tr { border:2px solid #333; margin-bottom:12px; }
-  #eventsTable td { border:none; padding:4px 8px; text-align:left !important; }
-  #eventsTable td.center,
-  #eventsTable td.part-count,
-  #eventsTable td.instructions { text-align:left !important; }
   #eventsTable td.image-cell { text-align:center !important; }
   #eventsTable td:nth-child(1)::before { content:"Date: "; font-weight:bold; }
   #eventsTable td:nth-child(2)::before { content:"Organizer: "; font-weight:bold; }
@@ -155,8 +153,8 @@
 <div id="legend"></div>
 
 <div id="mobile-scroll-btns">
-    <button id="btnTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Top">▲</button>
-    <button id="btnBottom" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="Bottom">▼</button>
+    <button id="btnTop" onclick="window.scrollTo({top: 0})" title="Top">▲</button>
+    <button id="btnBottom" onclick="window.scrollTo({top: document.body.scrollHeight})" title="Bottom">▼</button>
 </div>
 
 <footer id="footer">
@@ -411,7 +409,7 @@ function escapeAttr(str) {
 function createImageCell(value, source) {
     if (!value) return '';
 
-    const lower = value.toLowerCase();
+//    const lower = value.toLowerCase();
 // had to be disable for twitter picture... :-(
 //    if (/\.(jpg|jpeg|png|gif|webp)$/.test(lower))
 //    {
