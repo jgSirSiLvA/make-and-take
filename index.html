@@ -158,7 +158,7 @@
 </div>
 
 <footer id="footer">
-<div id="lsupdate">Last updated: 07.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+<div id="lsupdate">Last updated: 10.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 <a href="#" title="click to see\nLegal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
 <a href="#" title="click to see\nSources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
 </footer>
@@ -375,17 +375,19 @@ function renderTable(data) {
         const owned = event.Instructions && typeof event.Instructions === 'object' && event.Instructions.Number &&
             (collection[window.currentCollectionKey] || []).some(n => event.Instructions.Number.includes(n))
             ? '<span style="color:#00A650"> ✔</span>' : '';
-	
+
         let instructionsHtml = '';
         const instrObj = event.Instructions;
         
-        if (instrObj && typeof instrObj === 'object' && instrObj.Number) {
-            const insTitle = T("click to open instructions!");
-            const href = instrObj.Link || `instructions/${instrObj.Number}`;
-            instructionsHtml = `<span>📄 </span><a href="${href}" target="_blank" rel="noopener noreferrer" title="${escapeAttr(insTitle)}">${instrObj.Number}</a>`;
-        } else { instructionsHtml = instrObj || '';
-        }
-
+    if (instrObj && typeof instrObj === 'object' && instrObj.Link) {
+        const insTitle = T("click to open instructions!");
+        const href = instrObj.Link.startsWith('https://') ? instrObj.Link : `instructions/${instrObj.Link}`;
+        instructionsHtml = `<span>📄 </span><a href="${href}" target="_blank" rel="noopener noreferrer" title="${escapeAttr(insTitle)}">${instrObj.Number}</a>`;
+    } else if (instrObj && typeof instrObj === 'object') {
+        instructionsHtml = instrObj.Number || '';
+    } else {
+        instructionsHtml = instrObj || '';
+}
         row.innerHTML = `
             <td class="center">${event.Date || ''}</td>
             <td class="center notes">${T(event.Organizer || '')}</td>
@@ -533,9 +535,7 @@ displaytext += `
 &nbsp;${T("In Austria, Germany and Switzerland, these events are commonly")}&nbsp;<br>
 &nbsp;${T("held on Wednesdays and Thursdays from 15:00 to 17:00 CET.")}&nbsp;<br>
 &nbsp;${T("Exact dates and times may vary depending on the event and the")}<br>
-&nbsp;${T("individual store.")}&nbsp;<br><br>
-&nbsp;${T("If you find a broken link, please email me at")}<br>&nbsp;g`;
-displaytext += ["r","o","h","m","a","n","n",".","j","e","n","s","@","g","m","x",".","d"].join("") + `e`;
+&nbsp;${T("individual store.")}&nbsp;`
 }
 
 else if (title === "Legal & Trademark Information") {
@@ -544,7 +544,7 @@ ${T("This website is an independent fan project and is not sponsored,")}<br>
 ${T("authorized, or endorsed by any trademark owner.")}
 <hr>
 ${T("LEGO®, DREAMZzz®, FRIENDS®, HIDDEN SIDE®, MINIFIGURES®, NINJAGO®,")}<br>
-${T("SMART Play and Speed Champions are trademarks of The LEGO Group.")}<br>
+${T("SMART Play and Speed Champions are trademarks of the LEGO Group.")}<br>
 ${T("LEGO Building Instructions are copyrighted © The LEGO Group.")}
 <ul>
 <li>${T("ANIMAL CROSSING™ is a trademark of Nintendo.")}</li>
@@ -581,7 +581,9 @@ displaytext += `
 <li>thebrickpost.com — ${T("mosaic & supply llama instructions")}</li>
 <li>worldbricks.com — ${T("3d easter egg (2025) instructions")}</li>
 </ul>
-${T("asset integration method: external hotlinking")}`;
+${T("asset integration method: external hotlinking")}<br><br>
+${T("If you find a broken link, please email me at")}<br>&nbsp;g`;
+displaytext += ["r","o","h","m","a","n","n",".","j","e","n","s","@","g","m","x",".","d"].join("") + `e`;
 }
 
 else if (title === "Sir SiLvA") {
