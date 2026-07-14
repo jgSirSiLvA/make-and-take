@@ -158,7 +158,7 @@
 </div>
 
 <footer id="footer">
-<div id="lsupdate">Last updated: 12.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+<div id="lsupdate">Last updated: 14.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 <a href="#" title="click to see\nLegal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
 <a href="#" title="click to see\nSources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
 </footer>
@@ -343,6 +343,17 @@ function updateMobileSortButton() {
     }
 }
 
+// Notes is now {"en": "...", "de": "..."} instead of a plain string.
+// Picks the current-language variant, falling back to English if the
+// German translation is empty/missing. Also tolerates the old plain-
+// string format in case any data file hasn't been converted yet.
+function getNotesText(notesField) {
+    if (!notesField) return '';
+    if (typeof notesField === 'string') return notesField;
+    if (finalLang === 'de' && notesField.de) return notesField.de;
+    return notesField.en || '';
+}
+
 function sortEvents(data) {
     data.sort((a, b) => {
         let aVal = a[currentSortColumn] || '';
@@ -351,6 +362,11 @@ function sortEvents(data) {
         if (currentSortColumn === 'Instructions') {
             aVal = (typeof aVal === 'object' && aVal) ? aVal.Number || '' : aVal;
             bVal = (typeof bVal === 'object' && bVal) ? bVal.Number || '' : bVal;
+        }
+
+        if (currentSortColumn === 'Notes') {
+            aVal = getNotesText(aVal);
+            bVal = getNotesText(bVal);
         }
 
         return aVal.toString().localeCompare(
@@ -394,7 +410,7 @@ function renderTable(data) {
             <td class="center notes">${T(event.Organizer || '')}</td>
             <td class="image-cell center">${createImageCell(event.Image, event.Source)}</td>
             <td class="notes">${event.Model || ''}${owned}</td>
-            <td class="notes">${event.Notes || ''}</td>
+            <td class="notes">${getNotesText(event.Notes)}</td>
             <td class="part-count">${event["Part Count"] || ''}</td>
             <td class="instructions">${instructionsHtml}</td>
         `;
@@ -455,7 +471,7 @@ function applySearch() {
         return check(event.Date) ||
                check(event.Organizer) ||
                check(event.Model) ||
-               check(event.Notes) ||
+               check(getNotesText(event.Notes)) ||
                check(event["Part Count"]) ||
                (event.Instructions && typeof event.Instructions === 'object' && check(event.Instructions.Number));
     });
