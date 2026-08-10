@@ -29,7 +29,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
     <div id="app" class="loading">Fetching events from LEGO API...</div>
 
     <script>
-        const LEGO_BASE_URL = 'https://www.lego.com';
+        const CORS_PROXY = 'https://corsproxy.io/?';
 
         const graphQLQuery = `
             fragment ImageAsset on ImageAssetDetails { url width height maxPixelDensity format }
@@ -49,11 +49,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 
         async function fetchStoreEvents(store) {
             try {
-                const response = await fetch(`${LEGO_BASE_URL}/api/graphql`, {
+                const targetApiUrl = 'https://www.lego.com/api/graphql';
+                const proxyUrl = `${CORS_PROXY}${encodeURIComponent(targetApiUrl)}`;
+
+                const response = await fetch(proxyUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         query: graphQLQuery,
@@ -65,7 +67,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                 
                 const data = await response.json();
                 
-                if (data.errors || !data.data?.storeInfo) {
+                if (data.errors) {
                     return { error: 'Store not found or API error', name: store.slug };
                 }
 
@@ -93,10 +95,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
             const dateStr = storeData.openingDate ? ` (${storeData.openingDate}) ` : '';            
             const title = document.createElement('h2');
             title.className = 'store-title';
-            title.innerText = storeData.name.replace(/LEGO[\s\u00A0\u200B-\u200D\uFEFF]*®?\s*Store\s*/gi, '').trim() + `${dateStr}`;
+            title.innerText = storeData.name.replace(/LEGO[\s\u00A0\u200B-\u200D\uFEFF]*®?\s*Store\s*/gi, '').trim()+`${dateStr}`;
             
             const storeLink = document.createElement('a');
-            storeLink.href = `${LEGO_BASE_URL}/${storeData.locale}/stores/store/${storeData.slug}`;
+            storeLink.href = `https://www.lego.com/${storeData.locale}/stores/store/${storeData.slug}`;
             storeLink.target = '_blank';
             storeLink.className = 'store-link-icon';
             storeLink.innerText = ' ↗';
@@ -153,7 +155,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                 }
 
                 if (event.urlKey) {
-                    const linkUrl = `${LEGO_BASE_URL}/${storeData.locale}/stores/events/${event.urlKey}`;
+                    const linkUrl = `https://www.lego.com/${storeData.locale}/stores/events/${event.urlKey}`; // source url doesnt change therefor hardcoded
                     const a = document.createElement('a');
                     a.className = 'event-link';
                     a.href = linkUrl;
