@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LEGO Stores DACH by Sir SiLvA</title>
-<link rel="icon" type="image/png" href="pictures/favicon.png">
-<style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 20px; color: #333; }
-    .container { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; max-width: 1400px; margin: 0 auto; }
-    h1 { color: #E3000B; font-size: 1.5rem; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #ffd502; }
-    .status { font-weight: 600; margin-bottom: 20px; font-size: 1.1rem; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid #e0e0e0; padding: 10px 12px; text-align: left; word-break: break-all; }
-    th { background-color: #f8f8f8; color: #111; cursor: pointer; user-select: none; position: sticky; top: 0; }
-    th:hover { background-color: #eee; }
-    th::after { content: " ⇕"; font-size: 0.8rem; color: #999; }
-    tr:nth-child(even) { background-color: #fbfbfb; }
-    .clickable { color: #005ad2; cursor: pointer; text-decoration: underline; font-weight: 600; }
-    .clickable:hover { color: #E3000B; }
-    .error-msg { color: #d0021b; background: #ffe6e6; padding: 10px; border-radius: 4px; }
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
-    .modal-card { background: #fff; border-radius: 12px; padding: 24px; max-width: 750px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); position: relative; }
-    .modal-close { position: absolute; top: 15px; right: 15px; background: #eee; border: none; font-size: 1.2rem; font-weight: bold; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .modal-close:hover { background: #E3000B; color: #fff; }
-    .modal-title { margin-top: 0; color: #E3000B; border-bottom: 2px solid #ffd502; padding-bottom: 8px; font-size: 1.3rem; }
-    .raw-json { font-family: monospace; font-size: 0.85rem; background: #1e1e1e; color: #00ff66; padding: 15px; border-radius: 6px; white-space: pre-wrap; word-break: break-all; overflow-x: auto; }
-    .event-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
-    .event-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .event-image { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; background-color: #f8f8f8; margin-bottom: 12px; }
-    .event-heading { font-size: 1.1rem; font-weight: 600; margin: 10px 0 6px 0; color: #000; }
-    .event-subheading { font-size: 0.95rem; color: #555; margin-bottom: 12px; line-height: 1.4; white-space: pre-line; }
-    .event-link { display: inline-block; color: #005ad2; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-    .event-link:hover { text-decoration: underline; }
-    .no-events { color: #777; font-style: italic; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGO Stores DACH by Sir SiLvA</title>
+    <link rel="icon" type="image/png" href="pictures/favicon.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 20px; color: #333; }
+        .container { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; max-width: 1400px; margin: 0 auto; }
+        h1 { color: #E3000B; font-size: 1.5rem; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #ffd502; }
+        .status { font-weight: 600; margin-bottom: 20px; font-size: 1.1rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #e0e0e0; padding: 10px 12px; text-align: left; word-break: break-all; }
+        th { background-color: #f8f8f8; color: #111; cursor: pointer; user-select: none; position: sticky; top: 0; }
+        th:hover { background-color: #eee; }
+        th::after { content: " ⇕"; font-size: 0.8rem; color: #999; }
+        tr:nth-child(even) { background-color: #fbfbfb; }
+        .clickable { color: #005ad2; cursor: pointer; text-decoration: underline; font-weight: 600; }
+        .clickable:hover { color: #E3000B; }
+        .error-msg { color: #d0021b; background: #ffe6e6; padding: 10px; border-radius: 4px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-card { background: #fff; border-radius: 12px; padding: 24px; max-width: 750px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: #eee; border: none; font-size: 1.2rem; font-weight: bold; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: #E3000B; color: #fff; }
+        .modal-title { margin-top: 0; color: #E3000B; border-bottom: 2px solid #ffd502; padding-bottom: 8px; font-size: 1.3rem; }
+        .raw-json { font-family: monospace; font-size: 0.85rem; background: #1e1e1e; color: #00ff66; padding: 15px; border-radius: 6px; white-space: pre-wrap; word-break: break-all; overflow-x: auto; }
+        .event-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .event-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .event-image { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; background-color: #f8f8f8; margin-bottom: 12px; }
+        .event-heading { font-size: 1.1rem; font-weight: 600; margin: 10px 0 6px 0; color: #000; }
+        .event-subheading { font-size: 0.95rem; color: #555; margin-bottom: 12px; line-height: 1.4; white-space: pre-line; }
+        .event-link { display: inline-block; color: #005ad2; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .event-link:hover { text-decoration: underline; }
+        .no-events { color: #777; font-style: italic; }
+    </style>
 </head>
 <body>
-
 <div class="container">
     <h1 id="page-title">LEGO Stores Directory DACH</h1>
     <div id="status" class="status">Fetching DACH store data...</div>
@@ -65,6 +64,7 @@
 
 <script>
     const LEGO_BASE_URL = 'https://www.lego.com';
+    const CORS_PROXY = 'https://corsproxy.io/?';
 
     const STORES_DIRECTORY_QUERY = `
         query StoresDirectory {
@@ -96,7 +96,6 @@
     `;
 
     const DACH_COUNTRIES = ['DE', 'AT', 'CH', 'GERMANY', 'AUSTRIA', 'SWITZERLAND'];
-
     let storesDataMap = {};
     let sortDirections = {};
 
@@ -108,9 +107,7 @@
 
     async function fetchStoreCoordinates(urlKey) {
         const pageUrl = `${LEGO_BASE_URL}/stores/store/${urlKey}`;
-        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(pageUrl)}`;
-      //Alternative public proxies:
-      //const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(pageUrl)}`;
+        const proxyUrl = `${CORS_PROXY}${encodeURIComponent(pageUrl)}`;
 
         try {
             const response = await fetch(proxyUrl);
@@ -135,8 +132,7 @@
                             };
                         }
                     }
-                } catch (e) {
-                }
+                } catch (e) {}
             }
         } catch (e) {
             console.warn(`Could not fetch coordinates for ${urlKey}:`, e);
@@ -153,12 +149,14 @@
         const titleEl = document.getElementById('page-title');
 
         try {
-            const response = await fetch(`${LEGO_BASE_URL}/api/graphql/StoresDirectory`, {
+            const targetApiUrl = `${LEGO_BASE_URL}/api/graphql/StoresDirectory`;
+            const proxyUrl = `${CORS_PROXY}${encodeURIComponent(targetApiUrl)}`;
+
+            const response = await fetch(proxyUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-preview-overrides': 'content-toolbar-preview-overrides',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                    'x-preview-overrides': 'content-toolbar-preview-overrides'
                 },
                 body: JSON.stringify({ query: STORES_DIRECTORY_QUERY })
             });
@@ -246,12 +244,14 @@
         let coordinatesResult = null;
 
         if (dirData.urlKey && dirData.urlKey !== 'N/A') {
+            const targetApiUrl = `${LEGO_BASE_URL}/api/graphql`;
+            const proxyUrl = `${CORS_PROXY}${encodeURIComponent(targetApiUrl)}`;
+
             const [infoResponse, coordsResponse] = await Promise.allSettled([
-                fetch(`${LEGO_BASE_URL}/api/graphql`, {
+                fetch(proxyUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         query: STORE_INFO_QUERY,
@@ -292,11 +292,13 @@
         document.getElementById('modal-overlay').style.display = 'flex';
 
         try {
-            const response = await fetch(`${LEGO_BASE_URL}/api/graphql`, {
+            const targetApiUrl = `${LEGO_BASE_URL}/api/graphql`;
+            const proxyUrl = `${CORS_PROXY}${encodeURIComponent(targetApiUrl)}`;
+
+            const response = await fetch(proxyUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     query: STORE_INFO_QUERY,
@@ -331,7 +333,6 @@
                 }
 
                 const headingHtml = event.heading ? `<div class="event-heading">${event.heading}</div>` : '';
-                
                 let subHeadingHtml = '';
                 if (event.subHeading) {
                     const cleanedText = event.subHeading.replace(/<br\s*\/?>/gi, '\n');
@@ -354,7 +355,6 @@
             });
 
             modalContent.innerHTML = `<p class="no-events">${eventsHtml ? '' : 'No current events.'}</p>` + eventsHtml;
-
         } catch (err) {
             console.error('Events fetch error:', err);
             modalContent.innerHTML = `<div class="error-msg">Failed to fetch events: ${err.message}</div>`;
