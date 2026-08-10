@@ -101,17 +101,6 @@
 <h1>The Make & Take Archive for Austria, Germany and Switzerland</h1>
 
 <div id="byline">unofficial fan archive!
-<svg width="20" height="20" viewBox="0 0 20 20" style="cursor:pointer; vertical-align:middle;" onclick="openText('What is a Make & Take Event?')">
-  <title>What is a Make & Take Event?</title>
-  <circle cx="10" cy="10" r="10" fill="#0066cc"/>
-  <text x="10" y="15" text-anchor="middle" fill="white" font-size="13" font-family="serif" font-weight="bold">I</text>
-</svg>
-<a target="_blank" title="ADMIN" id="adminBtn" href="admin.html" style="display:none;">
-<svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;">
-  <circle cx="10" cy="10" r="10" fill="#E3000B"/>
-  <text x="10" y="15" text-anchor="middle" fill="white" font-size="13" font-family="Arial" font-weight="bold">A</text>
-</svg>
-</a>
 </div>
 <div id="status">Loading data...</div>
 
@@ -158,9 +147,15 @@
 </div>
 
 <footer id="footer">
-<div id="lsupdate">Last updated: 14.07.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
-<a href="#" title="click to see\nLegal & Trademark Information" onclick="openText('Legal & Trademark Information'); return false;">Legal & Trademark Information</a> | 
-<a href="#" title="click to see\nSources" onclick="openText('Sources'); return false;">Sources</a><br><br><br>
+<div id="lsupdate">Last updated: 09.08.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+
+↗<a href="#" title="click to see\nsource infos"  onclick="openText('What is a Make & Take Event?'); return false;">What is a make & take event?</a> | 
+↗<a href="#" title="click to see\nLegal Disclaimer & Trademark Notice" onclick="openText('Legal Disclaimer & Trademark Notice'); return false;">Legal Disclaimer & Trademark Notice</a> | 
+↗<a href="#" title="click to see\nsource infos" onclick="openText('Sources'); return false;">Sources</a><br>
+↗<a href="stores.html" title="click here to see\nStore DACH" target="_blank" rel="noopener noreferrer" >Stores DACH</a> | 
+↗<a href="events.html" title="click here to see\nStore Events Overview" target="_blank" rel="noopener noreferrer" >Events</a> | 
+↗<a href="xml2table.html" title="click to see\nmy xml source" target="_blank" rel="noopener noreferrer" >XML</a>
+<br><br><br>
 </footer>
 
 <script>
@@ -206,8 +201,6 @@ try {
     collection = {}; // Fallback to empty if the file is missing
 }
 
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    document.getElementById('adminBtn').style.display = 'inline'; }
 
 document.querySelector('h1').textContent = T('The Make & Take Archive for Austria, Germany and Switzerland');
 const bylineEl = document.getElementById('byline');
@@ -558,28 +551,28 @@ displaytext += `
 &nbsp;${T("individual store.")}&nbsp;`
 }
 
-else if (title === "Legal & Trademark Information") {
+else if (title === "Legal Disclaimer & Trademark Notice") {
 displaytext += `
-${T("This website is an independent fan project and is not sponsored,")}<br>
-${T("authorized, or endorsed by any trademark owner.")}
+${T("This website is an independent fan project and is not")}<br>
+${T("sponsored, authorized, or endorsed by any trademark owner.")}
 <hr>
 ${T("LEGO®, DREAMZzz®, FRIENDS®, HIDDEN SIDE®, MINIFIGURES®, NINJAGO®,")}<br>
 ${T("SMART Play and Speed Champions are trademarks of the LEGO Group.")}<br>
-${T("LEGO Building Instructions are copyrighted © The LEGO Group.")}
-<ul>
-<li>${T("ANIMAL CROSSING™ is a trademark of Nintendo.")}</li>
-<li>${T("Disney and related characters are © Disney.")}</li>
-<li>${T("FIFA® is a trademark of Fédération Internationale de Football Association (FIFA).")}</li>
-<li>${T("FORMULA 1®, F1® and F1 ACADEMY™ are trademarks of Formula One Licensing BV.")}</li>
-<li>${T("FORTNITE is a trademark or registered trademark of Epic Games, Inc.")}</li>
-<li>${T("HARRY POTTER™ and related characters, names, places and elements<br>are trademarks and © Warner Bros. Entertainment Inc.")}<br>
-${T("Publishing Rights © J.K. Rowling.")}</li>
-<li>${T("HARLEY-DAVIDSON® is a trademark of Harley-Davidson Motor Company.")}</li>
-<li>${T("McLaren and related trademarks are property of McLaren companies.")}</li>
-<li>${T("ONE PIECE and related characters are © Eiichiro Oda / Shueisha, Toei Animation.")}</li>
-<li>${T("STAR WARS® is a trademark of Lucasfilm Ltd. LLC.")}<br>
-${T("Character names and related properties are © & ™ Lucasfilm Ltd. LLC.")}</li>
-</ul><hr>
+${T("LEGO Building Instructions are copyrighted © The LEGO Group.")}<br>
+<br>
+${T("ANIMAL CROSSING™ is a trademark of Nintendo.")}<br>
+${T("Disney and related characters are © Disney.")}<br>
+${T("FIFA® is a trademark of Fédération Internationale de Football Association (FIFA).")}<br>
+${T("FORMULA 1®, F1® and F1 ACADEMY™ are trademarks of Formula One Licensing BV.")}<br>
+${T("FORTNITE is a trademark or registered trademark of Epic Games, Inc.")}<br>
+${T("HARRY POTTER™ and related characters, names, places and elements<br>are trademarks and © Warner Bros. Entertainment Inc.")}<br>
+${T("Publishing Rights © J.K. Rowling.")}<br>
+${T("HARLEY-DAVIDSON® is a trademark of Harley-Davidson Motor Company.")}<br>
+${T("McLaren and related trademarks are property of McLaren companies.")}<br>
+${T("ONE PIECE and related characters are © Eiichiro Oda / Shueisha, Toei Animation.")}<br>
+${T("STAR WARS® is a trademark of Lucasfilm Ltd. LLC.")}<br>
+${T("Character names and related properties are © & ™ Lucasfilm Ltd. LLC.")}<br>
+<hr>
 ${T("All trademarks, logos, product names and character names remain")}<br>
 ${T("the property of their respective owners and are used solely for")}<br>
 ${T("identification and informational purposes.")}`;

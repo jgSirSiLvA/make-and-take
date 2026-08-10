@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGO Stores DACH by Sir SiLvA</title>
+<link rel="icon" type="image/png" href="pictures/favicon.png">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 20px; color: #333; }
+    .container { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; max-width: 1400px; margin: 0 auto; }
+    h1 { color: #E3000B; font-size: 1.5rem; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #ffd502; }
+    .status { font-weight: 600; margin-bottom: 20px; font-size: 1.1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #e0e0e0; padding: 10px 12px; text-align: left; word-break: break-all; }
+    th { background-color: #f8f8f8; color: #111; cursor: pointer; user-select: none; position: sticky; top: 0; }
+    th:hover { background-color: #eee; }
+    th::after { content: " ⇕"; font-size: 0.8rem; color: #999; }
+    tr:nth-child(even) { background-color: #fbfbfb; }
+    .clickable { color: #005ad2; cursor: pointer; text-decoration: underline; font-weight: 600; }
+    .clickable:hover { color: #E3000B; }
+    .error-msg { color: #d0021b; background: #ffe6e6; padding: 10px; border-radius: 4px; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-card { background: #fff; border-radius: 12px; padding: 24px; max-width: 750px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); position: relative; }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: #eee; border: none; font-size: 1.2rem; font-weight: bold; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: #E3000B; color: #fff; }
+    .modal-title { margin-top: 0; color: #E3000B; border-bottom: 2px solid #ffd502; padding-bottom: 8px; font-size: 1.3rem; }
+    .raw-json { font-family: monospace; font-size: 0.85rem; background: #1e1e1e; color: #00ff66; padding: 15px; border-radius: 6px; white-space: pre-wrap; word-break: break-all; overflow-x: auto; }
+    .event-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+    .event-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .event-image { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; background-color: #f8f8f8; margin-bottom: 12px; }
+    .event-heading { font-size: 1.1rem; font-weight: 600; margin: 10px 0 6px 0; color: #000; }
+    .event-subheading { font-size: 0.95rem; color: #555; margin-bottom: 12px; line-height: 1.4; white-space: pre-line; }
+    .event-link { display: inline-block; color: #005ad2; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .event-link:hover { text-decoration: underline; }
+    .no-events { color: #777; font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="page-title">LEGO Stores Directory DACH</h1>
+    <div id="status" class="status">Fetching DACH store data...</div>
+    <table id="store-table" style="display: none;">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">#</th>
+                <th onclick="sortTable(1)">Name</th>
+                <th onclick="sortTable(2)">Store ID</th>
+                <th onclick="sortTable(3)">URL Key</th>
+                <th onclick="sortTable(4)">Country</th>
+                <th onclick="sortTable(5)">Region</th>
+            </tr>
+        </thead>
+        <tbody id="store-tbody"></tbody>
+    </table>
+</div>
+
+<div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h2 id="modal-header" class="modal-title">Details</h2>
+        <div id="modal-content"></div>
+    </div>
+</div>
+
+<script>
+    const LEGO_BASE_URL = 'https://www.lego.com';
+
+    const STORES_DIRECTORY_QUERY = `
+        query StoresDirectory {
+            storesDirectory {
+                id
+                country
+                region
+                stores {
+                    storeId
+                    name
+                    phone
+                    state
+                    openingDate
+                    certified
+                    additionalInfo
+                    storeUrl
+                    urlKey
+                    isNewStore
+                    isComingSoon
+                }
+            }
+        }
+    `;
+
+    const STORE_INFO_QUERY = `
+        fragment ImageAsset on ImageAssetDetails { url width height maxPixelDensity format }
+        fragment StoreEventsDetail on StoreEvent { urlKey heading subHeading thumbnailImage { small { ...ImageAsset } large { ...ImageAsset } } }
+        query StoreInfo($urlKey: String!) { storeInfo(urlKey: $urlKey) { name openingDate events { ...StoreEventsDetail } } }
+    `;
+
+    const DACH_COUNTRIES = ['DE', 'AT', 'CH', 'GERMANY', 'AUSTRIA', 'SWITZERLAND'];
+
+    let storesDataMap = {};
+    let sortDirections = {};
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    async function fetchStoreCoordinates(urlKey) {
+        const pageUrl = `${LEGO_BASE_URL}/stores/store/${urlKey}`;
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(pageUrl)}`;
+      //Alternative public proxies:
+      //const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(pageUrl)}`;
+
+        try {
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const htmlText = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlText, 'text/html');
+
+            const scripts = doc.querySelectorAll('script[type="application/ld+json"]');
+
+            for (const script of scripts) {
+                try {
+                    const data = JSON.parse(script.textContent);
+                    const items = Array.isArray(data) ? data : [data];
+                    for (const item of items) {
+                        if (item.geo && item.geo.latitude && item.geo.longitude) {
+                            return {
+                                latitude: item.geo.latitude,
+                                longitude: item.geo.longitude,
+                                address: item.address || null
+                            };
+                        }
+                    }
+                } catch (e) {
+                }
+            }
+        } catch (e) {
+            console.warn(`Could not fetch coordinates for ${urlKey}:`, e);
+            return { error: `Failed to scrape page coordinates: ${e.message}` };
+        }
+
+        return { latitude: null, longitude: null, status: 'GeoCoordinates not found in page JSON-LD' };
+    }
+
+    async function fetchDACHStores() {
+        const statusEl = document.getElementById('status');
+        const tableEl = document.getElementById('store-table');
+        const tbodyEl = document.getElementById('store-tbody');
+        const titleEl = document.getElementById('page-title');
+
+        try {
+            const response = await fetch(`${LEGO_BASE_URL}/api/graphql/StoresDirectory`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-preview-overrides': 'content-toolbar-preview-overrides',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                },
+                body: JSON.stringify({ query: STORES_DIRECTORY_QUERY })
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const result = await response.json();
+            if (result.errors) throw new Error('GraphQL error response received.');
+
+            const directories = result?.data?.storesDirectory || [];
+            let count = 0;
+            let rowsHtml = '';
+
+            directories.forEach(group => {
+                const country = group.country || '';
+                const region = group.region || '';
+                const groupId = group.id || '';
+
+                const isDACH = DACH_COUNTRIES.some(c => 
+                    country.toUpperCase().includes(c) || region.toUpperCase().includes(c)
+                );
+
+                if (isDACH) {
+                    group.stores.forEach(store => {
+                        if (store.certified === false) {
+                            count++;
+                            const name = store.name || 'N/A';
+                            const storeId = store.storeId || 'N/A';
+                            const urlKey = store.urlKey || 'N/A';
+
+                            storesDataMap[storeId] = {
+                                storesDirectoryData: {
+                                    groupId: groupId,
+                                    country: country,
+                                    region: region,
+                                    ...store
+                                }
+                            };
+
+                            rowsHtml += `
+                                <tr>
+                                    <td>${count}</td>
+                                    <td><span class="clickable" onclick="showAllStoreInfo('${storeId}')">${name}</span></td>
+                                    <td>${storeId}</td>
+                                    <td><span class="clickable" onclick="fetchAndShowEvents('${urlKey}')">${urlKey}</span></td>
+                                    <td>${country}</td>
+                                    <td>${region}</td>
+                                </tr>
+                            `;
+                        }
+                    });
+                }
+            });
+
+            titleEl.textContent = `LEGO Stores Directory DACH (${count})`;
+
+            if (count === 0) {
+                statusEl.textContent = 'No stores found for Germany, Austria, or Switzerland.';
+            } else {
+                statusEl.style.display = 'none';
+                tbodyEl.innerHTML = rowsHtml;
+                tableEl.style.display = 'table';
+            }
+
+        } catch (error) {
+            console.error('Fetch error:', error);
+            statusEl.className = 'status error-msg';
+            statusEl.textContent = `Failed to fetch store data: ${error.message}`;
+        }
+    }
+
+    async function showAllStoreInfo(storeId) {
+        const record = storesDataMap[storeId];
+        if (!record) return;
+
+        const modalHeader = document.getElementById('modal-header');
+        const modalContent = document.getElementById('modal-content');
+
+        const dirData = record.storesDirectoryData;
+        modalHeader.textContent = `All Stored Data: ${dirData.name}`;
+        modalContent.innerHTML = `<div class="status">Querying StoreInfo & fetching coordinates for '${dirData.urlKey}'...</div>`;
+        document.getElementById('modal-overlay').style.display = 'flex';
+
+        let storeInfoResult = null;
+        let coordinatesResult = null;
+
+        if (dirData.urlKey && dirData.urlKey !== 'N/A') {
+            const [infoResponse, coordsResponse] = await Promise.allSettled([
+                fetch(`${LEGO_BASE_URL}/api/graphql`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                    },
+                    body: JSON.stringify({
+                        query: STORE_INFO_QUERY,
+                        variables: { urlKey: dirData.urlKey }
+                    })
+                }).then(res => res.json()),
+                fetchStoreCoordinates(dirData.urlKey)
+            ]);
+
+            if (infoResponse.status === 'fulfilled') {
+                storeInfoResult = infoResponse.value?.data?.storeInfo || infoResponse.value;
+            } else {
+                storeInfoResult = { error: `Failed to fetch StoreInfo: ${infoResponse.reason}` };
+            }
+
+            if (coordsResponse.status === 'fulfilled') {
+                coordinatesResult = coordsResponse.value;
+            } else {
+                coordinatesResult = { error: `Failed to fetch coordinates: ${coordsResponse.reason}` };
+            }
+        }
+
+        const combinedPayload = {
+            StoresDirectory_Data: dirData,
+            StoreInfo_Data: storeInfoResult,
+            Page_GeoCoordinates: coordinatesResult
+        };
+
+        modalContent.innerHTML = `<pre class="raw-json">${JSON.stringify(combinedPayload, null, 2)}</pre>`;
+    }
+
+    async function fetchAndShowEvents(urlKey) {
+        const modalHeader = document.getElementById('modal-header');
+        const modalContent = document.getElementById('modal-content');
+
+        modalHeader.textContent = `Events: ${urlKey}`;
+        modalContent.innerHTML = `<div class="status">Loading events for ${urlKey}...</div>`;
+        document.getElementById('modal-overlay').style.display = 'flex';
+
+        try {
+            const response = await fetch(`${LEGO_BASE_URL}/api/graphql`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                },
+                body: JSON.stringify({
+                    query: STORE_INFO_QUERY,
+                    variables: { urlKey: urlKey }
+                })
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+
+            if (data.errors || !data.data?.storeInfo) {
+                modalContent.innerHTML = `<div class="error-msg">Store events not found or API error.</div>`;
+                return;
+            }
+
+            const events = data.data.storeInfo.events || [];
+
+            if (events.length === 0) {
+                modalContent.innerHTML = `<p class="no-events">No current events for this store.</p>`;
+                return;
+            }
+
+            let eventsHtml = '';
+            events.forEach(event => {
+                let imgHtml = '';
+                if (event.thumbnailImage) {
+                    const rawUrl = event.thumbnailImage.large?.url || event.thumbnailImage.small?.url;
+                    const imgUrl = rawUrl ? rawUrl.split('?')[0] : '';
+                    if (imgUrl) {
+                        imgHtml = `<img class="event-image" src="${imgUrl}" alt="${event.heading || 'Store Event'}" loading="lazy">`;
+                    }
+                }
+
+                const headingHtml = event.heading ? `<div class="event-heading">${event.heading}</div>` : '';
+                
+                let subHeadingHtml = '';
+                if (event.subHeading) {
+                    const cleanedText = event.subHeading.replace(/<br\s*\/?>/gi, '\n');
+                    subHeadingHtml = `<div class="event-subheading">${cleanedText}</div>`;
+                }
+
+                let linkHtml = '';
+                if (event.urlKey) {
+                    linkHtml = `<a class="event-link" href="${LEGO_BASE_URL}/stores/events/${event.urlKey}" target="_blank" rel="noopener noreferrer">Learn More</a>`;
+                }
+
+                eventsHtml += `
+                    <div class="event-item">
+                        ${imgHtml}
+                        ${headingHtml}
+                        ${subHeadingHtml}
+                        ${linkHtml}
+                    </div>
+                `;
+            });
+
+            modalContent.innerHTML = `<p class="no-events">${eventsHtml ? '' : 'No current events.'}</p>` + eventsHtml;
+
+        } catch (err) {
+            console.error('Events fetch error:', err);
+            modalContent.innerHTML = `<div class="error-msg">Failed to fetch events: ${err.message}</div>`;
+        }
+    }
+
+    function closeModal(event) {
+        if (!event || event.target.id === 'modal-overlay' || event.target.className === 'modal-close') {
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+    }
+
+    function sortTable(columnIndex) {
+        const tbody = document.getElementById('store-tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        
+        const isAscending = !sortDirections[columnIndex];
+        sortDirections[columnIndex] = isAscending;
+
+        rows.sort((rowA, rowB) => {
+            const cellA = rowA.cells[columnIndex].textContent.trim();
+            const cellB = rowB.cells[columnIndex].textContent.trim();
+
+            const numA = parseFloat(cellA);
+            const numB = parseFloat(cellB);
+
+            if (!isNaN(numA) && !isNaN(numB)) {
+                return isAscending ? numA - numB : numB - numA;
+            }
+
+            return isAscending 
+                ? cellA.localeCompare(cellB, undefined, { numeric: true, sensitivity: 'base' })
+                : cellB.localeCompare(cellA, undefined, { numeric: true, sensitivity: 'base' });
+        });
+
+        rows.forEach(row => tbody.appendChild(row));
+    }
+
+    fetchDACHStores();
+</script>
+</body>
+</html>
