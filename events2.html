@@ -14,11 +14,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 .store-link-icon { text-decoration: none; color: #E3000B; font-size: 1.5rem; line-height: 1; font-weight: bold; }
 .event-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
 .event-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.event-image { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; background-color: #f8f8f8; }
+.event-image { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; background-color: #f8f8f8; display: block; transition: opacity 0.2s ease-in-out; }
+.event-image-link { display: block; cursor: pointer; text-decoration: none; }
+.event-image-link:hover .event-image { opacity: 0.85; }
 .event-heading { font-size: 1.1rem; font-weight: 600; margin: 12px 0 6px 0; color: #000; }
 .event-subheading { font-size: 0.95rem; color: #555; margin-bottom: 12px; line-height: 1.4; }
-.event-link { display: inline-block; color: #005ad2; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-.event-link:hover { text-decoration: underline; }
 .no-events { color: #777; font-style: italic; }
 .error-msg { color: #d0021b; background: #ffe6e6; padding: 10px; border-radius: 4px; }
 .loading { text-align: center; font-size: 1.2rem; color: #666; }
@@ -146,7 +146,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                 const eventDiv = document.createElement('div');
                 eventDiv.className = 'event-item';
 
-                // Image (Using large, falling back to small)
+                // Image (Wrapped in anchor tag if event.urlKey exists)
                 if (event.thumbnailImage) {
                     const rawUrl = event.thumbnailImage.large?.url || event.thumbnailImage.small?.url;
                     // Split at '?' and keep only the first part (index 0)
@@ -157,7 +157,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                         img.src = imgUrl;
                         img.alt = event.heading || 'Store Event';
                         img.loading = 'lazy';
-                        eventDiv.appendChild(img);
+
+                        if (event.urlKey) {
+                            const imgLink = document.createElement('a');
+                            imgLink.className = 'event-image-link';
+                            imgLink.href = `https://www.lego.com/${storeData.locale}/stores/events/${event.urlKey}`;
+                            imgLink.target = '_blank';
+                            imgLink.rel = 'noopener noreferrer';
+                            imgLink.appendChild(img);
+                            eventDiv.appendChild(imgLink);
+                        } else {
+                            eventDiv.appendChild(img);
+                        }
                     }
                 }
 
@@ -176,18 +187,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                     // Replace all variations of <br> with a real \n line break
                     p.innerText = event.subHeading.replace(/<br\s*\/?>/gi, '\n');
                     eventDiv.appendChild(p);
-                }
-
-                // URL Link
-                if (event.urlKey) {
-                    const linkUrl = `https://www.lego.com/${storeData.locale}/stores/events/${event.urlKey}`; // source url doesnt change therefor hardcoded
-                    const a = document.createElement('a');
-                    a.className = 'event-link';
-                    a.href = linkUrl;
-                    a.target = '_blank';
-                    a.rel = 'noopener noreferrer';
-                    a.innerText = 'Learn More';
-                    eventDiv.appendChild(a);
                 }
 
                 card.appendChild(eventDiv);
