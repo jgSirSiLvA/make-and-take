@@ -147,11 +147,11 @@
 </div>
 
 <footer id="footer">
-<div id="lsupdate">Last updated: 09.08.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
+<div id="lsupdate">Last updated: 28.08.2026 by <a href="#" title="click to see\n" onclick="openText('Sir SiLvA'); return false;">Sir SiLvA</a></div>
 
 ↗<a href="#" title="click to see\nsource infos"  onclick="openText('What is a Make & Take Event?'); return false;">What is a make & take event?</a> | 
 ↗<a href="#" title="click to see\nLegal Disclaimer & Trademark Notice" onclick="openText('Legal Disclaimer & Trademark Notice'); return false;">Legal Disclaimer & Trademark Notice</a> | 
-↗<a href="#" title="click to see\nsource infos" onclick="openText('Sources'); return false;">Sources</a><br>
+↗<a href="#" title="click to see\nsource infos" onclick="openText('Sources'); return false;">Sources</a> | 
 ↗<a href="stores.html" title="click here to see\nStore DACH" target="_blank" rel="noopener noreferrer" >Stores DACH</a> | 
 ↗<a href="events.html" title="click here to see\nStore Events Overview" target="_blank" rel="noopener noreferrer" >Events</a> | 
 ↗<a href="xml2table.html" title="click to see\nmy xml source" target="_blank" rel="noopener noreferrer" >XML</a>
@@ -442,7 +442,10 @@ function attachOverlayClose(overlay) {
 }
 
 function openImage(url, source){
-    const captionHtml = source ? `<div class="caption">${T("Source:")} <a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a>↗</div>` : '';
+    const isUrl = /^https?:\/\//i.test(source || '');
+    const captionHtml = source
+        ? `<div class="caption">${T("Source:")} ${isUrl ? `<a href="${source}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${source}</a>↗` : escapeAttr(source)}</div>`
+        : '';
 
     const overlay=document.createElement('div');
     overlay.innerHTML=`<div id="imgOverlay"><img style="border-radius: 15px;" src="${url}"> ${captionHtml}</div>`;
@@ -548,9 +551,12 @@ displaytext += `
 &nbsp;${T("In Austria, Germany and Switzerland, these events are commonly")}<br>
 &nbsp;${T("held on Wednesdays and Thursdays from 15:00 to 17:00 CET.")}<br>
 &nbsp;${T("Exact dates and times may vary depending on the event and the")}<br>
-&nbsp;${T("individual store.")}<br><br>
-<br>
-&nbsp;<a href="https://files.bricks.plus/G2bzXT" target="_blank" rel="noopener noreferrer" >Make & Take Journey</a><br>
+&nbsp;${T("individual store.")}<br>
+&nbsp;${T("After a visit please take the time to do the")}
+↗<a href="https://survey.medallia.com/?lego-retail" target="_blank" rel="noopener noreferrer">${T("survey")}</a>!<br>
+
+<br><br>
+&nbsp;↗<a href="https://files.bricks.plus/G2bzXT" target="_blank" rel="noopener noreferrer">Make & Take Journey</a><br>
 ` }
 
 else if (title === "Legal Disclaimer & Trademark Notice") {
@@ -599,7 +605,7 @@ displaytext += `
 </ul>
 ${T("asset integration method: external hotlinking")}<br><br>
 ${T("If you find a broken link or have data to")}<br>
-${T("add email me at")}&nbsp;g`;
+${T("add email me at")}&nbsp;↗g`;
 displaytext += ["r","o","h","m","a","n","n",".","j","e","n","s","@","g","m","x",".","d"].join("") + `e`;
 }
 
