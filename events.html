@@ -29,7 +29,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
     <div id="app" class="loading">Fetching Store events from API...</div>
 
     <script>
-        const CORS_PROXY = 'https://corsproxy.io/?url=';
+        const CORS_PROXY = 'https://proxy.corsfix.com/?';
 
         const graphQLQuery = `
             fragment ImageAsset on ImageAssetDetails { url width height maxPixelDensity format }
@@ -50,7 +50,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
         async function fetchStoreEvents(store) {
             try {
                 const targetApiUrl = 'https://www.lego.com/api/graphql';
-                const proxyUrl = `${CORS_PROXY}${encodeURIComponent(targetApiUrl)}`;
+                const proxyUrl = `${CORS_PROXY}${targetApiUrl}`;
 
                 const response = await fetch(proxyUrl, {
                     method: 'POST',

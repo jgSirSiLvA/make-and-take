@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="pictures/favicon.png">
-    <title>Store Events Fetcher by Sir SiLvA</title>
+    <title>LEGO Store Events Fetcher by Sir SiLvA</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 20px; color: #333; }
 .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; width: 100%; }
@@ -26,10 +26,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 </head>
 <body>
 
-    <div id="app" class="loading">Fetching Store events from API...</div>
+    <div id="app" class="loading">Fetching events from LEGO API...</div>
 
     <script>
-        const CORS_PROXY = 'https://corsproxy.io/?url=';
+        const CORS_PROXY = 'https://proxy.corsfix.com/?';
 
         // The exact GraphQL Query and Fragments extracted from 614a6c2d78041e26.js
         const graphQLQuery = `
@@ -54,9 +54,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 
             { slug: 'krakow', locale: 'de-de' },
             { slug: 'stockholm', locale: 'de-de' },
-            { slug: '5th-avenue', locale: 'en-us' },
+            { slug: 'lego-store-paris-les-4-temps', locale: 'de-de' },
+            { slug: 'disneytown-shanghai', locale: 'en-gb' }, // empty list 9/8/26
             { slug: 'fairview-mall', locale: 'en-us' },
-            { slug: 'disneytown-shanghai', locale: 'en-gb' } // empty list 9/8/26
+
+            { slug: '5th-avenue', locale: 'en-us' }
+
         ];
 
         const appContainer = document.getElementById('app');
@@ -64,7 +67,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
         async function fetchStoreEvents(store) {
             try {
                 const targetApiUrl = 'https://www.lego.com/api/graphql';
-                const proxyUrl = `${CORS_PROXY}${encodeURIComponent(targetApiUrl)}`;
+                const proxyUrl = `${CORS_PROXY}${targetApiUrl}`;
 
                 const response = await fetch(proxyUrl, {
                     method: 'POST',
