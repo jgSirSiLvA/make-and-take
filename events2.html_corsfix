@@ -26,23 +26,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 </head>
 <body>
 
-    <div id="app" class="loading">Fetching Store events from API...</div>
+    <div id="app" class="loading">Fetching events from LEGO API...</div>
 
     <script>
         const CORS_PROXY = 'https://proxy.corsfix.com/?';
 
+        // The exact GraphQL Query and Fragments extracted from 614a6c2d78041e26.js
         const graphQLQuery = `
             fragment ImageAsset on ImageAssetDetails { url width height maxPixelDensity format }
             fragment StoreEventsDetail on StoreEvent { urlKey heading subHeading thumbnailImage { small { ...ImageAsset } large { ...ImageAsset } } }
             query StoreInfo($urlKey: String!) { storeInfo(urlKey: $urlKey) { name openingDate events { ...StoreEventsDetail } } }
         `;
 
+        // The 15 stores requested - remember the , !!!
         const storesToFetch = [
             { slug: 'berlin', locale: 'de-de' },
             { slug: 'mall-of-berlin', locale: 'de-de' },
             { slug: 'hamburg', locale: 'de-de' },
             { slug: 'wien-donau-zentrum', locale: 'de-at' },
             { slug: 'glatt', locale: 'de-ch' },
+
+            { slug: 'lsq', locale: 'en-gb' },
+            { slug: 'blanchardstown-dublin-ireland', locale: 'en-gb' },
+            { slug: 'barcelona', locale: 'es-es' },
+            { slug: 'amsterdam', locale: 'de-de' },
+            { slug: 'brussels', locale: 'de-de' },
+
+            { slug: 'krakow', locale: 'de-de' },
+            { slug: 'stockholm', locale: 'de-de' },
+            { slug: 'lego-store-paris-les-4-temps', locale: 'de-de' },
+            { slug: 'disneytown-shanghai', locale: 'en-gb' }, // empty list 9/8/26
+            { slug: 'fairview-mall', locale: 'en-us' },
+
+            { slug: '5th-avenue', locale: 'en-us' }
+
         ];
 
         const appContainer = document.getElementById('app');
@@ -90,6 +107,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
             const card = document.createElement('div');
             card.className = 'store-card';
 
+            // Store Title & Link Wrapper
             const titleWrapper = document.createElement('div');
             titleWrapper.className = 'store-title-wrapper';
             const dateStr = storeData.openingDate ? ` (${storeData.openingDate}) ` : '';            
@@ -108,6 +126,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
             titleWrapper.appendChild(storeLink);
             card.appendChild(titleWrapper);
 
+            // Error Handling
             if (storeData.error) {
                 const errDiv = document.createElement('div');
                 errDiv.className = 'error-msg';
@@ -116,6 +135,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                 return card;
             }
 
+            // No Events Handling
             if (!storeData.events || storeData.events.length === 0) {
                 const noEvents = document.createElement('p');
                 noEvents.className = 'no-events';
@@ -124,12 +144,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                 return card;
             }
 
+            // Render Each Event (matches the logic in module 25446)
             storeData.events.forEach(event => {
                 const eventDiv = document.createElement('div');
                 eventDiv.className = 'event-item';
 
+                // Image (Wrapped in anchor tag if event.urlKey exists)
                 if (event.thumbnailImage) {
                     const rawUrl = event.thumbnailImage.large?.url || event.thumbnailImage.small?.url;
+                    // Split at '?' and keep only the first part (index 0)
                     const imgUrl = rawUrl ? rawUrl.split('?')[0] : '';
                     if (imgUrl) {
                         const img = document.createElement('img');
@@ -152,6 +175,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                     }
                 }
 
+                // Heading
                 if (event.heading) {
                     const h3 = document.createElement('div');
                     h3.className = 'event-heading';
@@ -159,9 +183,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
                     eventDiv.appendChild(h3);
                 }
 
+                // SubHeading (Text) with <br> replacing
                 if (event.subHeading) {
                     const p = document.createElement('div');
                     p.className = 'event-subheading';
+                    // Replace all variations of <br> with a real \n line break
                     p.innerText = event.subHeading.replace(/<br\s*\/?>/gi, '\n');
                     eventDiv.appendChild(p);
                 }
@@ -172,15 +198,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
             return card;
         }
 
+        // Main execution
         async function init() {
             const gridContainer = document.createElement('div');
             gridContainer.className = 'grid-container';
+
+            // Fetch all 15 stores simultaneously
             const results = await Promise.all(storesToFetch.map(store => fetchStoreEvents(store)));
-            results.forEach(storeData => { gridContainer.appendChild(renderEvents(storeData)); });
+
+            // Render the results to the DOM
+            results.forEach(storeData => {
+                gridContainer.appendChild(renderEvents(storeData));
+            });
+
+            // Replace loading text with the grid
             appContainer.innerHTML = '';
             appContainer.appendChild(gridContainer);
         }
 
+        // Run the script
         init();
     </script>
 </body>

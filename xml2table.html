@@ -37,6 +37,13 @@
   const xml = new DOMParser()
     .parseFromString(xmlText, "application/xml");
 
+  // Pretty-print the raw XML string: put each tag on its own line,
+  // no indentation added, so the downloaded file is readable
+  // instead of one giant single-line string.
+  function formatXml(text) {
+    return text.replace(/(>)(<)(\/*)/g, "$1\n$2$3");
+  }
+
   let files = [...xml.querySelectorAll("Contents")]
     .map(item => {
       const rawDate = item.querySelector("LastModified")?.textContent;
@@ -78,7 +85,7 @@ files.forEach((file, index) => {
 });
 
 document.getElementById("downloadXml").addEventListener("click", () => {
-    const blob = new Blob([xmlText], { type: "application/xml" });
+    const blob = new Blob([formatXml(xmlText)], { type: "application/xml" });
     const now = new Date();
     const filename = `pdf.kids.lego.com_${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}_${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}.xml`;
     const a = document.createElement("a");
